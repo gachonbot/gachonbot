@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>날씨 조회</title>
+    <meta http-equiv="Content-Type" content="text/html;
+    charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">\
+</head>
+
+<h1>Weather</h1>
+
+
+
+<br>
+<table class = "table table-horizontal table-bordered">
+    <thead class="thead-strong">
+    <tr>
+        <th>지역</th>
+        <th>현재온도</th>
+        <th>습도</th>
+        <th>날씨</th>
+        <th>상세설명</th>
+
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    {{#Gachon}}
+        <tr>
+            <td>{{location}}</td>
+            <td>{{tmp}}</a> </td>
+            <td>{{hum}}</td>
+            <td>{{des}}</td>
+            <td>{{des2}}</td>
+
+
+        </tr>
+    {{/Gachon}}
+
+    </tbody>
+</table>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
