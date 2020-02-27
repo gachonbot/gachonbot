@@ -10,16 +10,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequiredArgsConstructor
+
 @RestController
 public class GachonController {
 
-    @Autowired
-    GachonService gachonService;
 
-    @GetMapping("/apitest")
+    private final GachonService gachonService;
+
+
+    public GachonController( GachonService gachonService){
+        this.gachonService = gachonService;
+    }
+
+
+
+    @GetMapping("/weather")
     public String index(Model model) {
-        model.addAttribute("gachon", gachonService.findAll());
+        model.addAttribute("gachon", gachonService.findAllDesc());
         return "";
     }
 
