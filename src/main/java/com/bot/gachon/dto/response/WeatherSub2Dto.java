@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MainDto {
+public class WeatherSub2Dto {
     private Double temp;
     private Long humidity;
 
