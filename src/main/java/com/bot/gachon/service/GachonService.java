@@ -1,9 +1,8 @@
 package com.bot.gachon.service;
 
 import com.bot.gachon.dto.response.HaksikDto;
-import com.bot.gachon.dto.response.HaksikSubDto;
-import com.bot.gachon.dto.response.WeatherDto;
 
+import com.bot.gachon.dto.response.WeatherDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -21,11 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static com.bot.gachon.service.Url.restUrl;
-import static com.bot.gachon.service.Url.restUrl2;
 
 @RequiredArgsConstructor
 @Service
@@ -33,35 +28,24 @@ public class GachonService {
 
     private Logger logger = LoggerFactory.getLogger(GachonService.class);
 
-    public List<WeatherDto> findAllDesc() {
+    public WeatherDto findWeatherInfo() throws Exception{
 
 
         RestTemplate restTemplate = new RestTemplate();
-        URI url = URI.create(restUrl);
+        URI url = URI.create(Url.WEATHER_URL);
         ResponseEntity<String> responseEntity = null;
         responseEntity = restTemplate.getForEntity(url, String.class);
 
         String jsonInfo = responseEntity.getBody();
-        logger.info("## openweathermap json result## : \n\n" + jsonInfo);
-        try {
-            Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
 
-            ObjectMapper mapper = new ObjectMapper();
-            WeatherDto weatherDto = mapper.readValue(jsonInfo, WeatherDto.class);
-            logger.info(weatherDto.getName());
-            logger.info(weatherDto.getWeather().get(0).getDescription());
-            logger.info(String.valueOf(weatherDto.getMain().getTemp()));
-            logger.info(String.valueOf(weatherDto.getMain().getHumidity()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        return null;
+        ObjectMapper mapper = new ObjectMapper();
+        WeatherDto weatherDto = mapper.readValue(jsonInfo, WeatherDto.class);
+        return weatherDto;
     }
 
-    public HaksikDto findHaksik() throws IOException {
-        Document doc = Jsoup.connect(restUrl2).get();
+    public HaksikDto findHaksikInfo() throws IOException {
+        Document doc = Jsoup.connect(Url.HAKSIK_URL).get();
 
         Element e = doc.getElementById("toggle-view");
 
@@ -78,8 +62,6 @@ public class GachonService {
         }
         ObjectMapper mapper = new ObjectMapper();
         HaksikDto haksikDto = mapper.readValue(haksikObject.toString(), HaksikDto.class);
-
-
         return haksikDto;
 
     }

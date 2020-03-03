@@ -1,6 +1,7 @@
 package com.bot.gachon.controller;
 
 import com.bot.gachon.dto.response.HaksikDto;
+import com.bot.gachon.dto.response.WeatherDto;
 import com.bot.gachon.service.GachonService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,26 +17,22 @@ public class GachonController {
     private final GachonService gachonService;
 
 
-    public GachonController( GachonService gachonService){
+    public GachonController(GachonService gachonService) {
         this.gachonService = gachonService;
     }
 
 
-
     @GetMapping("/weather")
-    public String index(Model model) {
-        model.addAttribute("gachon", gachonService.findAllDesc());
-        return "";
+    public WeatherDto getWeatherInfo() throws Exception {
+        return gachonService.findWeatherInfo();
 
     }
+
     @GetMapping("/haksik")
-    public HaksikDto getHaksikInfo(Model model) throws IOException {
-
-        model.addAttribute("gachon",gachonService.findHaksik());
-
-        return gachonService.findHaksik();
+    public HaksikDto getHaksikInfo() throws IOException {
+         return gachonService.findHaksikInfo();
     }
-
-
-
 }
+
+
+
