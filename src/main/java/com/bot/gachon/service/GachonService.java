@@ -66,7 +66,7 @@ public class GachonService {
         }
 
         haksikDto.setAllMenu(haksikSubDtoList);
-         return haksikDto;
+        return haksikDto;
     }
 }
 

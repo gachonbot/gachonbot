@@ -28,7 +28,7 @@ public class GachonController {
 
     @RequestMapping("/haksik/building")
     public HaksikDto getHaksikInfo(@RequestParam("building") String building) throws IOException {
-         return gachonService.findHaksikInfo(building);
+        return gachonService.findHaksikInfo(building);
     }
 }
 
