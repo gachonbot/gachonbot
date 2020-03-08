@@ -38,23 +38,28 @@ public class GachonService {
         return weatherDto;
     }
 
-    public HaksikDto findHaksikInfo(String building) throws IOException {
-        String url="";
-        if (building.equals("vision")){
-            url = Url.HAKSIK_URL_VISION;
-        }else if(building.equals("art")){
-            url = Url.HAKSIK_URL_ART;
-        }else if (building.equals("edu")){
-            url = Url.HAKSIK_URL_EDU;
-        }
 
-        Document doc = Jsoup.connect(url).get();
+    public enum HaksikUrl {
+        vision(Url.HAKSIK_URL_ART), art(Url.HAKSIK_URL_VISION), edu(Url.HAKSIK_URL_EDU);
+        private String link = "";
+        HaksikUrl(String link) {
+            this.link = link;
+        }
+    }
+
+
+
+    public HaksikDto findHaksikInfo(String building) throws IOException {
+
+        HaksikUrl haksikUrl = HaksikUrl.valueOf(building);
+        Document doc = Jsoup.connect(haksikUrl.link).get();
         Element e = doc.getElementById("toggle-view");
         HaksikDto haksikDto = new HaksikDto();
         List<HaksikSubDto> haksikSubDtoList = new ArrayList<>();
 
-
         String today = new SimpleDateFormat("E요일").format(new Date());
+
+
         for (Element child : e.children()) {
             if (today.equals(child.getElementsByTag("img").attr("alt"))) {
                 HaksikSubDto haksikSubDto = new HaksikSubDto();
