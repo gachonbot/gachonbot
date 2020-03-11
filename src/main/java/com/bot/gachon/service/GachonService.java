@@ -31,20 +31,9 @@ public class GachonService {
         responseEntity = restTemplate.getForEntity(url, String.class);
 
         String jsonInfo = responseEntity.getBody();
-        Map<String, Object> result = new HashMap<>();
-
         ObjectMapper mapper = new ObjectMapper();
         WeatherDto weatherDto = mapper.readValue(jsonInfo, WeatherDto.class);
         return weatherDto;
-    }
-
-
-    public enum HaksikUrl {
-        vision(Url.HAKSIK_URL_ART), art(Url.HAKSIK_URL_VISION), edu(Url.HAKSIK_URL_EDU);
-        private String link = "";
-        HaksikUrl(String link) {
-            this.link = link;
-        }
     }
 
 
@@ -58,7 +47,6 @@ public class GachonService {
         List<HaksikSubDto> haksikSubDtoList = new ArrayList<>();
 
         String today = new SimpleDateFormat("E요일").format(new Date());
-
 
         for (Element child : e.children()) {
             if (today.equals(child.getElementsByTag("img").attr("alt"))) {
