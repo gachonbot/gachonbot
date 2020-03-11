@@ -3,9 +3,7 @@ package com.bot.gachon.controller;
 import com.bot.gachon.dto.response.HaksikDto;
 import com.bot.gachon.dto.response.WeatherDto;
 import com.bot.gachon.service.GachonService;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -28,9 +26,9 @@ public class GachonController {
 
     }
 
-    @GetMapping("/haksik")
-    public HaksikDto getHaksikInfo() throws IOException {
-         return gachonService.findHaksikInfo();
+    @GetMapping("/haksik/building")
+    public HaksikDto getHaksikInfo(@RequestParam("building") String building) throws IOException {
+        return gachonService.findHaksikInfo(building);
     }
 }
 
