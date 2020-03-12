@@ -1,6 +1,7 @@
 package com.bot.gachon.controller;
 
 import com.bot.gachon.dto.response.HaksikDto;
+import com.bot.gachon.dto.response.MaskDto;
 import com.bot.gachon.dto.response.WeatherDto;
 import com.bot.gachon.service.GachonService;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,15 @@ public class GachonController {
     public HaksikDto getHaksikInfo(@RequestParam("building") String building) throws IOException {
         return gachonService.findHaksikInfo(building);
     }
-}
+
+    @GetMapping("/mask")
+        public MaskDto getMaskInfo( ) throws  Exception{
+        return gachonService.findMaskInfo();
+
+        }
+
+    }
+
 
 
 

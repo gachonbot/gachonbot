@@ -6,5 +6,6 @@ public class Url {
     public  static final String HAKSIK_URL_ART ="http://m.gachon.ac.kr/menu/menu.jsp?gubun=A";
     public  static final String HAKSIK_URL_EDU ="http://m.gachon.ac.kr/menu/menu.jsp?gubun=B";
     public static final String HAKSIK_URL_VISION = "http://m.gachon.ac.kr/menu/menu.jsp?gubun=C";
+    public static final String MASK_URL = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/storesByGeo/json?lat=37.450694&lng=127.128638&m=1500";
 
 }
