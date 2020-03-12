@@ -1,18 +1,23 @@
 package com.bot.gachon.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
-import java.util.ArrayList;
-@JsonIgnoreProperties(ignoreUnknown = true)
+import java.util.List;
+
+@Getter
+@ToString
 public class MaskDto {
+    private int count;
+    private List<MaskSubDto> stores;
 
-    private ArrayList<MaskSubDto> stores;
-
-    public ArrayList<MaskSubDto> getStores() {
-        return stores;
+    public MaskDto() {
     }
 
-    public void setStores(ArrayList<MaskSubDto> stores) {
+    @Builder
+    public MaskDto(int count, List<MaskSubDto> stores) {
+        this.count = count;
         this.stores = stores;
     }
 }
