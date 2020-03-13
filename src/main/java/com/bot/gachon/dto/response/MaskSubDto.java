@@ -1,20 +1,14 @@
-package com.bot.gachon.domain;
-
+package com.bot.gachon.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 @Getter
-@NoArgsConstructor
-@Entity
-public class Gachon {
-
+@ToString
+public class MaskSubDto {
 
     private String addr;
-    @Id
     private String code;
     private String created_at;
     private double lat;
@@ -24,8 +18,18 @@ public class Gachon {
     private String stock_at;
     private String type;
 
+    public MaskSubDto(){}
+
     @Builder
-    public Gachon(String addr, String code, String created_at, double lat, double lng, String name, String remain_stat, String stock_at, String type){
+    public MaskSubDto(String addr,
+                      String code,
+                      String created_at,
+                      double lat,
+                      double lng,
+                      String name,
+                      String remain_stat,
+                      String stock_at,
+                      String type){
         this.addr = addr;
         this.code = code;
         this.created_at = created_at;
@@ -37,5 +41,3 @@ public class Gachon {
         this.type = type;
     }
 }
-
-
