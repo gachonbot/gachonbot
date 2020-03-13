@@ -1,18 +1,14 @@
 package com.bot.gachon.service;
 
+import com.bot.gachon.dto.response.DustModel;
 import com.bot.gachon.dto.response.HaksikDto;
-
 import com.bot.gachon.dto.response.WeatherDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -22,15 +18,14 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
-@RequiredArgsConstructor
 @Service
 public class GachonService {
 
-    private Logger logger = LoggerFactory.getLogger(GachonService.class);
+    private final RestTemplate restTemplate;
 
-    public WeatherDto findWeatherInfo() throws Exception{
+    public GachonService(RestTemplate restTemplate) {this.restTemplate = restTemplate;}
 
-
+    public WeatherDto findWeatherInfo() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         URI url = URI.create(Url.WEATHER_URL);
         ResponseEntity<String> responseEntity = null;
@@ -63,7 +58,11 @@ public class GachonService {
         ObjectMapper mapper = new ObjectMapper();
         HaksikDto haksikDto = mapper.readValue(haksikObject.toString(), HaksikDto.class);
         return haksikDto;
+    }
 
+    public DustModel getDust() {
+        DustModel response = restTemplate.getForObject(Url.DUST_URL, DustModel.class);
+        return response;
     }
 }
 

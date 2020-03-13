@@ -6,4 +6,5 @@ public class Url {
 
     public static final String WEATHER_URL =  "http://api.openweathermap.org/data/2.5/weather?id=1897000&APPID=08275712021d8895752cf798fb603cde&lang=kr&units=metric";
     public static final String HAKSIK_URL = "http://m.gachon.ac.kr/menu/menu.jsp?gubun=C";
+    public static final String DUST_URL = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnMesureSidoLIst?serviceKey=P4zgBHeiRu9%2B499IV12fo7S463t6lMsVwSGZqk1mVWYVzNnpcGrp8MMCwZg2R6cmBiT4eSqmdj%2BrnAl59wkdJg%3D%3D&sidoName=%EC%84%9C%EC%9A%B8&searchCondition=DAILY&_returnType=json";
 }
