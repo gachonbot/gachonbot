@@ -2,7 +2,6 @@ package com.bot.gachon.domain;
 
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,8 +12,9 @@ import javax.persistence.Id;
 @Entity
 public class Gachon {
 
-    @Id
+
     private String addr;
+    @Id
     private String code;
     private String created_at;
     private double lat;

@@ -22,22 +22,22 @@ public class MaskSubDto {
 
     @Builder
     public MaskSubDto(String addr,
-                     String code,
-                     String created_at,
-                     double lat,
-                     double lng,
-                     String name,
-                     String remain_stat,
-                     String stock_at,
-                     String type){
-       this.addr = addr;
-       this.code = code;
-       this.created_at = created_at;
-       this.lat = lat;
-       this.lng = lng;
-       this.name = name;
-       this.remain_stat = remain_stat;
-       this.stock_at = stock_at;
-       this.type = type;
-   }
+                      String code,
+                      String created_at,
+                      double lat,
+                      double lng,
+                      String name,
+                      String remain_stat,
+                      String stock_at,
+                      String type){
+        this.addr = addr;
+        this.code = code;
+        this.created_at = created_at;
+        this.lat = lat;
+        this.lng = lng;
+        this.name = name;
+        this.remain_stat = remain_stat;
+        this.stock_at = stock_at;
+        this.type = type;
+    }
 }

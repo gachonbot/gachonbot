@@ -40,20 +40,6 @@ public class MaskDto {
         return entitiyList;
     }
 
-//    public Gachon toEntitiy(MaskSubDto sub){
-//        return Gachon.builder()
-//                .addr(sub.getAddr())
-//                .code(sub.getCode())
-//                .created_at(sub.getCreated_at())
-//                .lat(sub.getLat())
-//                .lng(sub.getLng())
-//                .name(sub.getName())
-//                .remain_stat(sub.getRemain_stat())
-//                .stock_at(sub.getStock_at())
-//                .type(sub.getType())
-//                .build();
-//
-//    }
 }
 
 
