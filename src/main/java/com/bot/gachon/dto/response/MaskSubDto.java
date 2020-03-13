@@ -36,6 +36,8 @@ public class MaskSubDto {
        this.lat = lat;
        this.lng = lng;
        this.name = name;
+       this.remain_stat = remain_stat;
+       this.stock_at = stock_at;
        this.type = type;
    }
 }
