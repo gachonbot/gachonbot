@@ -1,6 +1,4 @@
 spring:
-  http:
-    encoding:
-      charset: UTF-8
+  h2:
+    console:
       enabled: true
-      force: true

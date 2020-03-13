@@ -1,57 +1,40 @@
 package com.bot.gachon.domain;
 
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-
+@Getter
 @NoArgsConstructor
-
+@Entity
 public class Gachon {
 
     @Id
+    private String addr;
+    private String code;
+    private String created_at;
+    private double lat;
+    private double lng;
     private String name;
+    private String remain_stat;
+    private String stock_at;
+    private String type;
 
-    @Column(nullable = false)
-    private Double tmep;
-
-    @Column(nullable = false)
-    private Long humidity;
-
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String description;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    @Builder
+    public Gachon(String addr, String code, String created_at, double lat, double lng, String name, String remain_stat, String stock_at, String type){
+        this.addr = addr;
+        this.code = code;
+        this.created_at = created_at;
+        this.lat = lat;
+        this.lng = lng;
         this.name = name;
-    }
-
-    public Double getTmep() {
-        return tmep;
-    }
-
-    public void setTmep(Double tmep) {
-        this.tmep = tmep;
-    }
-
-    public Long getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(Long humidity) {
-        this.humidity = humidity;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+        this.remain_stat = remain_stat;
+        this.stock_at = stock_at;
+        this.type = type;
     }
 }
 

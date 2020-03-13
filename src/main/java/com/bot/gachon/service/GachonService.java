@@ -1,33 +1,29 @@
 package com.bot.gachon.service;
 
-import com.bot.gachon.dto.response.HaksikDto;
-import com.bot.gachon.dto.response.HaksikSubDto;
-import com.bot.gachon.dto.response.MaskDto;
-import com.bot.gachon.dto.response.WeatherDto;
+import com.bot.gachon.domain.Gachon;
+import com.bot.gachon.domain.GachonRepository;
+import com.bot.gachon.dto.response.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 @RequiredArgsConstructor
 @Service
 public class GachonService {
-
 
     public WeatherDto findWeatherInfo() throws Exception {
 
@@ -68,24 +64,28 @@ public class GachonService {
         return haksikDto;
     }
 
-    public MaskDto findMaskInfo() throws Exception {
+    @Autowired
+    private final GachonRepository gachonRepository;
+
+    @Transactional
+    public MaskDto findMaskInfo(){
 
         RestTemplate restTemplate = new RestTemplate();
         URI url = URI.create(Url.MASK_URL);
+        MaskDto response = restTemplate.getForObject(url, MaskDto.class);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json;charset=UTF-8");
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+        ArrayList<Gachon> list = response.toEntitiy();
+        for( Gachon gachon : list ){
+            gachonRepository.save(gachon);
+        }
 
-        String jsonInfo2 = responseEntity.getBody();
+//        for( MaskSubDto sub : response.getStores() ){
+//            gachonRepository.save(response.toEntitiy(sub));
+//        }
+        return response;
 
-        System.out.println("# 결과 : " + jsonInfo2);
-        ObjectMapper mapper = new ObjectMapper();
-        MaskDto maskDto = mapper.readValue(jsonInfo2, MaskDto.class);
-
-        return maskDto;
     }
 }
+
 
 
