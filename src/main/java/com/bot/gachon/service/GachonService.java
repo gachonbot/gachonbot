@@ -7,14 +7,14 @@ import com.bot.gachon.dto.response.HaksikSubDto;
 import com.bot.gachon.dto.response.MaskDto;
 import com.bot.gachon.dto.response.WeatherDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -25,13 +25,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 @Configuration
-@RequiredArgsConstructor
 @Service
+@EnableScheduling
 public class GachonService {
 
-    @Autowired
+
     private final GachonRepository gachonRepository;
+
+    public GachonService(GachonRepository gachonRepository){
+
+        this.gachonRepository = gachonRepository;
+
+    }
 
     @Bean
     public RestTemplate restTemplate(){
@@ -78,8 +85,8 @@ public class GachonService {
         return haksikDto;
     }
 
-    @Transactional
-    public MaskDto findMaskInfo(){
+    @Scheduled(fixedDelay = 300000)
+    public MaskDto updateMaskInfo(){
 
         URI url = URI.create(Url.MASK_URL);
         MaskDto response = restTemplate().getForObject(url, MaskDto.class);
@@ -90,6 +97,11 @@ public class GachonService {
         }
 
         return response;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Gachon> findMaskInfo() {
+        return gachonRepository.findAll();
     }
 }
 
