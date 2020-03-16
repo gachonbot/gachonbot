@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface GachonRepository extends JpaRepository<Gachon,String> {
+public interface GachonMaskRepository extends JpaRepository<GachonMask, String> {
 
-    @Query("SELECT p FROM Gachon p ORDER BY p.code")
-    List<Gachon> findAll();
+    @Query("SELECT p FROM GachonMask p ORDER BY p.code")
+    List<GachonMask> findAll();
 
 }

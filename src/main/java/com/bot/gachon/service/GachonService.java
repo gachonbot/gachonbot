@@ -1,7 +1,7 @@
 package com.bot.gachon.service;
 
-import com.bot.gachon.domain.Gachon;
-import com.bot.gachon.domain.GachonRepository;
+import com.bot.gachon.domain.GachonMask;
+import com.bot.gachon.domain.GachonMaskRepository;
 import com.bot.gachon.dto.response.HaksikDto;
 import com.bot.gachon.dto.response.HaksikSubDto;
 import com.bot.gachon.dto.response.MaskDto;
@@ -31,24 +31,20 @@ import java.util.List;
 @EnableScheduling
 public class GachonService {
 
+    private final GachonMaskRepository gachonMaskRepository;
 
-    private final GachonRepository gachonRepository;
+    public GachonService(GachonMaskRepository gachonMaskRepository) {
 
-    public GachonService(GachonRepository gachonRepository){
-
-        this.gachonRepository = gachonRepository;
+        this.gachonMaskRepository = gachonMaskRepository;
 
     }
 
     @Bean
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
-
-
     public WeatherDto findWeatherInfo() throws Exception {
-
 
         URI url = URI.create(Url.WEATHER_URL);
         ResponseEntity<String> responseEntity = null;
@@ -59,7 +55,6 @@ public class GachonService {
         WeatherDto weatherDto = mapper.readValue(jsonInfo, WeatherDto.class);
         return weatherDto;
     }
-
 
     public HaksikDto findHaksikInfo(String building) throws IOException {
 
@@ -86,22 +81,22 @@ public class GachonService {
     }
 
     @Scheduled(fixedDelay = 300000)
-    public MaskDto updateMaskInfo(){
+    public MaskDto updateMaskInfo() {
 
         URI url = URI.create(Url.MASK_URL);
         MaskDto response = restTemplate().getForObject(url, MaskDto.class);
 
-        ArrayList<Gachon> list = response.toEntitiy();
-        for( Gachon gachon : list ){
-            gachonRepository.save(gachon);
+        ArrayList<GachonMask> list = response.toEntitiy();
+        for (GachonMask gachonMask : list) {
+            gachonMaskRepository.save(gachonMask);
         }
 
         return response;
     }
 
     @Transactional(readOnly = true)
-    public List<Gachon> findMaskInfo() {
-        return gachonRepository.findAll();
+    public List<GachonMask> findMaskInfo() {
+        return gachonMaskRepository.findAll();
     }
 }
 

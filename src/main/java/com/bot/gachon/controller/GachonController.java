@@ -1,6 +1,6 @@
 package com.bot.gachon.controller;
 
-import com.bot.gachon.domain.Gachon;
+import com.bot.gachon.domain.GachonMask;
 import com.bot.gachon.dto.response.HaksikDto;
 import com.bot.gachon.dto.response.WeatherDto;
 import com.bot.gachon.service.GachonService;
@@ -36,7 +36,7 @@ public class GachonController {
     }
 
     @GetMapping("/mask")
-    public List<Gachon> getMaskInfo() throws  Exception{
+    public List<GachonMask> getMaskInfo() throws Exception{
         return gachonService.findMaskInfo();
     }
 
