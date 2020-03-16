@@ -28,12 +28,12 @@ public class MaskDto {
             entitiyList.add(GachonMask.builder()
                                       .addr(sub.getAddr())
                                       .code(sub.getCode())
-                                      .created_at(sub.getCreated_at())
+                                      .createdAt(sub.getCreated_at())
                                       .lat(sub.getLat())
                                       .lng(sub.getLng())
                                       .name(sub.getName())
-                                      .remain_stat(sub.getRemain_stat())
-                                      .stock_at(sub.getStock_at())
+                                      .remainStat(sub.getRemain_stat())
+                                      .stockAt(sub.getStock_at())
                                       .type(sub.getType())
                                       .build());
         }

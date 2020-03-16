@@ -11,14 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.List;
 
-
 @RestController
 public class GachonController {
 
-
     private final GachonService gachonService;
 
-    public GachonController(GachonService gachonService){
+    public GachonController(GachonService gachonService) {
 
         this.gachonService = gachonService;
 
@@ -36,8 +34,13 @@ public class GachonController {
     }
 
     @GetMapping("/mask")
-    public List<GachonMask> getMaskInfo() throws Exception{
+    public List<GachonMask> getMaskInfo() {
         return gachonService.findMaskInfo();
+    }
+
+    @GetMapping("/remain/mask")
+    public List<GachonMask> getRemainMaskInfo() {
+        return gachonService.getRemainMaskInfo();
     }
 
 }

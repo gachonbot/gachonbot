@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "GACHON_MASK", indexes = {@Index(columnList = "remain_stat")})
+@Table(name = "GACHON_MASK", indexes = {@Index(columnList = "remainStat")})
 public class GachonMask {
 
     @Id
@@ -21,29 +21,28 @@ public class GachonMask {
     private String code;
     private double lat;
     private double lng;
-    private String remain_stat;
-    private String created_at;
-    private String stock_at;
+    private String remainStat;
+    private String createdAt;
+    private String stockAt;
     private String type;
 
     @Builder
-    public GachonMask(String addr,
+    public GachonMask(String name,
+                      String addr,
                       String code,
-                      String created_at,
                       double lat,
                       double lng,
-                      String name,
-                      String remain_stat,
-                      String stock_at,
-                      String type) {
+                      String remainStat,
+                      String createdAt,
+                      String stockAt, String type) {
+        this.name = name;
         this.addr = addr;
         this.code = code;
-        this.created_at = created_at;
         this.lat = lat;
         this.lng = lng;
-        this.name = name;
-        this.remain_stat = remain_stat;
-        this.stock_at = stock_at;
+        this.remainStat = remainStat;
+        this.createdAt = createdAt;
+        this.stockAt = stockAt;
         this.type = type;
     }
 }
