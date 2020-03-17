@@ -2,6 +2,8 @@ package com.bot.gachon.service;
 
 import com.bot.gachon.domain.GachonMask;
 import com.bot.gachon.domain.GachonMaskRepository;
+import com.bot.gachon.domain.GachonYesterdayMask;
+import com.bot.gachon.domain.GachonYesterdayRepository;
 import com.bot.gachon.dto.response.HaksikDto;
 import com.bot.gachon.dto.response.HaksikSubDto;
 import com.bot.gachon.dto.response.MaskDto;
@@ -36,10 +38,12 @@ public class GachonService {
 
     private final GachonMaskRepository gachonMaskRepository;
     private final RestTemplate restTemplate;
+    private final GachonYesterdayRepository gachonYesterdayRepository;
 
-    public GachonService(GachonMaskRepository gachonMaskRepository, RestTemplate restTemplate) {
+    public GachonService(GachonMaskRepository gachonMaskRepository, RestTemplate restTemplate, GachonYesterdayRepository gachonYesterdayRepository) {
         this.gachonMaskRepository = gachonMaskRepository;
         this.restTemplate = restTemplate;
+        this.gachonYesterdayRepository = gachonYesterdayRepository;
     }
 
     public WeatherDto findWeatherInfo() throws Exception {
@@ -85,7 +89,7 @@ public class GachonService {
         URI url = URI.create(Url.MASK_URL);
         MaskDto response = restTemplate.getForObject(url, MaskDto.class);
 
-        ArrayList<GachonMask> list = response.toEntitiy();
+        ArrayList<GachonMask> list = response.toCurrentEntitiy();
         for (GachonMask gachonMask : list) {
             gachonMaskRepository.save(gachonMask);
         }
@@ -94,6 +98,7 @@ public class GachonService {
     }
 
     public List<GachonMask> findMaskInfo() {
+
         return gachonMaskRepository.findAll();
     }
 
@@ -101,16 +106,32 @@ public class GachonService {
     public List<GachonMask> getRemainMaskInfo() {
         List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
         List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
-                                                                                  .map(keyword -> CompletableFuture.supplyAsync(() -> gachonMaskRepository
-                                                                                      .findAllByRemainStat(keyword)
-                                                                                      .orElse(Collections.emptyList())))
-                                                                                  .collect(Collectors.toList());
+                .map(keyword -> CompletableFuture.supplyAsync(()
+                        -> gachonMaskRepository.findAllByRemainStat(keyword).orElse(Collections.emptyList())))
+                .collect(Collectors.toList());
         return completableFutures.stream()
-                                 .map(CompletableFuture::join)
-                                 .flatMap(Collection::stream)
-                                 .collect(Collectors.toList());
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
+    @Scheduled(cron = "0 55 22 * * *")
+    public MaskDto getYesterdayMaskInfo() {
+
+        URI url = URI.create(Url.MASK_URL);
+        MaskDto response_yesterday = restTemplate.getForObject(url, MaskDto.class);
+
+        ArrayList<GachonYesterdayMask> list = response_yesterday.toYesterdayEntitiy();
+        for (GachonYesterdayMask gachonYesterdayMask : list) {
+            gachonYesterdayRepository.save(gachonYesterdayMask);
+        }
+        System.out.println(response_yesterday);
+
+        return response_yesterday;
+    }
+    public List<GachonYesterdayMask> findYesterdayMaskInfo() {
+
+        return gachonYesterdayRepository.findAll();
     }
 }
-
 
 

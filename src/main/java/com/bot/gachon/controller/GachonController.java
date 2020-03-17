@@ -1,6 +1,7 @@
 package com.bot.gachon.controller;
 
 import com.bot.gachon.domain.GachonMask;
+import com.bot.gachon.domain.GachonYesterdayMask;
 import com.bot.gachon.dto.response.HaksikDto;
 import com.bot.gachon.dto.response.WeatherDto;
 import com.bot.gachon.service.GachonService;
@@ -42,6 +43,13 @@ public class GachonController {
     public List<GachonMask> getRemainMaskInfo() {
         return gachonService.getRemainMaskInfo();
     }
+
+    @GetMapping("/yesterday/mask")
+    public  List<GachonYesterdayMask> getYesterdatInfo(){ return gachonService.findYesterdayMaskInfo();
+    }
+
+
+
 
 }
 

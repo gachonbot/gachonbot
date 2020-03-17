@@ -1,6 +1,7 @@
 package com.bot.gachon.dto.response;
 
 import com.bot.gachon.domain.GachonMask;
+import com.bot.gachon.domain.GachonYesterdayMask;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -22,7 +23,7 @@ public class MaskDto {
         this.stores = stores;
     }
 
-    public ArrayList<GachonMask> toEntitiy() {
+    public ArrayList<GachonMask> toCurrentEntitiy() {
         ArrayList<GachonMask> entitiyList = new ArrayList<>();
         for (MaskSubDto sub : stores) {
             entitiyList.add(GachonMask.builder()
@@ -36,6 +37,23 @@ public class MaskDto {
                                       .stockAt(sub.getStock_at())
                                       .type(sub.getType())
                                       .build());
+        }
+        return entitiyList;
+    }
+    public ArrayList<GachonYesterdayMask> toYesterdayEntitiy(){
+        ArrayList<GachonYesterdayMask> entitiyList = new ArrayList<>();
+        for (MaskSubDto sub : stores) {
+            entitiyList.add(GachonYesterdayMask.builder()
+                    .addr(sub.getAddr())
+                    .code(sub.getCode())
+                    .createdAt(sub.getCreated_at())
+                    .lat(sub.getLat())
+                    .lng(sub.getLng())
+                    .name(sub.getName())
+                    .remainStat(sub.getRemain_stat())
+                    .stockAt(sub.getStock_at())
+                    .type(sub.getType())
+                    .build());
         }
         return entitiyList;
     }
