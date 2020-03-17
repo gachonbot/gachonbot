@@ -114,7 +114,7 @@ public class GachonService {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
     }
-    @Scheduled(cron = "0 55 22 * * *")
+    @Scheduled(cron = "0 55 23 * * *")
     public MaskDto getYesterdayMaskInfo() {
 
         URI url = URI.create(Url.MASK_URL);
