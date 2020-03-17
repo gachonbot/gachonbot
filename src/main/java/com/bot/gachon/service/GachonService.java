@@ -1,65 +1,62 @@
 package com.bot.gachon.service;
 
-import com.bot.gachon.domain.Gachon;
-import com.bot.gachon.domain.GachonRepository;
+import com.bot.gachon.domain.GachonMask;
+import com.bot.gachon.domain.GachonMaskRepository;
+import com.bot.gachon.domain.GachonYesterdayMask;
+import com.bot.gachon.domain.GachonYesterdayRepository;
 import com.bot.gachon.dto.response.HaksikDto;
 import com.bot.gachon.dto.response.HaksikSubDto;
 import com.bot.gachon.dto.response.MaskDto;
 import com.bot.gachon.dto.response.WeatherDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
-@Configuration
+@Slf4j
 @Service
-@EnableScheduling
 public class GachonService {
 
+    private final GachonMaskRepository gachonMaskRepository;
+    private final RestTemplate restTemplate;
+    private final GachonYesterdayRepository gachonYesterdayRepository;
 
-    private final GachonRepository gachonRepository;
-
-    public GachonService(GachonRepository gachonRepository){
-
-        this.gachonRepository = gachonRepository;
-
+    public GachonService(GachonMaskRepository gachonMaskRepository, RestTemplate restTemplate, GachonYesterdayRepository gachonYesterdayRepository) {
+        this.gachonMaskRepository = gachonMaskRepository;
+        this.restTemplate = restTemplate;
+        this.gachonYesterdayRepository = gachonYesterdayRepository;
     }
-
-    @Bean
-    public RestTemplate restTemplate(){
-        return new RestTemplate();
-    }
-
-
 
     public WeatherDto findWeatherInfo() throws Exception {
 
-
         URI url = URI.create(Url.WEATHER_URL);
         ResponseEntity<String> responseEntity = null;
-        responseEntity = restTemplate().getForEntity(url, String.class);
+        responseEntity = restTemplate.getForEntity(url, String.class);
 
         String jsonInfo = responseEntity.getBody();
         ObjectMapper mapper = new ObjectMapper();
         WeatherDto weatherDto = mapper.readValue(jsonInfo, WeatherDto.class);
         return weatherDto;
     }
-
 
     public HaksikDto findHaksikInfo(String building) throws IOException {
 
@@ -85,25 +82,56 @@ public class GachonService {
         return haksikDto;
     }
 
+    @CacheEvict(value = "remainMask")
     @Scheduled(fixedDelay = 300000)
-    public MaskDto updateMaskInfo(){
+    public MaskDto updateMaskInfo() {
 
         URI url = URI.create(Url.MASK_URL);
-        MaskDto response = restTemplate().getForObject(url, MaskDto.class);
+        MaskDto response = restTemplate.getForObject(url, MaskDto.class);
 
-        ArrayList<Gachon> list = response.toEntitiy();
-        for( Gachon gachon : list ){
-            gachonRepository.save(gachon);
+        ArrayList<GachonMask> list = response.toCurrentEntitiy();
+        for (GachonMask gachonMask : list) {
+            gachonMaskRepository.save(gachonMask);
         }
 
         return response;
     }
 
-    @Transactional(readOnly = true)
-    public List<Gachon> findMaskInfo() {
-        return gachonRepository.findAll();
+    public List<GachonMask> findMaskInfo() {
+
+        return gachonMaskRepository.findAll();
+    }
+
+    @Cacheable(value = "remainMask")
+    public List<GachonMask> getRemainMaskInfo() {
+        List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
+        List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
+                .map(keyword -> CompletableFuture.supplyAsync(()
+                        -> gachonMaskRepository.findAllByRemainStat(keyword).orElse(Collections.emptyList())))
+                .collect(Collectors.toList());
+        return completableFutures.stream()
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
+    @Scheduled(cron = "0 55 23 * * *")
+    public MaskDto getYesterdayMaskInfo() {
+
+        URI url = URI.create(Url.MASK_URL);
+        MaskDto response_yesterday = restTemplate.getForObject(url, MaskDto.class);
+
+        ArrayList<GachonYesterdayMask> list = response_yesterday.toYesterdayEntitiy();
+        for (GachonYesterdayMask gachonYesterdayMask : list) {
+            gachonYesterdayRepository.save(gachonYesterdayMask);
+        }
+        System.out.println(response_yesterday);
+
+        return response_yesterday;
+    }
+    public List<GachonYesterdayMask> findYesterdayMaskInfo() {
+
+        return gachonYesterdayRepository.findAll();
     }
 }
-
 
 
