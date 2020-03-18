@@ -34,8 +34,8 @@ public class GachonController {
     }
 
     @GetMapping("/dust")
-    public DustModel getDust() {
-        return gachonService.getDust();
+    public DustModel getDust() throws IOException {
+        return gachonService.findDust();
     }
 }
 
