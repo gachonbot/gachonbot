@@ -1,6 +1,6 @@
 package com.bot.gachon.service;
 
-import com.bot.gachon.dto.response.DustModel;
+import com.bot.gachon.dto.response.DustDto;
 import com.bot.gachon.dto.response.HaksikDto;
 import com.bot.gachon.dto.response.WeatherDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,7 +27,7 @@ public class GachonService {
 
     public WeatherDto findWeatherInfo() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
-        URI url = URI.create(Url.WEATHER_URL);
+        URI url = URI.create(Url.DUST_URL);
         ResponseEntity<String> responseEntity = null;
         responseEntity = restTemplate.getForEntity(url, String.class);
 
@@ -60,9 +60,21 @@ public class GachonService {
         return haksikDto;
     }
 
-    public DustModel getDust() {
-        DustModel response = restTemplate.getForObject(Url.DUST_URL, DustModel.class);
-        return response;
+    public DustDto findDust() throws IOException {
+        RestTemplate restTemplate = new RestTemplate();
+        URI url = URI.create(Url.DUST_URL);
+        ResponseEntity<String> responseEntity = null;
+        responseEntity = restTemplate.getForEntity(url, String.class);
+
+        String jsonInfo = responseEntity.getBody();
+        Map<String, Object> result = new HashMap<>();
+
+        ObjectMapper mapper = new ObjectMapper();
+        DustDto dustDto = mapper.readValue(jsonInfo, DustDto.class);
+        return dustDto;
+
+         //DustModel response = restTemplate.getForObject(Url.WEATHER_URL, DustModel.class);
+         //return response;
     }
 }
 
