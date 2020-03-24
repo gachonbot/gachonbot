@@ -1,4 +1,4 @@
-package com.bot.gachon.dto.response;
+package com.bot.gachon.dto.res;
 
 import java.util.List;
 

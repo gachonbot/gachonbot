@@ -2,9 +2,9 @@ package com.bot.gachon.controller;
 
 import com.bot.gachon.domain.GachonMask;
 import com.bot.gachon.domain.GachonYesterdayMask;
-import com.bot.gachon.dto.response.DustModel;
-import com.bot.gachon.dto.response.HaksikDto;
-import com.bot.gachon.dto.response.WeatherDto;
+import com.bot.gachon.dto.res.DustModel;
+import com.bot.gachon.dto.res.HaksikDto;
+import com.bot.gachon.dto.res.WeatherDto;
 import com.bot.gachon.service.GachonService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

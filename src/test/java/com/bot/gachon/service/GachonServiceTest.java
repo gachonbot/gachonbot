@@ -1,6 +1,6 @@
 package com.bot.gachon.service;
 
-import com.bot.gachon.dto.response.MaskDto;
+import com.bot.gachon.dto.res.MaskDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
