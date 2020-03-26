@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URI;
@@ -104,16 +103,16 @@ public class GachonService {
 //    }
 
     //parksomini TEST
-    public TextReplyResponse findMaskInfo(BotRequest botRequest) {
+    public MaskResponse findMaskInfo(BotRequest botRequest) {
         String utternace = botRequest.getUserRequest().getUtterance();
         System.out.println("### utternace : " + utternace);
         List<GachonMask> maskList = gachonMaskRepository.findAll();
-        TextReplyResponse.Content content = TextReplyResponse.Content.builder()
+        MaskResponse.Content content = MaskResponse.Content.builder()
                 .type(maskList.get(0).getName())
                 .text(maskList.get(0).getAddr() + " / " + maskList.get(0).getRemainStat())
                 .build();
 
-        return TextReplyResponse.builder()
+        return MaskResponse.builder()
                 .contents(Collections.singletonList(content))
                 .build();
     }
