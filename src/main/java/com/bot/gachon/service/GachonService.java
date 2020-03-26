@@ -4,6 +4,7 @@ import com.bot.gachon.domain.GachonMask;
 import com.bot.gachon.domain.GachonMaskRepository;
 import com.bot.gachon.domain.GachonYesterdayMask;
 import com.bot.gachon.domain.GachonYesterdayRepository;
+import com.bot.gachon.dto.req.BotRequest;
 import com.bot.gachon.dto.res.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -103,7 +104,8 @@ public class GachonService {
 //    }
 
     //parksomini TEST
-    public TextReplyResponse findMaskInfo() {
+    public TextReplyResponse findMaskInfo(BotRequest botRequest) {
+        String utternace = botRequest.getUserRequest().getUtterance();
         List<TextReplyResponse.Content> resultList = new ArrayList<>();
         List<GachonMask> maskList = gachonMaskRepository.findAll();
         for(GachonMask mask : maskList){
