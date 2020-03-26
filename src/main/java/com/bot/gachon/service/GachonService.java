@@ -104,7 +104,9 @@ public class GachonService {
 //    }
 
     //parksomini TEST
-    public TextReplyResponse findMaskInfo() {
+    public TextReplyResponse findMaskInfo(BotRequest botRequest) {
+        String utternace = botRequest.getUserRequest().getUtterance();
+        System.out.println("### utternace : " + utternace);
         List<GachonMask> maskList = gachonMaskRepository.findAll();
         TextReplyResponse.Content content = TextReplyResponse.Content.builder()
                 .type(maskList.get(0).getName())

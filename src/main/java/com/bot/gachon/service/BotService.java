@@ -14,8 +14,6 @@ public class BotService {
                                                                      .type("text")
                                                                      .text(utternace)
                                                                      .build();
-
-        System.out.println("## test : " + utternace);
         return TextReplyResponse.builder()
                                 .contents(Collections.singletonList(content))
                                 .build();
