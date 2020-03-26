@@ -105,20 +105,32 @@ public class GachonService {
 
     //parksomini TEST
     public TextReplyResponse findMaskInfo() {
-        List<TextReplyResponse.Content> resultList = new ArrayList<>();
         List<GachonMask> maskList = gachonMaskRepository.findAll();
-        for(GachonMask mask : maskList){
-            TextReplyResponse.Content content = TextReplyResponse.Content.builder()
-                    .type(mask.getName())
-                    .text(mask.getAddr() + " / " + mask.getRemainStat())
-                    .build();
-            resultList.add(content);
-        }
+        TextReplyResponse.Content content = TextReplyResponse.Content.builder()
+                .type(maskList.get(0).getName())
+                .text(maskList.get(0).getAddr() + " / " + maskList.get(0).getRemainStat())
+                .build();
 
         return TextReplyResponse.builder()
-                .contents(resultList)
+                .contents(Collections.singletonList(content))
                 .build();
     }
+
+//    public TextReplyResponse findMaskInfo() {
+//        List<TextReplyResponse.Content> resultList = new ArrayList<>();
+//        List<GachonMask> maskList = gachonMaskRepository.findAll();
+//        for(GachonMask mask : maskList){
+//            TextReplyResponse.Content content = TextReplyResponse.Content.builder()
+//                    .type(mask.getName())
+//                    .text(mask.getAddr() + " / " + mask.getRemainStat())
+//                    .build();
+//            resultList.add(content);
+//        }
+//
+//        return TextReplyResponse.builder()
+//                .contents(resultList)
+//                .build();
+//    }
 
     @Cacheable(value = "remainMask")
     public List<GachonMask> getRemainMaskInfo() {
