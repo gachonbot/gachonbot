@@ -4,11 +4,7 @@ import com.bot.gachon.domain.GachonMask;
 import com.bot.gachon.domain.GachonMaskRepository;
 import com.bot.gachon.domain.GachonYesterdayMask;
 import com.bot.gachon.domain.GachonYesterdayRepository;
-import com.bot.gachon.dto.res.DustModel;
-import com.bot.gachon.dto.res.HaksikDto;
-import com.bot.gachon.dto.res.HaksikSubDto;
-import com.bot.gachon.dto.res.MaskDto;
-import com.bot.gachon.dto.res.WeatherDto;
+import com.bot.gachon.dto.res.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -20,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URI;
@@ -100,9 +97,26 @@ public class GachonService {
         return response;
     }
 
-    public List<GachonMask> findMaskInfo() {
+//    public List<GachonMask> findMaskInfo() {
+//
+//        return gachonMaskRepository.findAll();
+//    }
 
-        return gachonMaskRepository.findAll();
+    //parksomini TEST
+    public TextReplyResponse findMaskInfo() {
+        List<TextReplyResponse.Content> resultList = new ArrayList<>();
+        List<GachonMask> maskList = gachonMaskRepository.findAll();
+        for(GachonMask mask : maskList){
+            TextReplyResponse.Content content = TextReplyResponse.Content.builder()
+                    .type(mask.getName())
+                    .text(mask.getAddr() + " / " + mask.getRemainStat())
+                    .build();
+            resultList.add(content);
+        }
+
+        return TextReplyResponse.builder()
+                .contents(resultList)
+                .build();
     }
 
     @Cacheable(value = "remainMask")

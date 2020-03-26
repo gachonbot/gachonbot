@@ -4,6 +4,7 @@ import com.bot.gachon.domain.GachonMask;
 import com.bot.gachon.domain.GachonYesterdayMask;
 import com.bot.gachon.dto.res.DustModel;
 import com.bot.gachon.dto.res.HaksikDto;
+import com.bot.gachon.dto.res.TextReplyResponse;
 import com.bot.gachon.dto.res.WeatherDto;
 import com.bot.gachon.service.GachonService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,10 @@ public class GachonController {
     }
 
     @GetMapping("/mask")
-    public List<GachonMask> getMaskInfo() {
+//    public List<GachonMask> getMaskInfo() {
+//        return gachonService.findMaskInfo();
+//    }
+    public TextReplyResponse getMaskInfo() {
         return gachonService.findMaskInfo();
     }
 
