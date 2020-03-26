@@ -103,16 +103,16 @@ public class GachonService {
 //    }
 
     //parksomini TEST
-    public MaskResponse findMaskInfo(BotRequest botRequest) {
+    public TextReplyResponse findMaskInfo(BotRequest botRequest) {
         String utternace = botRequest.getUserRequest().getUtterance();
         System.out.println("### utternace : " + utternace);
         List<GachonMask> maskList = gachonMaskRepository.findAll();
-        MaskResponse.Content content = MaskResponse.Content.builder()
+        TextReplyResponse.Content content = TextReplyResponse.Content.builder()
                 .type(maskList.get(0).getName())
                 .text(maskList.get(0).getAddr() + " / " + maskList.get(0).getRemainStat())
                 .build();
 
-        return MaskResponse.builder()
+        return TextReplyResponse.builder()
                 .contents(Collections.singletonList(content))
                 .build();
     }
