@@ -1,6 +1,7 @@
 package com.bot.gachon.service;
 
 import com.bot.gachon.dto.req.BotRequest;
+import com.bot.gachon.dto.res.MaskReplyReponse;
 import com.bot.gachon.dto.res.TextReplyResponse;
 import org.springframework.stereotype.Service;
 

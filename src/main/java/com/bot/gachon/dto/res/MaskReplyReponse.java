@@ -8,17 +8,18 @@ import java.util.HashMap;
 import java.util.List;
 
 @Getter
-
 public class MaskReplyReponse {
 
     private String version;
     private HashMap<String, List<HashMap<String, HashMap<String, String>>>> template = new HashMap<>();
 
+    public MaskReplyReponse(){}
+
     @Builder
-    public MaskReplyReponse(){
+    public MaskReplyReponse(String content){
         this.version = "2.0";
         HashMap<String, String> text = new HashMap<>();
-        text.put("text", "간단한 텍스트 요소입니다.");
+        text.put("text", content);
         HashMap<String, HashMap<String, String>> simpleText = new HashMap<>();
         simpleText.put("simpleText", text);
         ArrayList<HashMap<String, HashMap<String, String>>> outputs = new ArrayList<>();

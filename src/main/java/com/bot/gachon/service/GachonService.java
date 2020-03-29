@@ -96,6 +96,15 @@ public class GachonService {
 
         return response;
     }
+    //parksomin test
+    public MaskReplyReponse findMaskInfo(BotRequest botRequest) {
+        List<GachonMask> maskList = gachonMaskRepository.findAll();
+        String content = "# 약국이름 : "+ maskList.get(0).getName()
+                + "\n# 약국주소 : " + maskList.get(0).getAddr()
+                +"\n# 재고상태 : "+ maskList.get(0).getRemainStat();
+
+        return MaskReplyReponse.builder().content(content).build();
+    }
 
 //    public List<GachonMask> findMaskInfo() {
 //
@@ -118,12 +127,6 @@ public class GachonService {
 //                .contents(resultList)
 //                .build();
 //    }
-
-    //parksomin test
-    public MaskReplyReponse findMaskInfo(BotRequest botRequest) {
-//        List<GachonMask> maskList = gachonMaskRepository.findAll();
-        return MaskReplyReponse.builder().build();
-    }
 
     @Cacheable(value = "remainMask")
     public List<GachonMask> getRemainMaskInfo() {
