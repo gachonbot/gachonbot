@@ -12,7 +12,7 @@ import java.util.List;
 public class MaskReplyReponse {
 
     private String version;
-    private ArrayList<HashMap<String, HashMap<String, String>>> template = new ArrayList<>();
+    private HashMap<String, List<HashMap<String, HashMap<String, String>>>> template = new HashMap<>();
 
     @Builder
     public MaskReplyReponse(){
@@ -21,6 +21,8 @@ public class MaskReplyReponse {
         text.put("text", "간단한 텍스트 요소입니다.");
         HashMap<String, HashMap<String, String>> simpleText = new HashMap<>();
         simpleText.put("simpleText", text);
-        this.template.add(simpleText);
+        ArrayList<HashMap<String, HashMap<String, String>>> outputs = new ArrayList<>();
+        outputs.add(simpleText);
+        this.template.put("output", outputs);
     }
 }
