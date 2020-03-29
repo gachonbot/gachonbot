@@ -21,7 +21,7 @@ public class MaskReplyResponse {
         HashMap<String, String> text = new HashMap<>();
         text.put("text", content);
         HashMap<String, HashMap<String, String>> basicCard = new HashMap<>();
-        basicCard.put("simpleText", text);
+        basicCard.put("basicCard", text);
         ArrayList<HashMap<String, HashMap<String, String>>> outputs = new ArrayList<>();
         outputs.add(basicCard);
         this.template.put("outputs", outputs);
