@@ -12,8 +12,8 @@ import java.util.List;
 public class MaskReplyReponse {
 
     private String version;
-    private HashMap<String, List<HashMap<String, HashMap<String, String>>>> template;
-
+    private HashMap<String, List<HashMap<String, HashMap<String, String>>>> template = new HashMap<>();
+    
     @Builder
     public MaskReplyReponse(){
         this.version = "2.0";
