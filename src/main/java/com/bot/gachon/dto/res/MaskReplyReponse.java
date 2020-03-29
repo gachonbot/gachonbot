@@ -23,6 +23,6 @@ public class MaskReplyReponse {
         simpleText.put("simpleText", text);
         ArrayList<HashMap<String, HashMap<String, String>>> outputs = new ArrayList<>();
         outputs.add(simpleText);
-        this.template.put("output", outputs);
+        this.template.put("outputs", outputs);
     }
 }
