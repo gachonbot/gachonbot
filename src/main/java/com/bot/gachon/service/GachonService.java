@@ -102,36 +102,27 @@ public class GachonService {
 //        return gachonMaskRepository.findAll();
 //    }
 
-    //parksomini TEST
 //    public TextReplyResponse findMaskInfo(BotRequest botRequest) {
 //        String utternace = botRequest.getUserRequest().getUtterance();
-//        System.out.println("### utternace : " + utternace);
+//        List<TextReplyResponse.Content> resultList = new ArrayList<>();
 //        List<GachonMask> maskList = gachonMaskRepository.findAll();
-//        TextReplyResponse.Content content = TextReplyResponse.Content.builder()
-//                .type(maskList.get(0).getName())
-//                .text(maskList.get(0).getAddr() + " / " + maskList.get(0).getRemainStat())
-//                .build();
+//        for(GachonMask mask : maskList){
+//            TextReplyResponse.Content content = TextReplyResponse.Content.builder()
+//                    .type(mask.getName())
+//                    .text(mask.getAddr() + " / " + mask.getRemainStat())
+//                    .build();
+//            resultList.add(content);
+//        }
 //
 //        return TextReplyResponse.builder()
-//                .contents(Collections.singletonList(content))
+//                .contents(resultList)
 //                .build();
 //    }
 
-    public TextReplyResponse findMaskInfo(BotRequest botRequest) {
-        String utternace = botRequest.getUserRequest().getUtterance();
-        List<TextReplyResponse.Content> resultList = new ArrayList<>();
-        List<GachonMask> maskList = gachonMaskRepository.findAll();
-        for(GachonMask mask : maskList){
-            TextReplyResponse.Content content = TextReplyResponse.Content.builder()
-                    .type(mask.getName())
-                    .text(mask.getAddr() + " / " + mask.getRemainStat())
-                    .build();
-            resultList.add(content);
-        }
-
-        return TextReplyResponse.builder()
-                .contents(resultList)
-                .build();
+    //parksomin test
+    public MaskReplyReponse findMaskInfo(BotRequest botRequest) {
+//        List<GachonMask> maskList = gachonMaskRepository.findAll();
+        return MaskReplyReponse.builder().build();
     }
 
     @Cacheable(value = "remainMask")
