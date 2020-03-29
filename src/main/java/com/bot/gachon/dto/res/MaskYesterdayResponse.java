@@ -2,21 +2,22 @@ package com.bot.gachon.dto.res;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 @Getter
-public class MaskReplyReponse {
+public class MaskYesterdayResponse {
 
     private String version;
     private HashMap<String, List<HashMap<String, HashMap<String, String>>>> template = new HashMap<>();
 
-    public MaskReplyReponse(){}
+    public MaskYesterdayResponse(){}
 
     @Builder
-    public MaskReplyReponse(String content){
+    public MaskYesterdayResponse(String content){
         this.version = "2.0";
         HashMap<String, String> text = new HashMap<>();
         text.put("text", content);

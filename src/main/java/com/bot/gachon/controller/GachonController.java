@@ -37,8 +37,12 @@ public class GachonController {
 //        return gachonService.findMaskInfo();
 //    }
     @PostMapping("/mask")
-    public MaskReplyReponse getMaskInfo(@RequestBody BotRequest botRequest) {
+    public MaskReplyResponse getMaskInfo(@RequestBody BotRequest botRequest) {
         return gachonService.findMaskInfo(botRequest);
+    }
+    @GetMapping("/mask")
+    public List<GachonMask> getMaskInfo() {
+        return gachonService.findMaskInfo();
     }
 
     @GetMapping("/remain/mask")
@@ -48,6 +52,10 @@ public class GachonController {
 
     @GetMapping("/yesterday/mask")
     public  List<GachonYesterdayMask> getYesterdatInfo(){ return gachonService.findYesterdayMaskInfo();
+    }
+    @PostMapping("/yesterday/mask")
+    public MaskYesterdayResponse getYesterdayInfo(@RequestBody BotRequest botRequest){
+        return gachonService.findYesterdayInfo(botRequest);
     }
 
     @GetMapping("/dust")

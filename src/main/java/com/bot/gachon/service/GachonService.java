@@ -97,19 +97,29 @@ public class GachonService {
         return response;
     }
     //parksomin test
-    public MaskReplyReponse findMaskInfo(BotRequest botRequest) {
+    public MaskReplyResponse findMaskInfo(BotRequest botRequest) {
         List<GachonMask> maskList = gachonMaskRepository.findAll();
         String content = "# 약국이름 : "+ maskList.get(0).getName()
                 + "\n# 약국주소 : " + maskList.get(0).getAddr()
                 +"\n# 재고상태 : "+ maskList.get(0).getRemainStat();
 
-        return MaskReplyReponse.builder().content(content).build();
+        return MaskReplyResponse.builder().content(content).build();
     }
 
-//    public List<GachonMask> findMaskInfo() {
-//
-//        return gachonMaskRepository.findAll();
-//    }
+    public MaskYesterdayResponse findYesterdayInfo(BotRequest botRequest) {
+        List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();
+        String content = "# 약국이름 : "+ yesterdayList.get(0).getName()
+                + "\n# 약국주소 : " + yesterdayList.get(0).getAddr()
+                +"\n# 어제입고시간 : "+ yesterdayList.get(0).getStockAt();
+
+        return MaskYesterdayResponse.builder().content(content).build();
+    }
+
+
+    public List<GachonMask> findMaskInfo() {
+
+        return gachonMaskRepository.findAll();
+    }
 
 //    public TextReplyResponse findMaskInfo(BotRequest botRequest) {
 //        String utternace = botRequest.getUserRequest().getUtterance();
