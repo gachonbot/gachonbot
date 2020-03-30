@@ -15,7 +15,6 @@ import javax.persistence.*;
 public class Dust {
 
     @Id
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="nalJJa") // dataTime이 sql 예약어와 겹쳐서 변경
     public String dataTime;
 
