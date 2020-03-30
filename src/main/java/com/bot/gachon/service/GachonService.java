@@ -35,6 +35,40 @@ public class GachonService {
         this.dustRepository = dustRepository;
         this.restTemplate = restTemplate;}
 
+    public WeatherDto findWeatherInfo() throws Exception {
+        RestTemplate restTemplate = new RestTemplate();
+        URI url = URI.create(Url.WEATHER_URL);
+        ResponseEntity<String> responseEntity = null;
+        responseEntity = restTemplate.getForEntity(url, String.class);
+
+        String jsonInfo = responseEntity.getBody();
+        Map<String, Object> result = new HashMap<>();
+
+        ObjectMapper mapper = new ObjectMapper();
+        WeatherDto weatherDto = mapper.readValue(jsonInfo, WeatherDto.class);
+        return weatherDto;
+    }
+
+    public HaksikDto findHaksikInfo() throws IOException {
+        Document doc = Jsoup.connect(Url.HAKSIK_URL).get();
+
+        Element e = doc.getElementById("toggle-view");
+
+        JSONObject haksikObject = new JSONObject();
+        JSONArray allMenuObject = new JSONArray();
+        JSONObject menuObject = null;
+
+        for (Element child : e.children()) {
+            menuObject = new JSONObject();
+            menuObject.put("day", child.getElementsByTag("img").attr("alt"));
+            menuObject.put("menu", child.text());
+            allMenuObject.add(menuObject);
+            haksikObject.put("allMenu", allMenuObject);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        HaksikDto haksikDto = mapper.readValue(haksikObject.toString(), HaksikDto.class);
+        return haksikDto;
+    }
 
     public DustModel findDust() throws IOException {
         DustModel response = restTemplate.getForObject(Url.DUST_URL, DustModel.class);
