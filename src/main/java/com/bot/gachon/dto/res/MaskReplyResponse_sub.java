@@ -28,7 +28,7 @@ public class MaskReplyResponse_sub {
         buttonsChild.put("blockId","마스크재고조회");
         buttonsChild.put("action","block");
         buttonsChild.put("label","어제마스크입고시간조회");
-        buttonsChild.put("blockId","마스크입고시간조회");
+        buttonsChild.put("blockId","어제마스크입고시간");
 
         buttonsParent.add(buttonsChild);
         item.put("buttons",buttonsParent);
