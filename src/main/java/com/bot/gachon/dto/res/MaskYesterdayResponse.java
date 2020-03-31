@@ -2,7 +2,6 @@ package com.bot.gachon.dto.res;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.HashMap;
