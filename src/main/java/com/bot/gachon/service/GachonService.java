@@ -97,13 +97,11 @@ public class GachonService {
         return response;
     }
     //parksomin test
-    public MaskReplyResponse findMaskInfo(BotRequest botRequest) {
+    public MaskReplayResponse findMaskInfo(BotRequest botRequest) {
         List<GachonMask> maskList = gachonMaskRepository.findAll();
-        String content = "# 약국이름 : "+ maskList.get(0).getName()
-                + "\n# 약국주소 : " + maskList.get(0).getAddr()
-                +"\n# 재고상태 : "+ maskList.get(0).getRemainStat();
 
-        return MaskReplyResponse.builder().content(content).build();
+
+        return MaskReplayResponse.builder().build();
     }
 
     public MaskYesterdayResponse findYesterdayInfo(BotRequest botRequest) {
@@ -121,22 +119,6 @@ public class GachonService {
         return gachonMaskRepository.findAll();
     }
 
-//    public TextReplyResponse findMaskInfo(BotRequest botRequest) {
-//        String utternace = botRequest.getUserRequest().getUtterance();
-//        List<TextReplyResponse.Content> resultList = new ArrayList<>();
-//        List<GachonMask> maskList = gachonMaskRepository.findAll();
-//        for(GachonMask mask : maskList){
-//            TextReplyResponse.Content content = TextReplyResponse.Content.builder()
-//                    .type(mask.getName())
-//                    .text(mask.getAddr() + " / " + mask.getRemainStat())
-//                    .build();
-//            resultList.add(content);
-//        }
-//
-//        return TextReplyResponse.builder()
-//                .contents(resultList)
-//                .build();
-//    }
 
     @Cacheable(value = "remainMask")
     public List<GachonMask> getRemainMaskInfo() {

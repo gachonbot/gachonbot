@@ -37,7 +37,7 @@ public class GachonController {
 //        return gachonService.findMaskInfo();
 //    }
     @PostMapping("/mask")
-    public MaskReplyResponse getMaskInfo(@RequestBody BotRequest botRequest) {
+    public MaskReplayResponse getMaskInfo(@RequestBody BotRequest botRequest) {
         return gachonService.findMaskInfo(botRequest);
     }
     @GetMapping("/mask")

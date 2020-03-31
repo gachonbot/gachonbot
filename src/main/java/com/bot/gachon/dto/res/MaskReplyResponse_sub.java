@@ -16,16 +16,20 @@ public class MaskReplyResponse_sub {
     @Builder
     public MaskReplyResponse_sub(String content){
         HashMap<String, Object> item = new HashMap<>();
-        item.put("title", "마스킂고");
+        item.put("title", "마스크재고");
 
         HashMap<String, String> thumbnailChild = new HashMap<>();
-        thumbnailChild.put("imageUrl", "가천대주변 약국의 마스크재고입니다.");
+        thumbnailChild.put("imageUrl", "");
         item.put("thumbnail", thumbnailChild);
         ArrayList<HashMap<String,String>> buttonsParent = new ArrayList<>();
         HashMap<String,String> buttonsChild = new HashMap<>();
-        buttonsChild.put("action","message");
-        buttonsChild.put("label","조회하기");
-        buttonsChild.put("messageText","조회되었습니다.");
+        buttonsChild.put("action","block");
+        buttonsChild.put("label","마스크재고조회");
+        buttonsChild.put("blockId","마스크재고조회");
+        buttonsChild.put("action","block");
+        buttonsChild.put("label","어제마스크입고시간조회");
+        buttonsChild.put("blockId","마스크입고시간조회");
+
         buttonsParent.add(buttonsChild);
         item.put("buttons",buttonsParent);
 
