@@ -14,7 +14,7 @@ public class MaskReplyResponse_sub {
     public MaskReplyResponse_sub(){}
 
     @Builder
-    public MaskReplyResponse_sub(String content){
+    public MaskReplyResponse_sub(String label, String blockId){
         HashMap<String, Object> item = new HashMap<>();
         item.put("title", "마스크재고");
 
@@ -24,11 +24,8 @@ public class MaskReplyResponse_sub {
         ArrayList<HashMap<String,String>> buttonsParent = new ArrayList<>();
         HashMap<String,String> buttonsChild = new HashMap<>();
         buttonsChild.put("action","block");
-        buttonsChild.put("label","마스크재고조회");
-        buttonsChild.put("blockId","마스크재고조회");
-        buttonsChild.put("action","block");
-        buttonsChild.put("label","어제마스크입고시간조회");
-        buttonsChild.put("blockId","어제마스크입고시간");
+        buttonsChild.put("label", label);
+        buttonsChild.put("blockId",blockId);
 
         buttonsParent.add(buttonsChild);
         item.put("buttons",buttonsParent);

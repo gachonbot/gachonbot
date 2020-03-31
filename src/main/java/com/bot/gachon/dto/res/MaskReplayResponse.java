@@ -12,7 +12,6 @@ public class MaskReplayResponse {
     private String version;
 
     private HashMap<String,List<HashMap<String,HashMap<String,Object>>>> template = new HashMap<>();
-    private List<MaskReplyResponse_sub> item;
 
     public MaskReplayResponse(){}
 
@@ -21,7 +20,13 @@ public class MaskReplayResponse {
         this.version = "2.0";
         HashMap<String,Object> type = new HashMap<>();
         type.put("type",content);
-        type.put("item",item);
+
+        MaskReplyResponse_sub item1 = MaskReplyResponse_sub.builder().label("마스크재고조회").blockId("마스크재고조회").build();
+        MaskReplyResponse_sub item2 = MaskReplyResponse_sub.builder().label("어제마스크입고시간조회").blockId("어제마스크입고시간").build();
+        ArrayList<MaskReplyResponse_sub> items = new ArrayList<>();
+        items.add(item1);
+        items.add(item2);
+        type.put("item",items);
         HashMap<String,HashMap<String,Object>> carousel = new HashMap<>();
         carousel.put("carousel",type);
 //        carousel.put("item",item);

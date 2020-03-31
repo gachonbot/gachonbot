@@ -100,7 +100,6 @@ public class GachonService {
     public MaskReplayResponse findMaskInfo(BotRequest botRequest) {
         List<GachonMask> maskList = gachonMaskRepository.findAll();
 
-
         return MaskReplayResponse.builder().build();
     }
 
