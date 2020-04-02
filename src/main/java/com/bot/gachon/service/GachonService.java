@@ -97,11 +97,16 @@ public class GachonService {
         return response;
     }
     //parksomin test
-    public MaskReplayResponse findMaskInfo(BotRequest botRequest) {
+    public MaskMenuDto findMaskInfo(BotRequest botRequest) {
         List<GachonMask> maskList = gachonMaskRepository.findAll();
 
-        return MaskReplayResponse.builder().build();
+        return MaskMenuDto.builder().build();
     }
+//    public MaskReplayResponse findMaskInfo(BotRequest botRequest) {
+//        List<GachonMask> maskList = gachonMaskRepository.findAll();
+//
+//        return MaskReplayResponse.builder().build();
+//    }
 
     public MaskYesterdayResponse findYesterdayInfo(BotRequest botRequest) {
         List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();

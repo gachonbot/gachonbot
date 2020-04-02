@@ -33,11 +33,13 @@ public class GachonController {
     }
 
 
-//    public List<GachonMask> getMaskInfo() {
-//        return gachonService.findMaskInfo();
+
+//    @PostMapping("/mask")
+//    public MaskReplayResponse getMaskInfo(@RequestBody BotRequest botRequest) {
+//        return gachonService.findMaskInfo(botRequest);
 //    }
     @PostMapping("/mask")
-    public MaskReplayResponse getMaskInfo(@RequestBody BotRequest botRequest) {
+    public MaskMenuDto getMaskInfo(@RequestBody BotRequest botRequest) {
         return gachonService.findMaskInfo(botRequest);
     }
     @GetMapping("/mask")
