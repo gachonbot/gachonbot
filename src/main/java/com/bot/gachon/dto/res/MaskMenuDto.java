@@ -43,11 +43,14 @@ public class MaskMenuDto {
         buttonsChild2.put("messageText","하잇!");
         buttonsParent.add(buttonsChild2);
 
-        ArrayList<Object> outputs = new ArrayList<>();
-        outputs.add(basicCard);
-        outputs.add(profile);
-        outputs.add(social);
-        outputs.add(buttonsParent);
+        ArrayList<HashMap<String,Object>> outputs = new ArrayList<>();
+        HashMap<String,Object> output = new HashMap<>();
+        output.put("basicCard",basicCard);
+        output.put("profile",profile);
+        output.put("social",social);
+        output.put("buttons",buttonsParent);
+        outputs.add(output);
+
         this.template.put("outputs", outputs);
     }
 
