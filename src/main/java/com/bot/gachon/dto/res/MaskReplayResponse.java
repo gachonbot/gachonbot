@@ -30,6 +30,8 @@ public class MaskReplayResponse {
 //        ArrayList<HashMap<String,HashMap<String,Object>>> outputs = new ArrayList<>();
 //        outputs.add(outputs_sub);
 //        this.template.put("outputs",outputs);
+
+
         this.version = "2.0";
         ArrayList<HashMap<String,Object>> itemsParent = new ArrayList<>();
         HashMap<String,Object> itemsChilde =new HashMap<>();
@@ -46,6 +48,7 @@ public class MaskReplayResponse {
         HashMap<String,Object> output = new HashMap<>();
         output.put("carousel",carousel);
         outputs.add(output);
+        this.template.put("outputs", outputs);
 
 
 

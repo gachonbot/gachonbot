@@ -111,6 +111,10 @@ public class GachonService {
 
         return MaskMenuDto.builder().build();
     }
+    public MaskReplayResponse replayResponse(BotRequest botRequest){
+        List<GachonMask> maskList = gachonMaskRepository.findAll();
+        return MaskReplayResponse.builder().build();
+    }
 //    public MaskReplayResponse findMaskInfo(BotRequest botRequest) {
 //        List<GachonMask> maskList = gachonMaskRepository.findAll();
 //
