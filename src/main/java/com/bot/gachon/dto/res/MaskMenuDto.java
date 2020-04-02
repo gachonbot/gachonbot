@@ -19,11 +19,11 @@ public class MaskMenuDto {
         basicCard.put("title", "마스크정보조회");
         basicCard.put("description", "어제입고시간 및 재고정보를 확인하세요!");
         HashMap<String, String> thumbnail = new HashMap<>();
-        thumbnail.put("imageUrl", "testUrl");
+        thumbnail.put("imageUrl", "http://k.kakaocdn.net/dn/83BvP/bl20duRC1Q1/lj3JUcmrzC53YIjNDkqbWK/i_6piz1p.jpg");
         basicCard.put("thumbnail", thumbnail);
 
         HashMap<String, Object> profile = new HashMap<>();
-        profile.put("imageUrl", "test2Url");
+        profile.put("imageUrl", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4BJ9LU4Ikr_EvZLmijfcjzQKMRCJ2bO3A8SVKNuQ78zu2KOqM");
         profile.put("nickname", "somini");
 
         HashMap<String, Object> social = new HashMap<>();
