@@ -14,22 +14,22 @@ public class MaskMenuDto {
     @Builder
     public MaskMenuDto(){
         this.version = "2.0";
-        HashMap<String, String> thumbnail = new HashMap<>();
-        thumbnail.put("imageUrl", "testUrl");
 
         HashMap<String, Object> basicCard = new HashMap<>();
         basicCard.put("title", "마스크정보조회");
         basicCard.put("description", "어제입고시간 및 재고정보를 확인하세요!");
+        HashMap<String, String> thumbnail = new HashMap<>();
+        thumbnail.put("imageUrl", "testUrl");
         basicCard.put("thumbnail", thumbnail);
 
         HashMap<String, Object> profile = new HashMap<>();
-        basicCard.put("imageUrl", "test2Url");
-        basicCard.put("nickname", "somini");
+        profile.put("imageUrl", "test2Url");
+        profile.put("nickname", "somini");
 
         HashMap<String, Object> social = new HashMap<>();
-        basicCard.put("like", "1238");
-        basicCard.put("comment", "8");
-        basicCard.put("share", "780");
+        social.put("like", "1238");
+        social.put("comment", "8");
+        social.put("share", "780");
 
         ArrayList<HashMap<String,String>> buttonsParent = new ArrayList<>();
         HashMap<String,String> buttonsChild1 = new HashMap<>();
