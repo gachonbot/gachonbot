@@ -1,11 +1,12 @@
 package com.bot.gachon.dto.res;
 
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+@Getter
 public class MaskMenuDto {
     private String version;
     private HashMap<String, Object> template = new HashMap<>();
