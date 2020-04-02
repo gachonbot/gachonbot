@@ -40,7 +40,18 @@ public class MaskReplayResponse {
         HashMap<String,String> thumbnail = new HashMap<>();
         thumbnail.put("imageUrl","http://k.kakaocdn.net/dn/83BvP/bl20duRC1Q1/lj3JUcmrzC53YIjNDkqbWK/i_6piz1p.jpg");
         itemsChilde.put("thumbnail",thumbnail);
+
+        
+        HashMap<String,Object> itemsChilde2 = new HashMap<>();
+        itemsChilde2.put("title","마스크");
+        itemsChilde2.put("description","마스크조회하세요");
+        HashMap<String,String> thumbnail2 = new HashMap<>();
+        thumbnail2.put("imageUrl","http://k.kakaocdn.net/dn/83BvP/bl20duRC1Q1/lj3JUcmrzC53YIjNDkqbWK/i_6piz1p.jpg");
+        itemsChilde2.put("thumbnail",thumbnail2);
+
         itemsParent.add(itemsChilde);
+        itemsParent.add(itemsChilde2);
+
         HashMap<String,Object> carousel = new HashMap<>();
         carousel.put("type","basicCard");
         carousel.put("items",itemsParent);
