@@ -45,10 +45,10 @@ public class MaskMenuDto {
 
         ArrayList<HashMap<String,Object>> outputs = new ArrayList<>();
         HashMap<String,Object> output = new HashMap<>();
+        basicCard.put("profile", profile);
+        basicCard.put("social", social);
+        basicCard.put("buttons", buttonsParent);
         output.put("basicCard",basicCard);
-        output.put("profile",profile);
-        output.put("social",social);
-        output.put("buttons",buttonsParent);
         outputs.add(output);
 
         this.template.put("outputs", outputs);
