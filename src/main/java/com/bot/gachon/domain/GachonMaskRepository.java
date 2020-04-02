@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface GachonMaskRepository extends JpaRepository<GachonMask, String> {
 
-    @Query("SELECT p FROM GachonMask p ORDER BY p.code")
+    @Query("SELECT p FROM GachonMask p ORDER BY p.remainStat")
     List<GachonMask> findAll();
 
     Optional<List<GachonMask>> findAllByRemainStat(String remainStat);

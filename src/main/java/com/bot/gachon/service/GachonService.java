@@ -21,12 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -99,6 +94,20 @@ public class GachonService {
     //parksomin test
     public MaskMenuDto findMaskInfo(BotRequest botRequest) {
         List<GachonMask> maskList = gachonMaskRepository.findAll();
+
+        ArrayList<MaskReplyResponse_sub> items = new ArrayList<>();
+        for(int i = 0; i< 10 ; i++){
+            MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(maskList.get(0).getName()
+            ).description(maskList.get(0).getAddr() + "\n" + maskList.get(0).getRemainStat()).build();
+            items.add(sub);
+
+//            HashMap<String,Strcing> buttonsChild1 = new HashMap<>();
+////            buttonsChild1.put("title",maskList.get(0).getAddr());
+////            buttonsChild1.put("desription", maskList.get(0).getAddr() + "\n" + maskList.get(0).getRemainStat());
+
+        }
+
+        MaskReplayResponse.builder().build();
 
         return MaskMenuDto.builder().build();
     }
