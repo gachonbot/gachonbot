@@ -106,6 +106,7 @@ public class GachonService {
 
         return MaskMenuDto.builder().build();
     }
+    @Cacheable(value = "remainMask")
     public MaskReplayResponse replayResponse(BotRequest botRequest){
         List<GachonMask> maskList = gachonMaskRepository.findAll();
 
@@ -130,7 +131,6 @@ public class GachonService {
 
         return MaskYesterdayResponse.builder().content(content).build();
     }
-
 
     public List<GachonMask> findMaskInfo() {
 
