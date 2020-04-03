@@ -13,13 +13,11 @@ public class MaskYesterdayResponse {
     private String version;
     private HashMap<String,Object> template = new HashMap<>();
 
-    public MaskYesterdayResponse(){}
-
     @Builder
-    public MaskYesterdayResponse(String content){
+    public MaskYesterdayResponse(){
         this.version = "2.0";
         HashMap<String, String> simpleText = new HashMap<>();
-        simpleText.put("text", content);
+        simpleText.put("text","간단한 텍스트요소입니다.");
         ArrayList<HashMap<String,Object>> outputs = new ArrayList<>();
         HashMap<String,Object> output = new HashMap<>();
         output.put("simpleText",simpleText);
