@@ -111,10 +111,12 @@ public class GachonService {
 
         ArrayList<MaskReplyResponse_sub> items = new ArrayList<>();
         for(int i = 0; i< 10 ; i++){
-            MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(maskList.get(0).getName()
-            ).description(maskList.get(0).getAddr() + "\n" + maskList.get(0).getRemainStat()).build();
+            MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(maskList.get(i).getName()
+            ).description(maskList.get(i).getAddr() + "\n" + maskList.get(i).getRemainStat()).build();
             items.add(sub);
+
         }
+
 
         return MaskReplayResponse.builder().items(items).build();
     }
