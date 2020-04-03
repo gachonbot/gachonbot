@@ -3,9 +3,6 @@ package com.bot.gachon.dto.res;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 @Getter
 public class MaskReplyResponse_sub {
 

@@ -93,19 +93,14 @@ public class GachonService {
     }
     //parksomin test
     public MaskMenuDto findMaskInfo(BotRequest botRequest) {
-        List<GachonMask> maskList = gachonMaskRepository.findAll();
+//        List<GachonMask> maskList = gachonMaskRepository.findAll();
 
-        ArrayList<MaskReplyResponse_sub> items = new ArrayList<>();
-        for(int i = 0; i< 10 ; i++){
-            MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(maskList.get(0).getName()
-            ).description(maskList.get(0).getAddr() + "\n" + maskList.get(0).getRemainStat()).build();
-            items.add(sub);
-
-//            HashMap<String,Strcing> buttonsChild1 = new HashMap<>();
-////            buttonsChild1.put("title",maskList.get(0).getAddr());
-////            buttonsChild1.put("desription", maskList.get(0).getAddr() + "\n" + maskList.get(0).getRemainStat());
-
-        }
+//        ArrayList<MaskReplyResponse_sub> items = new ArrayList<>();
+//        for(int i = 0; i< 10 ; i++){
+//            MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(maskList.get(0).getName()
+//            ).description(maskList.get(0).getAddr() + "\n" + maskList.get(0).getRemainStat()).build();
+//            items.add(sub);
+//        }
 
         MaskReplayResponse.builder().build();
 
@@ -113,13 +108,17 @@ public class GachonService {
     }
     public MaskReplayResponse replayResponse(BotRequest botRequest){
         List<GachonMask> maskList = gachonMaskRepository.findAll();
-        return MaskReplayResponse.builder().build();
+
+        ArrayList<MaskReplyResponse_sub> items = new ArrayList<>();
+        for(int i = 0; i< 10 ; i++){
+            MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(maskList.get(0).getName()
+            ).description(maskList.get(0).getAddr() + "\n" + maskList.get(0).getRemainStat()).build();
+            items.add(sub);
+        }
+
+        return MaskReplayResponse.builder().items(items).build();
     }
-//    public MaskReplayResponse findMaskInfo(BotRequest botRequest) {
-//        List<GachonMask> maskList = gachonMaskRepository.findAll();
-//
-//        return MaskReplayResponse.builder().build();
-//    }
+
 
     public MaskYesterdayResponse findYesterdayInfo(BotRequest botRequest) {
         List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();
@@ -141,15 +140,15 @@ public class GachonService {
     public List<GachonMask> getRemainMaskInfo() {
         List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
         List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
-                                                                                  .map(keyword -> CompletableFuture.supplyAsync(()
-                                                                                                                                    -> gachonMaskRepository
-                                                                                      .findAllByRemainStat(keyword)
-                                                                                      .orElse(Collections.emptyList())))
-                                                                                  .collect(Collectors.toList());
+                .map(keyword -> CompletableFuture.supplyAsync(()
+                        -> gachonMaskRepository
+                        .findAllByRemainStat(keyword)
+                        .orElse(Collections.emptyList())))
+                .collect(Collectors.toList());
         return completableFutures.stream()
-                                 .map(CompletableFuture::join)
-                                 .flatMap(Collection::stream)
-                                 .collect(Collectors.toList());
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     @Scheduled(cron = "0 55 23 * * *")
