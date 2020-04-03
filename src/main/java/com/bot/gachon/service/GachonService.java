@@ -121,8 +121,8 @@ public class GachonService {
     public MaskYesterdayResponse findYesterdayInfo(BotRequest botRequest) {
         List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();
         String content = "# 약국이름 : "+ yesterdayList.get(0).getName()
-                + "\n# 약국주소 : " + yesterdayList.get(0).getAddr()
-                +"\n# 어제입고시간 : "+ yesterdayList.get(0).getStockAt();
+                + "\n# 약국주소 : " + yesterdayList.get(0).getAddr();
+//                +"\n# 어제입고시간 : "+ yesterdayList.get(0).getStockAt();
 
         return MaskYesterdayResponse.builder().content(content).build();
     }
