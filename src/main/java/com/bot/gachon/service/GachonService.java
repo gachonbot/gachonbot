@@ -102,24 +102,38 @@ public class GachonService {
 //            items.add(sub);
 //        }
 
-        MaskReplayResponse.builder().build();
 
         return MaskMenuDto.builder().build();
     }
-    @Cacheable(value = "remainMask")
     public MaskReplayResponse replayResponse(BotRequest botRequest){
-        List<GachonMask> maskList = gachonMaskRepository.findAll();
+//        List<GachonMask> maskList = gachonMaskRepository.findAll();
+////
+////        ArrayList<MaskReplyResponse_sub> items = new ArrayList<>();
+////        for(int i = 0; i< 10 ; i++){
+////            MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(maskList.get(i).getName()
+////            ).description(maskList.get(i).getAddr() + "\n" + maskList.get(i).getRemainStat()).build();
+////            items.add(sub);
+////
+////        }
+        List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
+        List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
+                .map(keyword -> CompletableFuture.supplyAsync(()
+                        -> gachonMaskRepository
+                        .findAllByRemainStat(keyword)
+                        .orElse(Collections.emptyList())))
+                .collect(Collectors.toList());
 
-        ArrayList<MaskReplyResponse_sub> items = new ArrayList<>();
-        for(int i = 0; i< 10 ; i++){
-            MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(maskList.get(i).getName()
-            ).description(maskList.get(i).getAddr() + "\n" + maskList.get(i).getRemainStat()).build();
-            items.add(sub);
-
+        List<GachonMask> items = completableFutures.stream().map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+        ArrayList<MaskReplyResponse_sub> item = new ArrayList<>();
+        for(int i = 0; i<10; i++){
+            MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(items.get(i).getName()
+            ).description(items.get(i).getAddr() + "\n" + items.get(i).getRemainStat()).build();
+            item.add(sub);
         }
 
-
-        return MaskReplayResponse.builder().items(items).build();
+        return MaskReplayResponse.builder().items(item).build();
     }
 
 
@@ -147,6 +161,29 @@ public class GachonService {
                         .findAllByRemainStat(keyword)
                         .orElse(Collections.emptyList())))
                 .collect(Collectors.toList());
+
+        System.out.println(completableFutures.stream()
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList()));
+        System.out.println(completableFutures.get(0));
+        return completableFutures.stream()
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
+    @Cacheable(value = "remainMask")
+    public List<GachonMask> getRemainMaskInfo1(BotRequest botRequest) {
+        List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
+        List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
+                .map(keyword -> CompletableFuture.supplyAsync(()
+                        -> gachonMaskRepository
+                        .findAllByRemainStat(keyword)
+                        .orElse(Collections.emptyList())))
+                .collect(Collectors.toList());
+
+
+
         return completableFutures.stream()
                 .map(CompletableFuture::join)
                 .flatMap(Collection::stream)
