@@ -20,7 +20,6 @@ public class MaskReplayResponse {
 
         HashMap<String,Object> carousel = new HashMap<>();
         carousel.put("type","basicCard");
-//        carousel.put("items",itemsParent);
         carousel.put("items",items);
         ArrayList<HashMap<String,Object>> outputs = new ArrayList<>();
         HashMap<String,Object> output = new HashMap<>();

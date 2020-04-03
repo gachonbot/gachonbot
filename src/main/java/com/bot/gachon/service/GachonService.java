@@ -91,30 +91,11 @@ public class GachonService {
 
         return response;
     }
-    //parksomin test
     public MaskMenuDto findMaskInfo(BotRequest botRequest) {
-//        List<GachonMask> maskList = gachonMaskRepository.findAll();
-
-//        ArrayList<MaskReplyResponse_sub> items = new ArrayList<>();
-//        for(int i = 0; i< 10 ; i++){
-//            MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(maskList.get(0).getName()
-//            ).description(maskList.get(0).getAddr() + "\n" + maskList.get(0).getRemainStat()).build();
-//            items.add(sub);
-//        }
-
 
         return MaskMenuDto.builder().build();
     }
     public MaskReplayResponse replayResponse(BotRequest botRequest){
-//        List<GachonMask> maskList = gachonMaskRepository.findAll();
-////
-////        ArrayList<MaskReplyResponse_sub> items = new ArrayList<>();
-////        for(int i = 0; i< 10 ; i++){
-////            MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(maskList.get(i).getName()
-////            ).description(maskList.get(i).getAddr() + "\n" + maskList.get(i).getRemainStat()).build();
-////            items.add(sub);
-////
-////        }
         List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
         List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
                 .map(keyword -> CompletableFuture.supplyAsync(()
