@@ -14,14 +14,14 @@ public class MaskYesterdayResponse {
     private HashMap<String,Object> template = new HashMap<>();
 
     @Builder
-    public MaskYesterdayResponse(){
+    public MaskYesterdayResponse(String content){
         this.version = "2.0";
         HashMap<String, String> simpleText = new HashMap<>();
-        simpleText.put("text","간단한 텍스트요소입니다.");
+        simpleText.put("text",content);
         ArrayList<HashMap<String,Object>> outputs = new ArrayList<>();
         HashMap<String,Object> output = new HashMap<>();
         output.put("simpleText",simpleText);
         outputs.add(output);
-        this.template.put("outputs", output);
+        this.template.put("outputs", outputs);
     }
 }
