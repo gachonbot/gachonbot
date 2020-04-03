@@ -13,6 +13,8 @@ public class MaskYesterdayResponse {
     private String version;
     private HashMap<String,Object> template = new HashMap<>();
 
+    public MaskYesterdayResponse(){}
+
     @Builder
     public MaskYesterdayResponse(String content){
         this.version = "2.0";
