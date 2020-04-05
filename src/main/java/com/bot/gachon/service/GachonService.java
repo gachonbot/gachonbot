@@ -92,7 +92,7 @@ public class GachonService {
         return response;
     }
     public MaskMenuDto findMaskInfo(BotRequest botRequest) {
-
+        System.out.println(ClassLoader.getSystemClassLoader().getResource(".").getPath());
         return MaskMenuDto.builder().build();
     }
     public MaskReplayResponse replayResponse(BotRequest botRequest){
@@ -120,40 +120,21 @@ public class GachonService {
 
     public MaskYesterdayResponse findYesterdayInfo(BotRequest botRequest) {
         List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();
-        String content = "# 약국이름 : ";
-//        String content = "# 약국이름 : "+ yesterdayList.get(0).getName()
-//                + "\n# 약국주소 : " + yesterdayList.get(0).getAddr()
-//                +"\n# 어제입고시간 : "+ yesterdayList.get(0).getStockAt();
+//        String content = "# 약국이름 : ";
+        String content = "# 약국이름 : "+ yesterdayList.get(0).getName()
+                + "\n# 약국주소 : " + yesterdayList.get(0).getAddr()
+                +"\n# 어제입고시간 : "+ yesterdayList.get(0).getStockAt();
 
         return MaskYesterdayResponse.builder().content(content).build();
     }
 
     public List<GachonMask> findMaskInfo() {
-
+        System.out.println(ClassLoader.getSystemClassLoader().getResource(".").getPath());
         return gachonMaskRepository.findAll();
     }
 
 
-    @Cacheable(value = "remainMask")
-    public List<GachonMask> getRemainMaskInfo() {
-        List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
-        List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
-                .map(keyword -> CompletableFuture.supplyAsync(()
-                        -> gachonMaskRepository
-                        .findAllByRemainStat(keyword)
-                        .orElse(Collections.emptyList())))
-                .collect(Collectors.toList());
 
-        System.out.println(completableFutures.stream()
-                .map(CompletableFuture::join)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList()));
-        System.out.println(completableFutures.get(0));
-        return completableFutures.stream()
-                .map(CompletableFuture::join)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList());
-    }
     @Cacheable(value = "remainMask")
     public List<GachonMask> getRemainMaskInfo1(BotRequest botRequest) {
         List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
