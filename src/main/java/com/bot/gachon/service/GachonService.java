@@ -92,7 +92,7 @@ public class GachonService {
         return response;
     }
     public MaskMenuDto findMaskInfo(BotRequest botRequest) {
-        System.out.println(ClassLoader.getSystemClassLoader().getResource(".").getPath());
+        ClassLoader.getSystemClassLoader().getResource(".").getPath();
         return MaskMenuDto.builder().build();
     }
     public MaskReplayResponse replayResponse(BotRequest botRequest){
@@ -120,7 +120,6 @@ public class GachonService {
 
     public MaskYesterdayResponse findYesterdayInfo(BotRequest botRequest) {
         List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();
-//        String content = "# 약국이름 : ";
         String content = "# 약국이름 : "+ yesterdayList.get(0).getName()
                 + "\n# 약국주소 : " + yesterdayList.get(0).getAddr()
                 +"\n# 어제입고시간 : "+ yesterdayList.get(0).getStockAt();
@@ -134,9 +133,8 @@ public class GachonService {
     }
 
 
-
     @Cacheable(value = "remainMask")
-    public List<GachonMask> getRemainMaskInfo1(BotRequest botRequest) {
+    public List<GachonMask> getRemainMaskInfo() {
         List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
         List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
                 .map(keyword -> CompletableFuture.supplyAsync(()
@@ -145,7 +143,11 @@ public class GachonService {
                         .orElse(Collections.emptyList())))
                 .collect(Collectors.toList());
 
-
+        System.out.println(completableFutures.stream()
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList()));
+        System.out.println(completableFutures.get(0));
 
         return completableFutures.stream()
                 .map(CompletableFuture::join)
@@ -153,7 +155,8 @@ public class GachonService {
                 .collect(Collectors.toList());
     }
 
-    @Scheduled(cron = "0 58 23 * * *")
+
+    @Scheduled(cron = "0 55 23 * * *")
     public MaskDto getYesterdayMaskInfo() {
 
         URI url = URI.create(Url.MASK_URL);
