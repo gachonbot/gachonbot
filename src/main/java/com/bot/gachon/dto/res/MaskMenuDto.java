@@ -19,7 +19,7 @@ public class MaskMenuDto {
         basicCard.put("title", "마스크정보조회");
         basicCard.put("description", "어제입고시간 및 재고정보를 확인하세요!");
         HashMap<String, String> thumbnail = new HashMap<>();
-        thumbnail.put("imageUrl", "http://k.kakaocdn.net/dn/83BvP/bl20duRC1Q1/lj3JUcmrzC53YIjNDkqbWK/i_6piz1p.jpg");
+        thumbnail.put("imageUrl", "s3://hswsns/test.png");
         basicCard.put("thumbnail", thumbnail);
 
         HashMap<String, Object> profile = new HashMap<>();

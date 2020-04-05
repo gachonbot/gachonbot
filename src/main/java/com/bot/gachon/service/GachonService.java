@@ -95,14 +95,14 @@ public class GachonService {
     public MaskMenuDto findMaskInfo(BotRequest botRequest) {
         URL url = getClass().getClassLoader().getResource(".");
         System.out.println("## url : " + url);
-        URL imageUrl = getClass().getClassLoader().getResource("test.png");
+        URL imageUrl = getClass().getClassLoader().getResource("img/test.png");
         System.out.println("## imageUrl : " + imageUrl);
         return MaskMenuDto.builder().build();
     }
     public MaskMenuDto findMaskInfo2() {
         URL url = getClass().getClassLoader().getResource(".");
         System.out.println("## url : " + url);
-        URL imageUrl = getClass().getClassLoader().getResource("test.png");
+        URL imageUrl = getClass().getClassLoader().getResource("../../../../img/test.png");
         System.out.println("## imageUrl : " + imageUrl);
         return MaskMenuDto.builder().build();
     }
