@@ -44,10 +44,7 @@ public class GachonController {
         return gachonService.replayResponse(botRequest);
     }
 
-     @GetMapping("/remain/mask")
-    public List<GachonMask> getRemainMaskInfo() {
-        return gachonService.getRemainMaskInfo();
-    }
+
 
     @GetMapping("/yesterday/mask")
     public  List<GachonYesterdayMask> getYesterdatInfo(){ return gachonService.findYesterdayMaskInfo();
