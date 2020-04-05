@@ -93,12 +93,17 @@ public class GachonService {
         return response;
     }
     public MaskMenuDto findMaskInfo(BotRequest botRequest) {
-        URL fileStream = getClass().getClassLoader().getResource(".");
-        System.out.println("## somini : " + fileStream);
+        URL url = getClass().getClassLoader().getResource(".");
+        System.out.println("## url : " + url);
+        URL imageUrl = getClass().getClassLoader().getResource("test.png");
+        System.out.println("## imageUrl : " + imageUrl);
         return MaskMenuDto.builder().build();
     }
     public MaskMenuDto findMaskInfo2() {
-        System.out.println(ClassLoader.getSystemClassLoader().getResource(".").getPath());
+        URL url = getClass().getClassLoader().getResource(".");
+        System.out.println("## url : " + url);
+        URL imageUrl = getClass().getClassLoader().getResource("test.png");
+        System.out.println("## imageUrl : " + imageUrl);
         return MaskMenuDto.builder().build();
     }
     public MaskReplayResponse replayResponse(BotRequest botRequest){
