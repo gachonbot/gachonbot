@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -92,7 +93,8 @@ public class GachonService {
         return response;
     }
     public MaskMenuDto findMaskInfo(BotRequest botRequest) {
-        System.out.println(ClassLoader.getSystemClassLoader().getResource(".").getPath());
+        URL fileStream = getClass().getClassLoader().getResource(".");
+        System.out.println("## somini : " + fileStream);
         return MaskMenuDto.builder().build();
     }
     public MaskMenuDto findMaskInfo2() {
