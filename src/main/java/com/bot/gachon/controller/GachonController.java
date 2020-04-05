@@ -26,6 +26,11 @@ public class GachonController {
         return gachonService.findWeatherInfo();
 
     }
+    @GetMapping("/mask")
+    public MaskMenuDto getMaskInfo() {
+        return gachonService.findMaskInfo2();
+
+    }
 
     @GetMapping("/haksik/building")
     public HaksikDto getHaksikInfo(@RequestParam("building") String building) throws IOException {
