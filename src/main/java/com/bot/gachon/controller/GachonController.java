@@ -34,12 +34,12 @@ public class GachonController {
 
 
 
-    @PostMapping("/mask")
+    @PostMapping("/mask/menu")
     public MaskMenuDto getMaskInfo(@RequestBody BotRequest botRequest) {
     return gachonService.findMaskInfo(botRequest);
     }
 
-    @PostMapping("/carousel")
+    @PostMapping("/mask/info")
     public MaskReplayResponse getMask(@RequestBody BotRequest botRequest) {
         return gachonService.replayResponse(botRequest);
     }
@@ -52,7 +52,7 @@ public class GachonController {
     @GetMapping("/yesterday/mask")
     public  List<GachonYesterdayMask> getYesterdatInfo(){ return gachonService.findYesterdayMaskInfo();
     }
-    @PostMapping("/yesterday/mask")
+    @PostMapping("/mask/yesterday")
     public MaskYesterdayResponse getYesterdayInfo(@RequestBody BotRequest botRequest){
         return gachonService.findYesterdayInfo(botRequest);
     }
