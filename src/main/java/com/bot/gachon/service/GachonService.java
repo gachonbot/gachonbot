@@ -92,6 +92,7 @@ public class GachonService {
         return response;
     }
     public MaskMenuDto findMaskInfo(BotRequest botRequest) {
+        System.out.println(ClassLoader.getSystemClassLoader().getResource(".").getPath());
         return MaskMenuDto.builder().build();
     }
     public MaskMenuDto findMaskInfo2() {
