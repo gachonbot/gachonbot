@@ -162,7 +162,7 @@ public class GachonService {
     }
 
 
-    @Scheduled(cron = "0 33 00 * * *")
+    @Scheduled(cron = "0 36 00 * * *")
     public MaskDto saveYesterdayMaskInfo() {
 
         URI url = URI.create(Url.MASK_URL);
