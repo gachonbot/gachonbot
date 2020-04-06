@@ -34,12 +34,12 @@ public class MaskMenuDto {
         ArrayList<HashMap<String,String>> buttonsParent = new ArrayList<>();
         HashMap<String,String> buttonsChild1 = new HashMap<>();
         buttonsChild1.put("action","message");
-        buttonsChild1.put("label", "어제입고시간");
+        buttonsChild1.put("label", "어제 약국별 마스크입고시간");
         buttonsChild1.put("messageText","약국입고시간");
         buttonsParent.add(buttonsChild1);
         HashMap<String,String> buttonsChild2 = new HashMap<>();
         buttonsChild2.put("action","message");
-        buttonsChild2.put("label", "재고약국조회");
+        buttonsChild2.put("label", "재고있는 약국조회");
         buttonsChild2.put("messageText","약국마스크");
         buttonsParent.add(buttonsChild2);
 
