@@ -171,7 +171,6 @@ public class GachonService {
         for (GachonYesterdayMask gachonYesterdayMask : list) {
             gachonYesterdayRepository.save(gachonYesterdayMask);
         }
-        System.out.println(response_yesterday);
 
         return response_yesterday;
     }
