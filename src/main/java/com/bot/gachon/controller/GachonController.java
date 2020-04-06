@@ -22,13 +22,13 @@ public class GachonController {
 
     @GetMapping("/weather")
     public WeatherDto getWeatherInfo() throws Exception {
-        return gachonService.findWeatherInfo();
+        return gachonService.getWeatherInfo();
 
     }
 
     @GetMapping("/haksik/building")
     public HaksikDto getHaksikInfo(@RequestParam("building") String building) throws IOException {
-        return gachonService.findHaksikInfo(building);
+        return gachonService.getHaksikInfo(building);
     }
 
 
@@ -40,18 +40,13 @@ public class GachonController {
 
     @PostMapping("/mask/info")
     public MaskReplayResponse getMask(@RequestBody BotRequest botRequest) {
-        return gachonService.replayResponse(botRequest);
+        return gachonService.getMaskInfo(botRequest);
     }
 
-     @GetMapping("/remain/mask")
-    public MaskYesterdayResponse getRemainMaskInfo() {
-        gachonService.getYesterdayMaskInfo();
-        return gachonService.findYesterdayInfo2();
-    }
 
     @PostMapping("/yesterday/mask")
     public MaskYesterdayResponse getYesterdayInfo(@RequestBody BotRequest botRequest){
-        return gachonService.findYesterdayInfo(botRequest);
+        return gachonService.getYesterdayInfo(botRequest);
     }
 
     @GetMapping("/dust")

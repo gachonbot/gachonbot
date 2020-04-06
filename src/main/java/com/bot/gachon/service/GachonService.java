@@ -42,7 +42,7 @@ public class GachonService {
         this.gachonYesterdayRepository = gachonYesterdayRepository;
     }
 
-    public WeatherDto findWeatherInfo() throws Exception {
+    public WeatherDto getWeatherInfo() throws Exception {
 
         URI url = URI.create(Url.WEATHER_URL);
         ResponseEntity<String> responseEntity = null;
@@ -54,7 +54,7 @@ public class GachonService {
         return weatherDto;
     }
 
-    public HaksikDto findHaksikInfo(String building) throws IOException {
+    public HaksikDto getHaksikInfo(String building) throws IOException {
 
         HaksikUrl haksikUrl = HaksikUrl.valueOf(building);
         Document doc = Jsoup.connect(haksikUrl.link).get();
@@ -98,7 +98,7 @@ public class GachonService {
     }
 
 
-    public MaskReplayResponse replayResponse(BotRequest botRequest){
+    public MaskReplayResponse getMaskInfo(BotRequest botRequest){
         List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
         List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
                 .map(keyword -> CompletableFuture.supplyAsync(()
@@ -121,26 +121,21 @@ public class GachonService {
     }
 
 
-    public MaskYesterdayResponse findYesterdayInfo(BotRequest botRequest) {
+    public MaskYesterdayResponse getYesterdayInfo(BotRequest botRequest) {
         List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();
-        String content = "# 약국이름 : "+ yesterdayList.get(0).getName()
-                + "\n# 약국주소 : " + yesterdayList.get(0).getAddr()
-                +"\n# 어제입고시간 : "+ yesterdayList.get(0).getStockAt();
 
-        return MaskYesterdayResponse.builder().content(content).build();
+        StringBuilder yesterdayContent = new StringBuilder();
+        for (int i = 0; i <= yesterdayList.size(); i++) {
+            yesterdayContent.append("# 약국이름 : ").append(yesterdayList.get(i).getName())
+                    .append("\n# 약국주소 : ").append(yesterdayList.get(i).getAddr())
+                    .append("\n# 어제입고시간 :" ).append(yesterdayList.get(i).getStockAt());
+
+            if(i != yesterdayList.size()){
+                yesterdayContent.append("\n\n");
+            }
+        }
+        return MaskYesterdayResponse.builder().content(yesterdayContent.toString()).build();
     }
-
-    public MaskYesterdayResponse findYesterdayInfo2() {
-        List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();
-        String content = "# 약국이름 : "+ yesterdayList.get(0).getName()
-                + "\n# 약국주소 : " + yesterdayList.get(0).getAddr()
-                +"\n# 어제입고시간 : "+ yesterdayList.get(0).getStockAt();
-
-        return MaskYesterdayResponse.builder().content(content).build();
-    }
-
-
-
 
 
     @Cacheable(value = "remainMask")
@@ -166,8 +161,8 @@ public class GachonService {
     }
 
 
-    @Scheduled(cron = "0 45 23 * * *")
-    public MaskDto getYesterdayMaskInfo() {
+    @Scheduled(cron = "0 11 00 * * *")
+    public MaskDto saveYesterdayMaskInfo() {
 
         URI url = URI.create(Url.MASK_URL);
         MaskDto response_yesterday = restTemplate.getForObject(url, MaskDto.class);
