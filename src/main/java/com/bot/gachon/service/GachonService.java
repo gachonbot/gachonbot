@@ -125,7 +125,7 @@ public class GachonService {
         List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();
 
         StringBuilder yesterdayContent = new StringBuilder();
-        for (int i = 0; i <= yesterdayList.size(); i++) {
+        for (int i = 0; i < yesterdayList.size(); i++) {
             yesterdayContent.append("# 약국이름 : ").append(yesterdayList.get(i).getName())
                     .append("\n# 약국주소 : ").append(yesterdayList.get(i).getAddr())
                     .append("\n# 어제입고시간 :" ).append(yesterdayList.get(i).getStockAt());
@@ -171,6 +171,7 @@ public class GachonService {
         for (GachonYesterdayMask gachonYesterdayMask : list) {
             gachonYesterdayRepository.save(gachonYesterdayMask);
         }
+        System.out.println(response_yesterday);
 
         return response_yesterday;
     }
