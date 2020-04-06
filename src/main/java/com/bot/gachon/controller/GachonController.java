@@ -44,13 +44,11 @@ public class GachonController {
     }
 
      @GetMapping("/remain/mask")
-    public List<GachonMask> getRemainMaskInfo() {
-        return gachonService.getRemainMaskInfo();
+    public MaskYesterdayResponse getRemainMaskInfo() {
+        gachonService.getYesterdayMaskInfo();
+        return gachonService.findYesterdayInfo2();
     }
 
-    @GetMapping("/yesterday/mask")
-    public MaskDto getYesterdatInfo(){ return gachonService.getYesterdayMaskInfo();
-    }
     @PostMapping("/yesterday/mask")
     public MaskYesterdayResponse getYesterdayInfo(@RequestBody BotRequest botRequest){
         return gachonService.findYesterdayInfo(botRequest);

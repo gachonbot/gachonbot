@@ -130,6 +130,17 @@ public class GachonService {
         return MaskYesterdayResponse.builder().content(content).build();
     }
 
+    public MaskYesterdayResponse findYesterdayInfo2() {
+        List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();
+        String content = "# 약국이름 : "+ yesterdayList.get(0).getName()
+                + "\n# 약국주소 : " + yesterdayList.get(0).getAddr()
+                +"\n# 어제입고시간 : "+ yesterdayList.get(0).getStockAt();
+
+        return MaskYesterdayResponse.builder().content(content).build();
+    }
+
+
+
 
 
     @Cacheable(value = "remainMask")
@@ -155,7 +166,7 @@ public class GachonService {
     }
 
 
-//    @Scheduled(cron = "0 10 18 * * *")
+    @Scheduled(cron = "0 45 23 * * *")
     public MaskDto getYesterdayMaskInfo() {
 
         URI url = URI.create(Url.MASK_URL);
