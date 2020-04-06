@@ -128,7 +128,8 @@ public class GachonService {
         for (int i = 0; i < yesterdayList.size(); i++) {
             yesterdayContent.append("# 약국이름 : ").append(yesterdayList.get(i).getName())
                     .append("\n# 약국주소 : ").append(yesterdayList.get(i).getAddr())
-                    .append("\n# 어제입고시간 :" ).append(yesterdayList.get(i).getStockAt());
+                    .append("\n# 어제입고시간 :" )
+                    .append(yesterdayList.get(i).getStockAt() == null ? "" : yesterdayList.get(i).getStockAt());
 
             if(i != yesterdayList.size()){
                 yesterdayContent.append("\n\n");
@@ -161,7 +162,7 @@ public class GachonService {
     }
 
 
-    @Scheduled(cron = "0 23 00 * * *")
+    @Scheduled(cron = "0 33 00 * * *")
     public MaskDto saveYesterdayMaskInfo() {
 
         URI url = URI.create(Url.MASK_URL);
