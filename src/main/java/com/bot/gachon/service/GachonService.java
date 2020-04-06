@@ -96,10 +96,8 @@ public class GachonService {
 
         return MaskMenuDto.builder().build();
     }
-    public MaskMenuDto findMaskInfo2() {
 
-        return MaskMenuDto.builder().build();
-    }
+
     public MaskReplayResponse replayResponse(BotRequest botRequest){
         List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
         List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
@@ -132,10 +130,6 @@ public class GachonService {
         return MaskYesterdayResponse.builder().content(content).build();
     }
 
-    public List<GachonMask> findMaskInfo() {
-        System.out.println(ClassLoader.getSystemClassLoader().getResource(".").getPath());
-        return gachonMaskRepository.findAll();
-    }
 
 
     @Cacheable(value = "remainMask")
@@ -161,7 +155,7 @@ public class GachonService {
     }
 
 
-    @Scheduled(cron = "0 10 18 * * *")
+//    @Scheduled(cron = "0 10 18 * * *")
     public MaskDto getYesterdayMaskInfo() {
 
         URI url = URI.create(Url.MASK_URL);
@@ -176,10 +170,7 @@ public class GachonService {
         return response_yesterday;
     }
 
-    public List<GachonYesterdayMask> findYesterdayMaskInfo() {
 
-        return gachonYesterdayRepository.findAll();
-    }
 
     public DustModel findDust() throws IOException {
 //        URI url = URI.create(Url.DUST_URL);
