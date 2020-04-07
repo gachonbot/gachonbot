@@ -121,18 +121,6 @@ public class GachonService {
         return MaskReplayResponse.builder().items(item).build();
     }
 
-//    public MaskDto getNearMaskInfo(){
-//        List<GachonMask> gachonMasks = gachonMaskRepository.findAllByLatIsNear();
-//
-//        StringBuilder nearContent = new StringBuilder();
-//        for(int i = 0; i<gachonMasks.size(); i++){
-//            nearContent.append("#약국코드 : ").append(gachonMasks.get(0).getCode())
-//                    .append("#약국주소 : ").append(gachonMasks.get(0).getAddr())
-//                    .append("# 잘나왔다. ").append(gachonMasks.get(0).getRemainStat());
-//        }
-//        System.out.println(nearContent);
-//        return MaskDto.builder().build();
-//    }
     public MaskYesterdayResponse getYesterdayInfo(BotRequest botRequest) {
         List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();
 

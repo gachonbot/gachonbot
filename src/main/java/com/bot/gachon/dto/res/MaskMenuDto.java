@@ -22,6 +22,14 @@ public class MaskMenuDto {
         thumbnail.put("imageUrl", "https://hswsns.s3.ap-northeast-2.amazonaws.com/img/portfolio/mask4.jpg");
         basicCard.put("thumbnail", thumbnail);
 
+        HashMap<String, Object> profile = new HashMap<>();
+        profile.put("imageUrl", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4BJ9LU4Ikr_EvZLmijfcjzQKMRCJ2bO3A8SVKNuQ78zu2KOqM");
+        profile.put("nickname", "somini");
+
+        HashMap<String, Object> social = new HashMap<>();
+        social.put("like", "1238");
+        social.put("comment", "8");
+        social.put("share", "780");
 
         ArrayList<HashMap<String,String>> buttonsParent = new ArrayList<>();
         HashMap<String,String> buttonsChild1 = new HashMap<>();
@@ -43,6 +51,8 @@ public class MaskMenuDto {
 
         ArrayList<HashMap<String,Object>> outputs = new ArrayList<>();
         HashMap<String,Object> output = new HashMap<>();
+        basicCard.put("profile", profile);
+        basicCard.put("social", social);
         basicCard.put("buttons", buttonsParent);
         output.put("basicCard",basicCard);
         outputs.add(output);
