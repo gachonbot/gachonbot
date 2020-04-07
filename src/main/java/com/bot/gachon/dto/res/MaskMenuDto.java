@@ -22,31 +22,27 @@ public class MaskMenuDto {
         thumbnail.put("imageUrl", "https://hswsns.s3.ap-northeast-2.amazonaws.com/img/portfolio/mask4.jpg");
         basicCard.put("thumbnail", thumbnail);
 
-        HashMap<String, Object> profile = new HashMap<>();
-        profile.put("imageUrl", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4BJ9LU4Ikr_EvZLmijfcjzQKMRCJ2bO3A8SVKNuQ78zu2KOqM");
-        profile.put("nickname", "somini");
-
-        HashMap<String, Object> social = new HashMap<>();
-        social.put("like", "1238");
-        social.put("comment", "8");
-        social.put("share", "780");
 
         ArrayList<HashMap<String,String>> buttonsParent = new ArrayList<>();
         HashMap<String,String> buttonsChild1 = new HashMap<>();
         buttonsChild1.put("action","message");
         buttonsChild1.put("label", "어제 약국별 마스크입고시간");
-        buttonsChild1.put("messageText","약국입고시간");
+        buttonsChild1.put("messageText","마스크입고시간");
         buttonsParent.add(buttonsChild1);
         HashMap<String,String> buttonsChild2 = new HashMap<>();
         buttonsChild2.put("action","message");
-        buttonsChild2.put("label", "재고있는 약국조회");
-        buttonsChild2.put("messageText","약국마스크");
+        buttonsChild2.put("label", "학교기준 재고많은 약국조회");
+        buttonsChild2.put("messageText","재고기준 약국조회");
         buttonsParent.add(buttonsChild2);
+
+        HashMap<String,String> buttonsChild3 = new HashMap<>();
+        buttonsChild2.put("action","message");
+        buttonsChild2.put("label", "학교기준 가까운 약국조회");
+        buttonsChild2.put("messageText","거리기준 약국조회");
+        buttonsParent.add(buttonsChild3);
 
         ArrayList<HashMap<String,Object>> outputs = new ArrayList<>();
         HashMap<String,Object> output = new HashMap<>();
-        basicCard.put("profile", profile);
-        basicCard.put("social", social);
         basicCard.put("buttons", buttonsParent);
         output.put("basicCard",basicCard);
         outputs.add(output);
