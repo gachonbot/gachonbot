@@ -100,13 +100,6 @@ public class GachonService {
 
 
     public MaskReplayResponse getMaskInfo(BotRequest botRequest){
-        System.out.println("## test : " + botRequest);
-        System.out.println("## test1 : " + botRequest.getAction());
-        System.out.println("## test2 : " + botRequest.getIntent());
-        System.out.println("## test3 : " + botRequest.getUserRequest().getUtterance());
-        System.out.println("## test4 : " + botRequest.getUserRequest().getParams());
-        System.out.println("## test5 : " + botRequest.getUserRequest().getUser());
-
         List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
         List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
                 .map(keyword -> CompletableFuture.supplyAsync(()
@@ -119,7 +112,7 @@ public class GachonService {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
         ArrayList<MaskReplyResponse_sub> item = new ArrayList<>();
-        for(int i = 0; i<10; i++){
+        for(int i = 0; i<items.size(); i++){
             MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(items.get(i).getName()
             ).description(items.get(i).getAddr()).build();
             item.add(sub);
