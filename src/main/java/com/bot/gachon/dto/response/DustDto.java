@@ -1,55 +1,41 @@
 package com.bot.gachon.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.bot.gachon.domain.GachonDust;
+import com.bot.gachon.domain.GachonMask;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-
+@Getter
+@ToString
 public class DustDto {
-    private String dataTime;
-    private String cityName; //지역
-    private String pm10Value;
-    private String pm25Value;
-    private ArrayList<DustDto> dust;
+    private List<GachonDust> list;
 
-    public String getCityName() {
-        return cityName;
+    public DustDto() {
+    }
+    @Builder
+    public DustDto(List<GachonDust> list) {
+        this.list = list;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
-    public String getDataTime() {
-        return dataTime;
-    }
-
-    public void setDataTime(String dataTime) {
-        this.dataTime = dataTime;
-    }
-
-    public String getPm10Value() {
-        return pm10Value;
-    }
-
-    public void setOm10Value(String pm10Value) {
-        this.pm10Value = pm10Value;
-    }
-
-    public String getPm25Value() {
-        return pm25Value;
-    }
-
-    public void setPm25Value(String pm25Value) {
-        this.pm25Value = pm25Value;
-    }
-
-    public ArrayList<DustDto> getDust() {
-        return dust;
-    }
-
-    public void setDust(ArrayList<DustDto> dust) {
-        this.dust = dust;
+    public ArrayList<GachonDust> CurrentEntity() {
+        ArrayList<GachonDust> entityList = new ArrayList<>();
+        for (GachonDust sub : list) {
+            entityList.add(GachonDust.builder()
+                    .dataTime(sub.getDataTime())
+                    .so2Value(sub.getSo2Value())
+                    .coValue(sub.getCoValue())
+                    .o3Value(sub.getO3Value())
+                    .pm10Value(sub.getPm10Value())
+                    .pm25Value(sub.getPm10Value())
+                    .pm10Grade1h(sub.getPm10Grade1h())
+                    .pm25Grade1h(sub.getPm25Grade1h())
+                    .build());
+        }
+        return entityList;
     }
 }

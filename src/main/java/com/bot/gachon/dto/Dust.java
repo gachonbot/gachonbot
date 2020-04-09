@@ -1,21 +1,33 @@
 package com.bot.gachon.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.*;
 
+@Builder
+@Entity
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
+@NoArgsConstructor
 public class Dust {
-    private String dataTime;
-    private String pm10Grade1h;
-    private String pm25Grade1h;
 
-    
-    public String getDataTime(){
+    @Id
+    @Column(name="nalJJa") // dataTime이 sql 예약어와 겹쳐서 변경
+    public String dataTime;
+
+    @Column(name="pm10")
+    public String pm10Grade1h;
+    @Column(name="pm25")
+    public String pm25Grade1h;
+
+
+    public String getdataTime(){
         return dataTime;
     }
-    public void setDataTime(String dataTime){
+    public void setdataTime(String dataTime){
         this.dataTime = dataTime;
     }
 
