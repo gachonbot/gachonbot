@@ -43,7 +43,6 @@ public class GachonService {
         this.gachonYesterdayRepository = gachonYesterdayRepository;
         this.dustRepository = dustRepository;
     }
-
     public WeatherDto findWeatherInfo() throws Exception {
 
         URI url = URI.create(Url.WEATHER_URL);
@@ -55,7 +54,6 @@ public class GachonService {
         WeatherDto weatherDto = mapper.readValue(jsonInfo, WeatherDto.class);
         return weatherDto;
     }
-
     public HaksikDto findHaksikInfo(String building) throws IOException {
 
         HaksikUrl haksikUrl = HaksikUrl.valueOf(building);
@@ -79,6 +77,25 @@ public class GachonService {
         haksikDto.setAllMenu(haksikSubDtoList);
         return haksikDto;
     }
+    @Scheduled(cron = "0 55 23 * * *")
+    public MaskDto getYesterdayMaskInfo() {
+
+        URI url = URI.create(Url.MASK_URL);
+        MaskDto response_yesterday = restTemplate.getForObject(url, MaskDto.class);
+
+        ArrayList<GachonYesterdayMask> list = response_yesterday.toYesterdayEntitiy();
+        for (GachonYesterdayMask gachonYesterdayMask : list) {
+            gachonYesterdayRepository.save(gachonYesterdayMask);
+        }
+        System.out.println(response_yesterday);
+
+        return response_yesterday;
+    }
+    public List<GachonYesterdayMask> findYesterdayMaskInfo() {
+
+        return gachonYesterdayRepository.findAll();
+    }
+
 
     @CacheEvict(value = "remainMask")
     @Scheduled(fixedDelay = 300000)
@@ -104,61 +121,70 @@ public class GachonService {
     public List<GachonMask> getRemainMaskInfo() {
         List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
         List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
-                                                                                  .map(keyword -> CompletableFuture.supplyAsync(()
-                                                                                                                                    -> gachonMaskRepository
-                                                                                      .findAllByRemainStat(keyword)
-                                                                                      .orElse(Collections.emptyList())))
-                                                                                  .collect(Collectors.toList());
+                .map(keyword -> CompletableFuture.supplyAsync(()
+                        -> gachonMaskRepository
+                        .findAllByRemainStat(keyword)
+                        .orElse(Collections.emptyList())))
+                .collect(Collectors.toList());
         return completableFutures.stream()
-                                 .map(CompletableFuture::join)
-                                 .flatMap(Collection::stream)
-                                 .collect(Collectors.toList());
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
-    @Scheduled(cron = "0 55 23 * * *")
-    public MaskDto getYesterdayMaskInfo() {
 
-        URI url = URI.create(Url.MASK_URL);
-        MaskDto response_yesterday = restTemplate.getForObject(url, MaskDto.class);
-
-        ArrayList<GachonYesterdayMask> list = response_yesterday.toYesterdayEntitiy();
-        for (GachonYesterdayMask gachonYesterdayMask : list) {
-            gachonYesterdayRepository.save(gachonYesterdayMask);
-        }
-        System.out.println(response_yesterday);
-
-        return response_yesterday;
-    }
-
-    public List<GachonYesterdayMask> findYesterdayMaskInfo() {
-
-        return gachonYesterdayRepository.findAll();
-    }
-
-    public DustDto updateDtoInfo() {
+    @Scheduled(fixedDelay = 300000)
+    public DustDto updateDustInfo() {
 
         URI url = URI.create(Url.DUST_URL);
         DustDto response = restTemplate.getForObject(url, DustDto.class);
 
-        ArrayList<GachonDust> lists = response.CurrentEntity();
-        for (GachonDust gachonDust : lists) {
-           DustRepository.save(gachonDust);
+        ArrayList<GachonDust> list = response.CurrentEntity();
+        for (GachonDust gachonDust : list) {
+            dustRepository.save(gachonDust);
         }
 
         return response;
     }
 
-    public List<GachonDust> findDustInfo() {
-        return DustRepository.findAll();
+    public List<GachonDust> findDustInfo() { return dustRepository.findAll(); }
+
+
+    public List<GachonDust> getDustInfo() {
+        List<String> dustKeyword = Arrays.asList("1", "2", "3", "4");
+        List<CompletableFuture<List<GachonDust>>> completableFutures = dustKeyword.stream()
+                .map(keyword -> CompletableFuture.supplyAsync(()
+                        -> dustRepository
+                        .findAllByPm10Grade1h(keyword)
+                        .orElse(Collections.emptyList())))
+                .collect(Collectors.toList());
+        return completableFutures.stream()
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
+
+/*
+    public List<GachonDust> getDustInfo() {
+        List<String> dustKeyword = Arrays.asList("1", "2", "3", "4");
+        List<CompletableFuture<List<GachonDust>>> completableFutures = dustKeyword.stream()
+                .map(keyword -> CompletableFuture.supplyAsync(()
+                        -> dustRepository
+                        .findAllByPm10Grade1h(keyword)
+                        .orElse(Collections.emptyList())))
+                .collect(Collectors.toList());
+        return completableFutures.stream()
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
 
 /*
     public DustDto findDust() throws IOException {
         DustDto response = restTemplate.getForObject(Url.DUST_URL, DustDto.class);
         return response;
     }
-
  */
 }
 

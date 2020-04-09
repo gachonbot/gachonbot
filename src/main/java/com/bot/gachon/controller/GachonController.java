@@ -1,5 +1,6 @@
 package com.bot.gachon.controller;
 
+import com.bot.gachon.domain.GachonDust;
 import com.bot.gachon.domain.GachonMask;
 import com.bot.gachon.domain.GachonYesterdayMask;
 import com.bot.gachon.dto.response.DustDto;
@@ -20,17 +21,15 @@ public class GachonController {
     public GachonController(GachonService gachonService) {
         this.gachonService = gachonService;
     }
-
     @GetMapping("/weather")
     public WeatherDto getWeatherInfo() throws Exception {
         return gachonService.findWeatherInfo();
-
     }
-
     @GetMapping("/haksik/building")
     public HaksikDto getHaksikInfo(@RequestParam("building") String building) throws IOException {
         return gachonService.findHaksikInfo(building);
     }
+
 
     @GetMapping("/mask")
     public List<GachonMask> getMaskInfo() {
@@ -47,8 +46,13 @@ public class GachonController {
     }
 
     @GetMapping("/dust")
-    public DustDto getDustInfo() throws IOException {
-        return (DustDto) gachonService.findDustInfo();
+    public List<GachonDust> findDustInfo() {
+        return gachonService.findDustInfo();
+    }
+
+    @GetMapping("/remain/dust")
+    public List<GachonDust> getDustInfo() {
+        return gachonService.getDustInfo();
     }
 }
 
