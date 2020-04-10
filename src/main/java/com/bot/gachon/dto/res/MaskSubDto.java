@@ -1,4 +1,4 @@
-package com.bot.gachon.dto.response;
+package com.bot.gachon.dto.res;
 
 import lombok.Builder;
 import lombok.Getter;

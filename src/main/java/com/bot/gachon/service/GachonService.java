@@ -4,10 +4,8 @@ import com.bot.gachon.domain.GachonMask;
 import com.bot.gachon.domain.GachonMaskRepository;
 import com.bot.gachon.domain.GachonYesterdayMask;
 import com.bot.gachon.domain.GachonYesterdayRepository;
-import com.bot.gachon.dto.response.HaksikDto;
-import com.bot.gachon.dto.response.HaksikSubDto;
-import com.bot.gachon.dto.response.MaskDto;
-import com.bot.gachon.dto.response.WeatherDto;
+import com.bot.gachon.dto.req.BotRequest;
+import com.bot.gachon.dto.res.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -58,7 +56,7 @@ public class GachonService {
         return weatherDto;
     }
 
-    public HaksikDto findHaksikInfo(String building) throws IOException {
+    public HaksikDto getHaksikInfo(String building) throws IOException {
 
         HaksikUrl haksikUrl = HaksikUrl.valueOf(building);
         Document doc = Jsoup.connect(haksikUrl.link).get();
@@ -97,25 +95,78 @@ public class GachonService {
         return response;
     }
 
-    public List<GachonMask> findMaskInfo() {
+    public MaskMenuDto findMaskInfo(BotRequest botRequest) {
 
-        return gachonMaskRepository.findAll();
+        return MaskMenuDto.builder().build();
     }
+
+
+
+    public MaskReplayResponse getMaskInfo(BotRequest botRequest){
+        List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
+        List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
+                .map(keyword -> CompletableFuture.supplyAsync(()
+                        -> gachonMaskRepository
+                        .findAllByRemainStat(keyword)
+                        .orElse(Collections.emptyList())))
+                .collect(Collectors.toList());
+
+        List<GachonMask> items = completableFutures.stream().map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+        ArrayList<MaskReplyResponse_sub> item = new ArrayList<>();
+        for(int i = 0; i<items.size(); i++){
+            MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(items.get(i).getName()
+            ).description(items.get(i).getAddr()).build();
+            item.add(sub);
+        }
+
+        return MaskReplayResponse.builder().items(item).build();
+    }
+
+    public MaskYesterdayResponse getYesterdayInfo(BotRequest botRequest) {
+        List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();
+
+        StringBuilder yesterdayContent = new StringBuilder();
+        for (int i = 0; i < yesterdayList.size(); i++) {
+            yesterdayContent.append("· 약국이름。 ").append(yesterdayList.get(i).getName())
+                    .append("\n· 약국주소。 ").append(yesterdayList.get(i).getAddr())
+                    .append("\n· 어제입고시간。 " )
+                    .append(yesterdayList.get(i).getStockAt() == null ? "" : yesterdayList.get(i).getStockAt());
+
+            if(i != yesterdayList.size()){
+                yesterdayContent.append("\n\n");
+            }
+        }
+        return MaskYesterdayResponse.builder().content(yesterdayContent.toString()).build();
+    }
+
+
 
     @Cacheable(value = "remainMask")
     public List<GachonMask> getRemainMaskInfo() {
         List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
         List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
                 .map(keyword -> CompletableFuture.supplyAsync(()
-                        -> gachonMaskRepository.findAllByRemainStat(keyword).orElse(Collections.emptyList())))
+                        -> gachonMaskRepository
+                        .findAllByRemainStat(keyword)
+                        .orElse(Collections.emptyList())))
                 .collect(Collectors.toList());
+
+        System.out.println(completableFutures.stream()
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList()));
+        System.out.println(completableFutures.get(0));
+
         return completableFutures.stream()
                 .map(CompletableFuture::join)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
     }
+
     @Scheduled(cron = "0 55 23 * * *")
-    public MaskDto getYesterdayMaskInfo() {
+    public MaskDto saveYesterdayMaskInfo() {
 
         URI url = URI.create(Url.MASK_URL);
         MaskDto response_yesterday = restTemplate.getForObject(url, MaskDto.class);
