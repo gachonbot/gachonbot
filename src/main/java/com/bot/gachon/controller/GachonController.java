@@ -27,6 +27,11 @@ public class GachonController {
     public HaksikDto getHaksikInfo(@RequestParam("building") String building) throws IOException {
         return gachonService.getHaksikInfo(building);
     }
+//
+//    @GetMapping("/notice/topic")
+//    public GuideDto getGuideInfo(@RequestParam("topic") String topic) throws IOException{
+//        return gachonService.getNoticeInfo(topic);
+//    }
 
 
 
@@ -44,6 +49,11 @@ public class GachonController {
     @PostMapping("/yesterday/mask")
     public MaskYesterdayResponse getYesterdayInfo(@RequestBody BotRequest botRequest){
         return gachonService.getYesterdayInfo(botRequest);
+    }
+
+    @PostMapping("/guide/notice")
+    public GuideResponse getguideInfo(@RequestBody BotRequest botRequest) throws IOException {
+        return gachonService.getNoticeInfo(botRequest);
     }
 
 }

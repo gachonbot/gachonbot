@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +62,7 @@ public class GachonService {
         HaksikUrl haksikUrl = HaksikUrl.valueOf(building);
         Document doc = Jsoup.connect(haksikUrl.link).get();
         Element e = doc.getElementById("toggle-view");
+
         HaksikDto haksikDto = new HaksikDto();
         List<HaksikSubDto> haksikSubDtoList = new ArrayList<>();
 
@@ -79,6 +81,34 @@ public class GachonService {
         haksikDto.setAllMenu(haksikSubDtoList);
         return haksikDto;
     }
+
+
+    public GuideResponse getNoticeInfo(BotRequest botRequest) throws IOException {
+
+        GuideUrl guideUrl = GuideUrl.valueOf("http://m.gachon.ac.kr/gachon/notice.jsp?boardType_seq=358");
+        Document doc = Jsoup.connect(guideUrl.link).get();
+        Elements e = doc.getElementsByClass("list");
+
+
+        String text = "공지";
+
+        ArrayList<GuideResponse_sub> item = new ArrayList<>();
+        for (Element child : e.get(0).children().get(0).children()) {
+            if (text.equals(child.getElementsByTag("img").attr("alt")))
+                continue;
+            GuideResponse_sub sub = GuideResponse_sub.builder().web(child.getElementsByTag("a").attr("href"))
+                    .description(child.getElementsByTag("span").text()).title(child.getElementsByTag("a").text())
+                    .imageUrl("http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg").build();
+            item.add(sub);
+
+        }
+        return GuideResponse.builder().items(item).build();
+    }
+
+
+
+
+
 
     @CacheEvict(value = "remainMask")
     @Scheduled(fixedDelay = 300000)
@@ -123,6 +153,8 @@ public class GachonService {
 
         return MaskReplayResponse.builder().items(item).build();
     }
+
+
 
     public MaskYesterdayResponse getYesterdayInfo(BotRequest botRequest) {
         List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();
