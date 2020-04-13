@@ -52,7 +52,7 @@ public class GachonController {
     }
 
     @PostMapping("/guide/notice")
-    public GuideResponse getguideInfo(@RequestBody BotRequest botRequest) throws IOException {
+    public GuideResponse guideResponse(@RequestBody BotRequest botRequest) throws IOException {
         return gachonService.getNoticeInfo(botRequest);
     }
 
