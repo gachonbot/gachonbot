@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import static java.lang.String.valueOf;
+
 @Slf4j
 @Service
 public class GachonService {
@@ -85,28 +87,32 @@ public class GachonService {
 
     public GuideResponse getNoticeInfo(BotRequest botRequest) throws IOException {
 
-        GuideUrl guideUrl = GuideUrl.valueOf("http://m.gachon.ac.kr/gachon/notice.jsp?boardType_seq=358");
-        Document doc = Jsoup.connect(guideUrl.link).get();
+        String urlKeyword = "";
+        if(botRequest.getUserRequest().getUtterance().equals("장학소식")) {
+            urlKeyword = "benefit";
+        }else if(botRequest.getUserRequest().getUtterance().equals("공지사항")){
+            urlKeyword = "notice";
+        }else if(botRequest.getUserRequest().getUtterance().equals("취업소식")){
+            urlKeyword = "news";
+        }else urlKeyword = "event";
+
+        GuideUrl guideUrl = GuideUrl.valueOf(urlKeyword);
+        Document doc = Jsoup.connect(valueOf(guideUrl)).get();
         Elements e = doc.getElementsByClass("list");
-
-
-        String text = "공지";
 
         ArrayList<GuideResponse_sub> item = new ArrayList<>();
         for (Element child : e.get(0).children().get(0).children()) {
-            if (text.equals(child.getElementsByTag("img").attr("alt")))
+            if ("공지".equals(child.getElementsByTag("img").attr("alt")))
                 continue;
             GuideResponse_sub sub = GuideResponse_sub.builder().web(child.getElementsByTag("a").attr("href"))
                     .description(child.getElementsByTag("span").text()).title(child.getElementsByTag("a").text())
                     .imageUrl("http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg").build();
             item.add(sub);
+            System.out.println(sub);
 
         }
         return GuideResponse.builder().items(item).build();
     }
-
-
-
 
 
 

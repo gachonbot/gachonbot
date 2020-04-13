@@ -10,7 +10,7 @@ public class GuideResponse_sub {
     private String title;
     private String description;
     private String imageUrl;
-    private HashMap<String,String> link;
+    private HashMap<String,String> link = new HashMap<>();
     private String web;
 
     public GuideResponse_sub(){}
@@ -19,7 +19,7 @@ public class GuideResponse_sub {
         this.title = title;
         this.description = description;
         this.imageUrl = imageUrl;
-        link.put("web",web);
+        this.link.put("web",web);
         this.web = web;
     }
 
