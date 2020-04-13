@@ -14,6 +14,7 @@ public class GuideResponse_sub {
     private String web;
 
     public GuideResponse_sub(){}
+
     @Builder
     public GuideResponse_sub(String title, String description, String imageUrl, HashMap<String,String> link,String web){
         this.title = title;

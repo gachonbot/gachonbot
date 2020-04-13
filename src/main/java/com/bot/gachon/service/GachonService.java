@@ -88,13 +88,14 @@ public class GachonService {
     public GuideResponse getNoticeInfo(BotRequest botRequest) throws IOException {
 
         String urlKeyword = "";
-        if(botRequest.getUserRequest().getUtterance().equals("장학소식")) {
+        if (botRequest.getUserRequest().getUtterance().equals("장학소식")) {
             urlKeyword = "benefit";
-        }else if(botRequest.getUserRequest().getUtterance().equals("공지사항")){
+        } else if (botRequest.getUserRequest().getUtterance().equals("공지사항")) {
             urlKeyword = "notice";
-        }else if(botRequest.getUserRequest().getUtterance().equals("취업소식")){
+        } else if (botRequest.getUserRequest().getUtterance().equals("취업소식")) {
             urlKeyword = "news";
-        }else urlKeyword = "event";
+        }
+
 
         GuideUrl guideUrl = GuideUrl.valueOf(urlKeyword);
         Document doc = Jsoup.connect(valueOf(guideUrl)).get();
