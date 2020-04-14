@@ -20,6 +20,8 @@ public class MainMenuDto {
 
         HashMap<String,String> simpleText = new HashMap<>();
         simpleText.put("text","안녕하세요! 가천봇입니다.");
+        HashMap<String,String> thumbnail = new HashMap<>();
+        thumbnail.put("imageUrl","https://hswsns.s3.ap-northeast-2.amazonaws.com/img/portfolio/mask4.jpg");
 
         ArrayList<HashMap<String,String>> buttonsParent = new ArrayList<>();
 
@@ -47,14 +49,11 @@ public class MainMenuDto {
 
 
 
-        HashMap<String,String> thumbnail = new HashMap<>();
-        thumbnail.put("imageUrl","https://hswsns.s3.ap-northeast-2.amazonaws.com/img/portfolio/mask4.jpg");
 
         HashMap<String,String> thumbnail2 = new HashMap<>();
-        thumbnail.put("imageUrl","https://hswsns.s3.ap-northeast-2.amazonaws.com/img/portfolio/mask4.jpg");
+        thumbnail2.put("imageUrl","https://hswsns.s3.ap-northeast-2.amazonaws.com/img/portfolio/mask4.jpg");
 
-        HashMap<String,String> thumbnail3 = new HashMap<>();
-        thumbnail.put("imageUrl","https://hswsns.s3.ap-northeast-2.amazonaws.com/img/portfolio/mask4.jpg");
+
 
 
         ArrayList<HashMap<String,String>> buttonsParent2 = new ArrayList<>();
@@ -74,6 +73,9 @@ public class MainMenuDto {
         buttonsChild6.put("action","message");
         buttonsChild6.put("label", "도서관 자리현황");
         buttonsChild6.put("messageText","도서관 자리현황");
+
+        HashMap<String,String> thumbnail3 = new HashMap<>();
+        thumbnail3.put("imageUrl","https://hswsns.s3.ap-northeast-2.amazonaws.com/img/portfolio/mask4.jpg");
 
         ArrayList<HashMap<String,String>> buttonsParent3 = new ArrayList<>();
 
