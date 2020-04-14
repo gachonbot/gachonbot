@@ -41,6 +41,9 @@ public class MainMenuDto {
         output.put("simpleText",simpleText);
         HashMap<String,Object> output2 = new HashMap<>();
         output2.put("basicCard",basicCard);
+        outputs.add(output);
+        outputs.add(output2);
+        this.template.put("outputs",outputs);
 
 
 
