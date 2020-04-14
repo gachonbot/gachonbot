@@ -94,9 +94,9 @@ public class GachonService {
 //            urlKeyword = "notice";
 //        } else if (botRequest.getUserRequest().getUtterance().equals("취업소식")){
 //            urlKeyword = "news";
-//        }
+//        } 
 
-        GuideUrl guideUrl = GuideUrl.valueOf("news");
+        GuideUrl guideUrl = GuideUrl.valueOf("notice");
         Document doc = Jsoup.connect(guideUrl.link).get();
         Elements e = doc.getElementsByClass("list");
 
@@ -108,8 +108,6 @@ public class GachonService {
                     .description(child.getElementsByTag("span").text()).title(child.getElementsByTag("a").text())
                     .imageUrl("http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg").build();
             item.add(sub);
-            System.out.println(sub);
-
         }
         return GuideResponse.builder().items(item).build();
     }
@@ -134,6 +132,11 @@ public class GachonService {
     public MaskMenuDto findMaskInfo(BotRequest botRequest) {
 
         return MaskMenuDto.builder().build();
+    }
+
+    public MainMenuDto getMainmenu(BotRequest botRequest) {
+
+        return MainMenuDto.builder().build();
     }
 
 

@@ -40,6 +40,12 @@ public class GachonController {
         return gachonService.findMaskInfo(botRequest);
     }
 
+    @PostMapping("/main/menu")
+    public MainMenuDto getMainMenu(@RequestBody BotRequest botRequest) {
+        return gachonService.getMainmenu(botRequest);
+    }
+
+
     @PostMapping("/mask/info")
     public MaskReplayResponse getMask(@RequestBody BotRequest botRequest) {
         return gachonService.getMaskInfo(botRequest);
