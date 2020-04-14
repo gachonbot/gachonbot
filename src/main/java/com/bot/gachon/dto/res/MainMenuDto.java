@@ -20,6 +20,7 @@ public class MainMenuDto {
 
         HashMap<String,String> simpleText = new HashMap<>();
         simpleText.put("text","안녕하세요! 가천봇입니다.");
+
         ArrayList<HashMap<String,String>> buttonsParent = new ArrayList<>();
 
         HashMap<String,String> buttonsChild1 = new HashMap<>();
@@ -34,9 +35,9 @@ public class MainMenuDto {
         buttonsChild2.put("messageText","공지사항");
 
         HashMap<String,String> buttonsChild3 = new HashMap<>();
-        buttonsChild2.put("action","message");
-        buttonsChild2.put("label", "다음 무당이?");
-        buttonsChild2.put("messageText","다음 무당이?");
+        buttonsChild3.put("action","message");
+        buttonsChild3.put("label", "다음 무당이?");
+        buttonsChild3.put("messageText","다음 무당이?");
 
 
         buttonsParent.add(buttonsChild1);
@@ -59,38 +60,38 @@ public class MainMenuDto {
         ArrayList<HashMap<String,String>> buttonsParent2 = new ArrayList<>();
 
         HashMap<String,String> buttonsChild4 = new HashMap<>();
-        buttonsChild1.put("action","message");
-        buttonsChild1.put("label", "실시간 날씨");
-        buttonsChild1.put("messageText","실시간 날씨");
+        buttonsChild4.put("action","message");
+        buttonsChild4.put("label", "실시간 날씨");
+        buttonsChild4.put("messageText","실시간 날씨");
 
 
         HashMap<String,String> buttonsChild5 = new HashMap<>();
-        buttonsChild2.put("action","message");
-        buttonsChild2.put("label", "실시간 미세먼지");
-        buttonsChild2.put("messageText","실시간 미세먼지");
+        buttonsChild5.put("action","message");
+        buttonsChild5.put("label", "실시간 미세먼지");
+        buttonsChild5.put("messageText","실시간 미세먼지");
 
         HashMap<String,String> buttonsChild6= new HashMap<>();
-        buttonsChild2.put("action","message");
-        buttonsChild2.put("label", "도서관 자리현황");
-        buttonsChild2.put("messageText","도서관 자리현황");
+        buttonsChild6.put("action","message");
+        buttonsChild6.put("label", "도서관 자리현황");
+        buttonsChild6.put("messageText","도서관 자리현황");
 
         ArrayList<HashMap<String,String>> buttonsParent3 = new ArrayList<>();
 
         HashMap<String,String> buttonsChild7 = new HashMap<>();
-        buttonsChild1.put("action","message");
-        buttonsChild1.put("label", "맛집 메뉴");
-        buttonsChild1.put("messageText","맛집 메뉴");
+        buttonsChild7.put("action","message");
+        buttonsChild7.put("label", "맛집 메뉴");
+        buttonsChild7.put("messageText","맛집 메뉴");
 
 
         HashMap<String,String> buttonsChild8 = new HashMap<>();
-        buttonsChild2.put("action","message");
-        buttonsChild2.put("label", "오늘 뭐 먹지?");
-        buttonsChild2.put("messageText","오늘 뭐 먹지?");
+        buttonsChild8.put("action","message");
+        buttonsChild8.put("label", "오늘 뭐 먹지?");
+        buttonsChild8.put("messageText","오늘 뭐 먹지?");
 
         HashMap<String,String> buttonsChild9= new HashMap<>();
-        buttonsChild2.put("action","message");
-        buttonsChild2.put("label", "오늘의 식단(학식)");
-        buttonsChild2.put("messageText","오늘의 식단(학식)");
+        buttonsChild9.put("action","message");
+        buttonsChild9.put("label", "오늘의 식단(학식)");
+        buttonsChild9.put("messageText","오늘의 식단(학식)");
 
 
         buttonsParent2.add(buttonsChild4);
@@ -134,6 +135,7 @@ public class MainMenuDto {
         carousel.put("items",items);
         output2.put("carousel",carousel);
         outputs.add(output2);
+        outputs.add(output);
 
 
 
