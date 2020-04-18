@@ -1,5 +1,6 @@
 package com.bot.gachon.controller;
 
+
 import com.bot.gachon.dto.req.BotRequest;
 import com.bot.gachon.dto.res.*;
 import com.bot.gachon.service.GachonService;
@@ -49,6 +50,11 @@ public class GachonController {
     @PostMapping("/mask/info")
     public MaskReplayResponse getMask(@RequestBody BotRequest botRequest) {
         return gachonService.getMaskInfo(botRequest);
+    }
+
+    @GetMapping("/dust")
+    public DustModel getDust() throws IOException {
+        return gachonService.findDust();
     }
 
 
