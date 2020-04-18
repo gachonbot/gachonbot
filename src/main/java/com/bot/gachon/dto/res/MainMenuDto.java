@@ -136,8 +136,8 @@ public class MainMenuDto {
         carousel.put("type","basicCard");
         carousel.put("items",items);
         output2.put("carousel",carousel);
-        outputs.add(output2);
         outputs.add(output);
+        outputs.add(output2);
 
 
 

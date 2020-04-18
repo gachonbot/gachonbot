@@ -112,6 +112,16 @@ public class GachonService {
         return GuideResponse.builder().items(item).build();
     }
 
+    public String getInfo()throws IOException{
+        Document doc = Jsoup.connect("http://dlibadm.gachon.ac.kr/GACHON_CENTRAL_BOOKING/webbooking/statusList.jsp").get();
+        Elements e = doc.getElementsByTag("tbody");
+        System.out.println(e);
+        System.out.println("testtest");
+
+
+        return null;
+    }
+
 
 
     @CacheEvict(value = "remainMask")

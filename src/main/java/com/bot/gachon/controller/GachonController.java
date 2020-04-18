@@ -61,6 +61,10 @@ public class GachonController {
     public GuideResponse guideResponse(@RequestBody BotRequest botRequest) throws IOException {
         return gachonService.getNoticeInfo(botRequest);
     }
+    @GetMapping("/soso")
+    public String info() throws IOException{
+        return gachonService.getInfo();
+    }
 
 }
 
