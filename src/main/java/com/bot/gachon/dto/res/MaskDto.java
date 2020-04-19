@@ -1,4 +1,4 @@
-package com.bot.gachon.dto.response;
+package com.bot.gachon.dto.res;
 
 import com.bot.gachon.domain.GachonMask;
 import com.bot.gachon.domain.GachonYesterdayMask;

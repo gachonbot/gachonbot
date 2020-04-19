@@ -4,16 +4,16 @@ import com.bot.gachon.domain.GachonMask;
 import com.bot.gachon.domain.GachonMaskRepository;
 import com.bot.gachon.domain.GachonYesterdayMask;
 import com.bot.gachon.domain.GachonYesterdayRepository;
-import com.bot.gachon.dto.response.DustModel;
-import com.bot.gachon.dto.response.HaksikDto;
-import com.bot.gachon.dto.response.HaksikSubDto;
-import com.bot.gachon.dto.response.MaskDto;
-import com.bot.gachon.dto.response.WeatherDto;
+
+import com.bot.gachon.dto.req.BotRequest;
+import com.bot.gachon.dto.res.*;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +32,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+
+import static java.lang.String.valueOf;
 
 @Slf4j
 @Service
@@ -61,11 +63,12 @@ public class GachonService {
         return weatherDto;
     }
 
-    public HaksikDto findHaksikInfo(String building) throws IOException {
+    public HaksikDto getHaksikInfo(String building) throws IOException {
 
         HaksikUrl haksikUrl = HaksikUrl.valueOf(building);
         Document doc = Jsoup.connect(haksikUrl.link).get();
         Element e = doc.getElementById("toggle-view");
+
         HaksikDto haksikDto = new HaksikDto();
         List<HaksikSubDto> haksikSubDtoList = new ArrayList<>();
 
@@ -85,6 +88,46 @@ public class GachonService {
         return haksikDto;
     }
 
+
+    public GuideResponse getNoticeInfo(BotRequest botRequest) throws IOException {
+
+//        String urlKeyword = "";
+//        if (botRequest.getUserRequest().getUtterance().equals("장학소식")) {
+//            urlKeyword = "benefit";
+//        } else if (botRequest.getUserRequest().getUtterance().equals("공지사항")) {
+//            urlKeyword = "notice";
+//        } else if (botRequest.getUserRequest().getUtterance().equals("취업소식")){
+//            urlKeyword = "news";
+//        } 
+
+        GuideUrl guideUrl = GuideUrl.valueOf("notice");
+        Document doc = Jsoup.connect(guideUrl.link).get();
+        Elements e = doc.getElementsByClass("list");
+
+        ArrayList<GuideResponse_sub> item = new ArrayList<>();
+        for (Element child : e.get(0).children().get(0).children()) {
+            if ("공지".equals(child.getElementsByTag("img").attr("alt")))
+                continue;
+            GuideResponse_sub sub = GuideResponse_sub.builder().web(child.getElementsByTag("a").attr("href"))
+                    .description(child.getElementsByTag("span").text()).title(child.getElementsByTag("a").text())
+                    .imageUrl("http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg").build();
+            item.add(sub);
+        }
+        return GuideResponse.builder().items(item).build();
+    }
+
+    public String getInfo()throws IOException{
+        Document doc = Jsoup.connect("http://dlibadm.gachon.ac.kr/GACHON_CENTRAL_BOOKING/webbooking/statusList.jsp").get();
+        Elements e = doc.getElementsByTag("tbody");
+        System.out.println(e);
+        System.out.println("testtest");
+
+
+        return null;
+    }
+
+
+
     @CacheEvict(value = "remainMask")
     @Scheduled(fixedDelay = 300000)
     public MaskDto updateMaskInfo() {
@@ -100,20 +143,79 @@ public class GachonService {
         return response;
     }
 
-    public List<GachonMask> findMaskInfo() {
+    public MaskMenuDto findMaskInfo(BotRequest botRequest) {
 
-        return gachonMaskRepository.findAll();
+        return MaskMenuDto.builder().build();
     }
+
+    public MainMenuDto getMainmenu(BotRequest botRequest) {
+
+        return MainMenuDto.builder().build();
+    }
+
+
+
+    public MaskReplayResponse getMaskInfo(BotRequest botRequest){
+        List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
+        List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
+                .map(keyword -> CompletableFuture.supplyAsync(()
+                        -> gachonMaskRepository
+                        .findAllByRemainStat(keyword)
+                        .orElse(Collections.emptyList())))
+                .collect(Collectors.toList());
+
+        List<GachonMask> items = completableFutures.stream().map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+        ArrayList<MaskReplyResponse_sub> item = new ArrayList<>();
+        for(int i = 0; i<items.size(); i++){
+            MaskReplyResponse_sub sub = MaskReplyResponse_sub.builder().title(items.get(i).getName()
+            ).description(items.get(i).getAddr()).build();
+            item.add(sub);
+        }
+
+        return MaskReplayResponse.builder().items(item).build();
+    }
+
+
+
+    public MaskYesterdayResponse getYesterdayInfo(BotRequest botRequest) {
+        List<GachonYesterdayMask> yesterdayList = gachonYesterdayRepository.findAll();
+
+        StringBuilder yesterdayContent = new StringBuilder();
+        for (int i = 0; i < yesterdayList.size(); i++) {
+            yesterdayContent.append("· 약국이름。 ").append(yesterdayList.get(i).getName())
+                    .append("\n· 약국주소。 ").append(yesterdayList.get(i).getAddr())
+                    .append("\n· 어제입고시간。 " )
+                    .append(yesterdayList.get(i).getStockAt() == null ? "" : yesterdayList.get(i).getStockAt());
+
+            if(i != yesterdayList.size()){
+                yesterdayContent.append("\n\n");
+            }
+        }
+        return MaskYesterdayResponse.builder().content(yesterdayContent.toString()).build();
+    }
+
+
 
     @Cacheable(value = "remainMask")
     public List<GachonMask> getRemainMaskInfo() {
         List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
         List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
-                                                                                  .map(keyword -> CompletableFuture.supplyAsync(()
-                                                                                                                                    -> gachonMaskRepository
-                                                                                      .findAllByRemainStat(keyword)
-                                                                                      .orElse(Collections.emptyList())))
-                                                                                  .collect(Collectors.toList());
+
+                .map(keyword -> CompletableFuture.supplyAsync(()
+                        -> gachonMaskRepository
+                        .findAllByRemainStat(keyword)
+                        .orElse(Collections.emptyList())))
+                .collect(Collectors.toList());
+
+        System.out.println(completableFutures.stream()
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList()));
+        System.out.println(completableFutures.get(0));
+
+
         return completableFutures.stream()
                                  .map(CompletableFuture::join)
                                  .flatMap(Collection::stream)
@@ -121,7 +223,7 @@ public class GachonService {
     }
 
     @Scheduled(cron = "0 55 23 * * *")
-    public MaskDto getYesterdayMaskInfo() {
+    public MaskDto saveYesterdayMaskInfo() {
 
         URI url = URI.create(Url.MASK_URL);
         MaskDto response_yesterday = restTemplate.getForObject(url, MaskDto.class);

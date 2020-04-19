@@ -1,17 +1,12 @@
 package com.bot.gachon.controller;
 
-import com.bot.gachon.domain.GachonMask;
-import com.bot.gachon.domain.GachonYesterdayMask;
-import com.bot.gachon.dto.response.DustModel;
-import com.bot.gachon.dto.response.HaksikDto;
-import com.bot.gachon.dto.response.WeatherDto;
+
+import com.bot.gachon.dto.req.BotRequest;
+import com.bot.gachon.dto.res.*;
 import com.bot.gachon.service.GachonService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 public class GachonController {
@@ -29,24 +24,32 @@ public class GachonController {
         return gachonService.findWeatherInfo();
 
     }
-
     @GetMapping("/haksik/building")
     public HaksikDto getHaksikInfo(@RequestParam("building") String building) throws IOException {
-        return gachonService.findHaksikInfo(building);
+        return gachonService.getHaksikInfo(building);
+    }
+//
+//    @GetMapping("/notice/topic")
+//    public GuideDto getGuideInfo(@RequestParam("topic") String topic) throws IOException{
+//        return gachonService.getNoticeInfo(topic);
+//    }
+
+
+
+    @PostMapping("/mask/menu")
+    public MaskMenuDto getMaskInfo(@RequestBody BotRequest botRequest) {
+        return gachonService.findMaskInfo(botRequest);
     }
 
-    @GetMapping("/mask")
-    public List<GachonMask> getMaskInfo() {
-        return gachonService.findMaskInfo();
+    @PostMapping("/main/menu")
+    public MainMenuDto getMainMenu(@RequestBody BotRequest botRequest) {
+        return gachonService.getMainmenu(botRequest);
     }
 
-    @GetMapping("/remain/mask")
-    public List<GachonMask> getRemainMaskInfo() {
-        return gachonService.getRemainMaskInfo();
-    }
 
-    @GetMapping("/yesterday/mask")
-    public  List<GachonYesterdayMask> getYesterdatInfo(){ return gachonService.findYesterdayMaskInfo();
+    @PostMapping("/mask/info")
+    public MaskReplayResponse getMask(@RequestBody BotRequest botRequest) {
+        return gachonService.getMaskInfo(botRequest);
     }
 
     @GetMapping("/dust")
@@ -55,7 +58,19 @@ public class GachonController {
     }
 
 
+    @PostMapping("/yesterday/mask")
+    public MaskYesterdayResponse getYesterdayInfo(@RequestBody BotRequest botRequest){
+        return gachonService.getYesterdayInfo(botRequest);
+    }
 
+    @PostMapping("/guide/notice")
+    public GuideResponse guideResponse(@RequestBody BotRequest botRequest) throws IOException {
+        return gachonService.getNoticeInfo(botRequest);
+    }
+    @GetMapping("/soso")
+    public String info() throws IOException{
+        return gachonService.getInfo();
+    }
 
 }
 
