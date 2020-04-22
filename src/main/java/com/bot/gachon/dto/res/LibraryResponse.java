@@ -4,7 +4,7 @@ import lombok.Builder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 
 public class LibraryResponse {
 
@@ -15,8 +15,7 @@ public class LibraryResponse {
     public LibraryResponse(Object items){
         this.version = "2.0";
 
-        HashMap<String,String> simpleText = new HashMap<>();
-        simpleText.put("text", "(잔여좌석/총자석)");
+
 
         HashMap<String,String> header = new HashMap<>();
         header.put("title","중앙도서관");
@@ -24,13 +23,12 @@ public class LibraryResponse {
         HashMap<String,Object> listCard = new HashMap<>();
         listCard.put("header",header);
         listCard.put("items",items);
-        HashMap<String,Object> output = new HashMap<>();
-        output.put("simpleText",simpleText);
+
         HashMap<String,Object> output2 = new HashMap<>();
         output2.put("listCard",listCard);
 
         ArrayList<HashMap<String,Object>> outputs = new ArrayList<>();
-        outputs.add(output);
+
         outputs.add(output2);
         this.template.put("outputs",outputs);
     }
