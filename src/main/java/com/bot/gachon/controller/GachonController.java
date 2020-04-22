@@ -52,10 +52,7 @@ public class GachonController {
         return gachonService.getMaskInfo(botRequest);
     }
 
-    @GetMapping("/dust")
-    public DustModel getDust() throws IOException {
-        return gachonService.findDust();
-    }
+
 
 
     @PostMapping("/yesterday/mask")
