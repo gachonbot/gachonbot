@@ -10,5 +10,5 @@ public class Url {
     public static final String GUIDE_URL_NOTICE="http://m.gachon.ac.kr/gachon/notice.jsp?boardType_seq=358";
     public static final String GUIDE_URL_NEWS="http://m.gachon.ac.kr/gachon/notice.jsp?boardType_seq=773";
     public static final String GUIDE_URL_BENEFIT="http://m.gachon.ac.kr/gachon/notice.jsp?boardType_seq=361";
-
+    public static final String LIBRARY_CENTRAL = "http://dlibadm.gachon.ac.kr/GACHON_CENTRAL_BOOKING/webbooking/statusList.jsp";
 }

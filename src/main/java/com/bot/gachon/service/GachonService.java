@@ -112,14 +112,19 @@ public class GachonService {
         return GuideResponse.builder().items(item).build();
     }
 
-    public String getInfo()throws IOException{
-        Document doc = Jsoup.connect("http://dlibadm.gachon.ac.kr/GACHON_CENTRAL_BOOKING/webbooking/statusList.jsp").get();
+    public LibraryResponse getInfo(BotRequest botRequest) throws IOException{
+        Document doc = Jsoup.connect(Url.LIBRARY_CENTRAL).get();
         Elements e = doc.getElementsByTag("tbody");
-        System.out.println(e);
         System.out.println("testtest");
+        ArrayList<LibraryResponse_sub> item = new ArrayList<>();
+        for(Element child : e.get(0).children()){
+            LibraryResponse_sub sub = LibraryResponse_sub.builder().title(child.getElementsByClass("left").text())
+                    .description(child.getElementsByClass("right bold").text()+"/"
+                            +child.getElementsByClass("last right bold blue bg_blu")).imageUrl("http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg").build();
+            item.add(sub);
+        }
+        return LibraryResponse.builder().items(item).build();
 
-
-        return null;
     }
 
 
