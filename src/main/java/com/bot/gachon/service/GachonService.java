@@ -4,10 +4,8 @@ import com.bot.gachon.domain.GachonMask;
 import com.bot.gachon.domain.GachonMaskRepository;
 import com.bot.gachon.domain.GachonYesterdayMask;
 import com.bot.gachon.domain.GachonYesterdayRepository;
-
 import com.bot.gachon.dto.req.BotRequest;
 import com.bot.gachon.dto.res.*;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -43,9 +41,7 @@ public class GachonService {
     private final RestTemplate restTemplate;
     private final GachonYesterdayRepository gachonYesterdayRepository;
 
-    public GachonService(GachonMaskRepository gachonMaskRepository,
-                         RestTemplate restTemplate,
-                         GachonYesterdayRepository gachonYesterdayRepository) {
+    public GachonService(GachonMaskRepository gachonMaskRepository, RestTemplate restTemplate, GachonYesterdayRepository gachonYesterdayRepository) {
         this.gachonMaskRepository = gachonMaskRepository;
         this.restTemplate = restTemplate;
         this.gachonYesterdayRepository = gachonYesterdayRepository;
@@ -98,7 +94,7 @@ public class GachonService {
 //            urlKeyword = "notice";
 //        } else if (botRequest.getUserRequest().getUtterance().equals("취업소식")){
 //            urlKeyword = "news";
-//        } 
+//        }
 
         GuideUrl guideUrl = GuideUrl.valueOf("notice");
         Document doc = Jsoup.connect(guideUrl.link).get();
@@ -207,7 +203,6 @@ public class GachonService {
     public List<GachonMask> getRemainMaskInfo() {
         List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
         List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
-
                 .map(keyword -> CompletableFuture.supplyAsync(()
                         -> gachonMaskRepository
                         .findAllByRemainStat(keyword)
@@ -220,11 +215,10 @@ public class GachonService {
                 .collect(Collectors.toList()));
         System.out.println(completableFutures.get(0));
 
-
         return completableFutures.stream()
-                                 .map(CompletableFuture::join)
-                                 .flatMap(Collection::stream)
-                                 .collect(Collectors.toList());
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     @Scheduled(cron = "0 55 23 * * *")
@@ -241,25 +235,9 @@ public class GachonService {
 
         return response_yesterday;
     }
-
     public List<GachonYesterdayMask> findYesterdayMaskInfo() {
 
         return gachonYesterdayRepository.findAll();
-    }
-
-    public DustModel findDust() throws IOException {
-//        URI url = URI.create(Url.DUST_URL);
-//        ResponseEntity<String> responseEntity = null;
-//        responseEntity = restTemplate.getForEntity(url, String.class);
-//
-//        String jsonInfo = responseEntity.getBody();
-//        Map<String, Object> result = new HashMap<>();
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        DustDto dustDto = mapper.readValue(jsonInfo, DustDto.class);
-//        return dustDto;
-        DustModel response = restTemplate.getForObject(Url.DUST_URL, DustModel.class);
-        return response;
     }
 }
 
