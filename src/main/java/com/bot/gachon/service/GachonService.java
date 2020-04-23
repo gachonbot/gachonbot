@@ -99,7 +99,7 @@ public class GachonService {
         }
         //test
         else{
-            urlKeyword = "benefit";
+            urlKeyword = "news";
         }
 
         GuideUrl guideUrl = GuideUrl.valueOf(urlKeyword);
@@ -111,9 +111,14 @@ public class GachonService {
             if ("공지".equals(child.getElementsByTag("img").attr("alt")))
                 continue;
             GuideResponse_sub sub = GuideResponse_sub.builder().web(child.getElementsByTag("a").attr("href"))
-                    .description(child.getElementsByTag("span").text()).title(child.getElementsByTag("a").text())
+                    .description(child.getElementsByClass("data").text()).title(child.getElementsByTag("a").text())
                     .imageUrl("http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg").build();
             item.add(sub);
+            System.out.println(child.children());
+            System.out.println(child.getElementsByTag("a").attr("href"));
+            System.out.println(child.getElementsByClass("data").text());
+            System.out.println(child.getElementsByTag("a").text());
+
         }
         return GuideResponse.builder().items(item).build();
     }
