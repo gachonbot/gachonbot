@@ -97,6 +97,10 @@ public class GachonService {
         } else if (botRequest.getUserRequest().getUtterance().equals("취업소식테스트")){
             urlKeyword = "news";
         }
+        //test
+        else{
+            urlKeyword = "benefit";
+        }
 
         GuideUrl guideUrl = GuideUrl.valueOf(urlKeyword);
         Document doc = Jsoup.connect(guideUrl.link).get();
