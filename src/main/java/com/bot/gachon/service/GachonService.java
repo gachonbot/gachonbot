@@ -115,7 +115,7 @@ public class GachonService {
                     .imageUrl("http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg").build();
             item.add(sub);
 
-            if(item.size() == 4) break;
+            if(item.size() == 5) break;
 
         }
         return GuideResponse.builder().items(item).build();
