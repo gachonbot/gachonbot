@@ -102,8 +102,8 @@ public class GachonService {
             urlKeyword = "news";
         }
 
-        GuideUrl guideUrl = GuideUrl.valueOf(urlKeyword);
-        Document doc = Jsoup.connect(guideUrl.link).get();
+//        GuideUrl guideUrl = GuideUrl.valueOf(urlKeyword);
+        Document doc = Jsoup.connect(Url.GUIDE_URL_NOTICE).get();
         Elements e = doc.getElementsByClass("list");
 
         ArrayList<GuideResponse_sub> item = new ArrayList<>();
