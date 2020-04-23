@@ -17,7 +17,7 @@ public class LibraryResponse {
         this.version = "2.0";
 
         HashMap<String,String> simpleText = new HashMap<>();
-        simpleText.put("text", "(잔여좌석/총자석)");
+        simpleText.put("text", "(잔여좌석/총좌석)");
 
         HashMap<String,String> header = new HashMap<>();
         header.put("title","중앙도서관");
