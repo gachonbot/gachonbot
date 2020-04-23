@@ -87,16 +87,16 @@ public class GachonService {
 
     public GuideResponse getNoticeInfo(BotRequest botRequest) throws IOException {
 
-//        String urlKeyword = "";
-//        if (botRequest.getUserRequest().getUtterance().equals("장학소식")) {
-//            urlKeyword = "benefit";
-//        } else if (botRequest.getUserRequest().getUtterance().equals("공지사항")) {
-//            urlKeyword = "notice";
-//        } else if (botRequest.getUserRequest().getUtterance().equals("취업소식")){
-//            urlKeyword = "news";
-//        }
+        String urlKeyword = "";
+        if (botRequest.getUserRequest().getUtterance().equals("장학소식테스트")) {
+            urlKeyword = "benefit";
+        } else if (botRequest.getUserRequest().getUtterance().equals("공지사항테스트")) {
+            urlKeyword = "notice";
+        } else if (botRequest.getUserRequest().getUtterance().equals("취업소식테스트")){
+            urlKeyword = "news";
+        }
 
-        GuideUrl guideUrl = GuideUrl.valueOf("notice");
+        GuideUrl guideUrl = GuideUrl.valueOf(urlKeyword);
         Document doc = Jsoup.connect(guideUrl.link).get();
         Elements e = doc.getElementsByClass("list");
 
@@ -120,7 +120,7 @@ public class GachonService {
         for(Element child : e.get(0).children()){
             LibraryResponse_sub sub = LibraryResponse_sub.builder().title(child.getElementsByClass("left").text())
                     .description(child.getElementsByClass("right bold").text()+"/"
-                            +child.getElementsByClass("last right bold blue bg_blu")).imageUrl("http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg").build();
+                            +child.getElementsByClass("last right bold blue bg_blu").text()).imageUrl("https://s3.ap-northeast-2.amazonaws.com/gachonbot/notice.png").build();
             item.add(sub);
         }
         return LibraryResponse.builder().items(item).build();
