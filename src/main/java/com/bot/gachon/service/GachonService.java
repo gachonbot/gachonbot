@@ -87,6 +87,8 @@ public class GachonService {
 
     public GuideResponse getNoticeInfo(BotRequest botRequest) throws IOException {
 
+        System.out.println("# test : " + botRequest.getUserRequest().getUtterance());
+
         String urlKeyword = "";
         if (botRequest.getUserRequest().getUtterance().equals("장학소식테스트")) {
             urlKeyword = "benefit";
