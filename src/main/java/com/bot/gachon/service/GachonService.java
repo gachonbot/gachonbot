@@ -114,10 +114,6 @@ public class GachonService {
                     .description(child.getElementsByClass("data").text()).title(child.getElementsByTag("a").text())
                     .imageUrl("http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg").build();
             item.add(sub);
-            System.out.println("테스트1"+child.children());
-            System.out.println("테스트2"+child.getElementsByTag("a").attr("href"));
-            System.out.println("테스트3"+child.getElementsByClass("data").text());
-            System.out.println("테스트4"+child.getElementsByTag("a").text());
 
         }
         return GuideResponse.builder().items(item).build();

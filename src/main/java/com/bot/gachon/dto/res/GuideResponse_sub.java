@@ -11,7 +11,6 @@ public class GuideResponse_sub {
     private String description;
     private String imageUrl;
     private HashMap<String,String> link = new HashMap<>();
-    private String web;
 
     public GuideResponse_sub(){}
 
@@ -21,7 +20,6 @@ public class GuideResponse_sub {
         this.description = description;
         this.imageUrl = imageUrl;
         this.link.put("web",web);
-        this.web = web;
     }
 
 }
