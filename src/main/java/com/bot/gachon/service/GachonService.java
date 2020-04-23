@@ -102,8 +102,8 @@ public class GachonService {
             urlKeyword = "news";
         }
 
-//        GuideUrl guideUrl = GuideUrl.valueOf(urlKeyword);
-        Document doc = Jsoup.connect(Url.GUIDE_URL_NOTICE).get();
+        GuideUrl guideUrl = GuideUrl.valueOf(urlKeyword);
+        Document doc = Jsoup.connect(guideUrl.link).get();
         Elements e = doc.getElementsByClass("list");
 
         ArrayList<GuideResponse_sub> item = new ArrayList<>();
@@ -114,6 +114,8 @@ public class GachonService {
                     .description(child.getElementsByClass("data").text()).title(child.getElementsByTag("a").text())
                     .imageUrl("http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg").build();
             item.add(sub);
+
+            if(item.size() == 4) break;
 
         }
         return GuideResponse.builder().items(item).build();
