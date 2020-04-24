@@ -60,9 +60,17 @@ public class GachonController {
         return gachonService.getYesterdayInfo(botRequest);
     }
 
-    @PostMapping("/guide/notice")
+    @PostMapping("/guide/news")
     public GuideResponse guideResponse(@RequestBody BotRequest botRequest) throws IOException {
-        return gachonService.getNoticeInfo(botRequest);
+        return gachonService.getNoticeInfo("news");
+    }
+    @PostMapping("/guide/benefit")
+    public GuideResponse guideResponse2(@RequestBody BotRequest botRequest) throws IOException {
+        return gachonService.getNoticeInfo("benefit");
+    }
+    @PostMapping("/guide/notice")
+    public GuideResponse guideResponse3(@RequestBody BotRequest botRequest) throws IOException {
+        return gachonService.getNoticeInfo("notice");
     }
 
     @PostMapping("/library")

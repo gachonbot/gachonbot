@@ -84,7 +84,6 @@ public class MainMenuDto {
         buttonsChild7.put("label", "맛집 메뉴");
         buttonsChild7.put("messageText","맛집 메뉴");
 
-
         HashMap<String,String> buttonsChild8 = new HashMap<>();
         buttonsChild8.put("action","message");
         buttonsChild8.put("label", "오늘 뭐 먹지?");
