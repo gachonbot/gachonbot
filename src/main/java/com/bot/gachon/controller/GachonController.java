@@ -28,13 +28,6 @@ public class GachonController {
     public HaksikDto getHaksikInfo(@RequestParam("building") String building) throws IOException {
         return gachonService.getHaksikInfo(building);
     }
-//
-//    @GetMapping("/notice/topic")
-//    public GuideDto getGuideInfo(@RequestParam("topic") String topic) throws IOException{
-//        return gachonService.getNoticeInfo(topic);
-//    }
-
-
 
     @PostMapping("/mask/menu")
     public MaskMenuDto getMaskInfo(@RequestBody BotRequest botRequest) {
