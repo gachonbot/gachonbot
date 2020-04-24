@@ -15,9 +15,6 @@ public class MainMenuDto {
     public MainMenuDto(){
         this.version = "2.0";
 
-
-
-
         HashMap<String,String> simpleText = new HashMap<>();
         simpleText.put("text","안녕하세요! 가천봇입니다.");
         HashMap<String,String> thumbnail = new HashMap<>();
@@ -46,15 +43,8 @@ public class MainMenuDto {
         buttonsParent.add(buttonsChild2);
         buttonsParent.add(buttonsChild3);
 
-
-
-
-
         HashMap<String,String> thumbnail2 = new HashMap<>();
         thumbnail2.put("imageUrl","https://s3.ap-northeast-2.amazonaws.com/gachonbot/main2.png");
-
-
-
 
         ArrayList<HashMap<String,String>> buttonsParent2 = new ArrayList<>();
 
@@ -103,15 +93,12 @@ public class MainMenuDto {
         buttonsParent3.add(buttonsChild8);
         buttonsParent3.add(buttonsChild9);
 
-
-
-
         ArrayList<HashMap<String,Object>> items = new ArrayList<>();
 
-       HashMap<String,Object> item = new HashMap<>();
-       item.put("thumbnail",thumbnail);
-       item.put("buttons",buttonsParent);
-       items.add(item);
+        HashMap<String,Object> item = new HashMap<>();
+        item.put("thumbnail",thumbnail);
+        item.put("buttons",buttonsParent);
+        items.add(item);
 
         HashMap<String,Object> item2 = new HashMap<>();
         item2.put("thumbnail",thumbnail2);
@@ -127,9 +114,7 @@ public class MainMenuDto {
         HashMap<String,Object> output = new HashMap<>();
         output.put("simpleText",simpleText);
 
-
         HashMap<String,Object>output2 = new HashMap<>();
-
         HashMap<String,Object> carousel = new HashMap<>();
 
         carousel.put("type","basicCard");
@@ -137,13 +122,7 @@ public class MainMenuDto {
         output2.put("carousel",carousel);
         outputs.add(output);
         outputs.add(output2);
-
-
-
         this.template.put("outputs",outputs);
-
-
-
 
     }
 }

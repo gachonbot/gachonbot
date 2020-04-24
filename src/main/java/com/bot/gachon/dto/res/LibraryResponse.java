@@ -21,7 +21,7 @@ public class LibraryResponse {
 
         HashMap<String,String> header = new HashMap<>();
         header.put("title","중앙도서관");
-        header.put("imageUrl","http://k.kakaocdn.net/dn/xsBdT/btqqIzbK4Hc/F39JI8XNVDMP9jPvoVdxl1/2x1.jpg");
+        header.put("imageUrl","https://s3.ap-northeast-2.amazonaws.com/gachonbot/notice.png");
         HashMap<String,Object> listCard = new HashMap<>();
         listCard.put("header",header);
         listCard.put("items",items);
