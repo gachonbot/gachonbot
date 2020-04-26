@@ -149,43 +149,6 @@ public class GachonService {
 
     public List<GachonDust> findDustInfo() { return dustRepository.findAll(); }
 
-
-    public List<GachonDust> getDustInfo() {
-        List<String> dustKeyword = Arrays.asList("1", "2", "3", "4");
-        List<CompletableFuture<List<GachonDust>>> completableFutures = dustKeyword.stream()
-                .map(keyword -> CompletableFuture.supplyAsync(()
-                        -> dustRepository
-                        .findAllByPm10Grade1h(keyword)
-                        .orElse(Collections.emptyList())))
-                .collect(Collectors.toList());
-        return completableFutures.stream()
-                .map(CompletableFuture::join)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList());
-    }
-
-
-/*
-    public List<GachonDust> getDustInfo() {
-        List<String> dustKeyword = Arrays.asList("1", "2", "3", "4");
-        List<CompletableFuture<List<GachonDust>>> completableFutures = dustKeyword.stream()
-                .map(keyword -> CompletableFuture.supplyAsync(()
-                        -> dustRepository
-                        .findAllByPm10Grade1h(keyword)
-                        .orElse(Collections.emptyList())))
-                .collect(Collectors.toList());
-        return completableFutures.stream()
-                .map(CompletableFuture::join)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList());
-    }
-
-/*
-    public DustDto findDust() throws IOException {
-        DustDto response = restTemplate.getForObject(Url.DUST_URL, DustDto.class);
-        return response;
-    }
- */
 }
 
 
