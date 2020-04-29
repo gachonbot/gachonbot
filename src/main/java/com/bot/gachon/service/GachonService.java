@@ -61,12 +61,6 @@ public class GachonService {
 //        return weatherDto;
 //    }
 
-    public WeatherDto getWeatherInfo(){
-        URI url = URI.create(Url.WEATHER_URL);
-        WeatherDto response = restTemplate.getForObject(url,WeatherDto.class);
-        return response;
-
-    }
 
     public HaksikDto getHaksikInfo(String building) throws IOException {
 
@@ -207,12 +201,14 @@ public class GachonService {
     public WeatherResponse getWeatherInfo2(BotRequest botRequest){
 
             URI url = URI.create(Url.WEATHER_URL);
-            WeatherDto response = restTemplate.getForObject(url,WeatherDto.class);
+//            WeatherDto response = restTemplate.getForObject(url,WeatherDto.class);
+            ResponseEntity<WeatherDto> responseEntity = null;
+            responseEntity = restTemplate.getForEntity(url, WeatherDto.class);
 
             return WeatherResponse.builder().
-                    status(String.valueOf(response.getWeather())).
-                    detail(String.valueOf(response.getMain())).
-                    data(response.getName()).build();
+                    status(String.valueOf(responseEntity.getBody().getWeather())).
+                    detail(String.valueOf(responseEntity.getBody().getMain())).
+                    data(responseEntity.getBody().getName()).build();
     }
 
 

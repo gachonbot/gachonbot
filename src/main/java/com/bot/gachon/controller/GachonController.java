@@ -19,11 +19,11 @@ public class GachonController {
 
     }
 
-    @GetMapping("/weather")
-    public WeatherDto getWeatherInfo() throws Exception {
-        return gachonService.getWeatherInfo();
-
-    }
+//    @GetMapping("/weather")
+//    public WeatherDto getWeatherInfo() throws Exception {
+//        return gachonService.getWeatherInfo();
+//
+//    }
 
     @PostMapping("/weather")
     public WeatherResponse getWeather(@RequestBody BotRequest botRequest){
