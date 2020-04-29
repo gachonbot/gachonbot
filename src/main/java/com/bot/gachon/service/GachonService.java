@@ -206,9 +206,9 @@ public class GachonService {
 
 
         return WeatherResponse.builder().status(responseEntity.getWeather().get(0).getDescription())
-                .detail("현재기온 " + responseEntity.getMain().getTemp() + "ºC/n"
-                        + "최고기온 " + responseEntity.getMain().getTemp_max() + "ºC/n"
-                        + "최저기온" + responseEntity.getMain().getTemp_min() + "ºC/n"
+                .detail("현재기온 " + responseEntity.getMain().getTemp() + "ºC\n"
+                        + "최고기온 " + responseEntity.getMain().getTemp_max() + "ºC\n"
+                        + "최저기온" + responseEntity.getMain().getTemp_min() + "ºC\n"
                         + "습도 " + responseEntity.getMain().getHumidity()+"도").build();
 
 
