@@ -6,8 +6,6 @@ import com.bot.gachon.domain.GachonYesterdayMask;
 import com.bot.gachon.domain.GachonYesterdayRepository;
 import com.bot.gachon.dto.req.BotRequest;
 import com.bot.gachon.dto.res.*;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,11 +13,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.IOException;
 import java.net.URI;
 import java.text.SimpleDateFormat;
@@ -46,20 +42,6 @@ public class GachonService {
         this.restTemplate = restTemplate;
         this.gachonYesterdayRepository = gachonYesterdayRepository;
     }
-
-//    public WeatherDto findWeatherInfo() throws Exception {
-//
-//        URI url = URI.create(Url.WEATHER_URL);
-//        ResponseEntity<String> responseEntity = null;
-//        responseEntity = restTemplate.getForEntity(url, String.class);
-//
-//        String jsonInfo = responseEntity.getBody();
-//        ObjectMapper mapper = new ObjectMapper();
-//
-//        WeatherDto weatherDto = mapper.readValue(jsonInfo, WeatherDto.class);
-//
-//        return weatherDto;
-//    }
 
 
     public HaksikDto getHaksikInfo(String building) throws IOException {
@@ -198,6 +180,7 @@ public class GachonService {
         }
         return MaskYesterdayResponse.builder().content(yesterdayContent.toString()).build();
     }
+
     public WeatherResponse getWeatherInfo2(BotRequest botRequest) {
 
         URI url = URI.create(Url.WEATHER_URL);

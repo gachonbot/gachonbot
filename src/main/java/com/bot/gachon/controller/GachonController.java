@@ -19,12 +19,6 @@ public class GachonController {
 
     }
 
-//    @GetMapping("/weather")
-//    public WeatherDto getWeatherInfo() throws Exception {
-//        return gachonService.getWeatherInfo();
-//
-//    }
-
     @PostMapping("/weather")
     public WeatherResponse getWeather(@RequestBody BotRequest botRequest){
         return gachonService.getWeatherInfo2(botRequest);
@@ -51,8 +45,6 @@ public class GachonController {
     public MaskReplayResponse getMask(@RequestBody BotRequest botRequest) {
         return gachonService.getMaskInfo(botRequest);
     }
-
-
 
 
     @PostMapping("/yesterday/mask")
