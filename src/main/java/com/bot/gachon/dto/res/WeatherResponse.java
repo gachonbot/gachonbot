@@ -26,7 +26,7 @@ public class WeatherResponse {
         basicCard.put("title",status);
         basicCard.put("description",detail);
         HashMap<String,String> thumbnail = new HashMap<>();
-        thumbnail.put("imageUrl","https://hswsns.s3.ap-northeast-2.amazonaws.com/img/portfolio/2222.jpg");
+        thumbnail.put("imageUrl","https://hswsns.s3.ap-northeast-2.amazonaws.com/img/portfolio/%EB%82%98%EB%AC%B4.jpg");
         basicCard.put("thumbnail",thumbnail);
         HashMap<String,Object> output2  = new HashMap<>();
         output2.put("basicCard",basicCard);
