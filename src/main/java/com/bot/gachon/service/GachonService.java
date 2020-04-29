@@ -204,18 +204,11 @@ public class GachonService {
 //            WeatherDto response = restTemplate.getForObject(url,WeatherDto.class);
             WeatherDto responseEntity = null;
              responseEntity = restTemplate.getForObject(url, WeatherDto.class);
-            WeatherSub1Dto responseEntity2 = null;
 
-             responseEntity2= restTemplate.getForObject(url, WeatherSub1Dto.class);
 
-            WeatherSub2Dto responseEntity3 = null;
-
-             responseEntity3 = restTemplate.getForObject(url, WeatherSub2Dto.class);
-
-            return WeatherResponse.builder().
-                    status(responseEntity3.getTemp()+responseEntity3.getTemp_max()
-                            +responseEntity3.getTemp_min()+responseEntity3.getHumidity()).detail(responseEntity2.getDescription()).
-                    data(responseEntity.getName()).build();
+            return WeatherResponse.builder().status(responseEntity.getMain().getTemp()+responseEntity.getMain().getTemp_max()+
+                    responseEntity.getMain().getTemp_min()+responseEntity.getMain().getHumidity()).
+                    detail(responseEntity.getWeather().get(0).getDescription()).data(responseEntity.getName()).build();
     }
 
 
