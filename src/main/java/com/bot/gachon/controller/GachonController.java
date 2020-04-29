@@ -21,9 +21,16 @@ public class GachonController {
 
     @GetMapping("/weather")
     public WeatherDto getWeatherInfo() throws Exception {
-        return gachonService.findWeatherInfo();
+        return gachonService.getWeatherInfo();
 
     }
+
+    @PostMapping("/weather")
+    public WeatherResponse getWeather(@RequestBody BotRequest botRequest){
+        return gachonService.getWeatherInfo2(botRequest);
+    }
+
+
     @GetMapping("/haksik/building")
     public HaksikDto getHaksikInfo(@RequestParam("building") String building) throws IOException {
         return gachonService.getHaksikInfo(building);

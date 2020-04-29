@@ -6,6 +6,7 @@ import com.bot.gachon.domain.GachonYesterdayMask;
 import com.bot.gachon.domain.GachonYesterdayRepository;
 import com.bot.gachon.dto.req.BotRequest;
 import com.bot.gachon.dto.res.*;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -31,7 +32,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import static java.lang.String.valueOf;
 
 @Slf4j
 @Service
@@ -47,16 +47,25 @@ public class GachonService {
         this.gachonYesterdayRepository = gachonYesterdayRepository;
     }
 
-    public WeatherDto findWeatherInfo() throws Exception {
+//    public WeatherDto findWeatherInfo() throws Exception {
+//
+//        URI url = URI.create(Url.WEATHER_URL);
+//        ResponseEntity<String> responseEntity = null;
+//        responseEntity = restTemplate.getForEntity(url, String.class);
+//
+//        String jsonInfo = responseEntity.getBody();
+//        ObjectMapper mapper = new ObjectMapper();
+//
+//        WeatherDto weatherDto = mapper.readValue(jsonInfo, WeatherDto.class);
+//
+//        return weatherDto;
+//    }
 
+    public WeatherDto getWeatherInfo(){
         URI url = URI.create(Url.WEATHER_URL);
-        ResponseEntity<String> responseEntity = null;
-        responseEntity = restTemplate.getForEntity(url, String.class);
+        WeatherDto response = restTemplate.getForObject(url,WeatherDto.class);
+        return response;
 
-        String jsonInfo = responseEntity.getBody();
-        ObjectMapper mapper = new ObjectMapper();
-        WeatherDto weatherDto = mapper.readValue(jsonInfo, WeatherDto.class);
-        return weatherDto;
     }
 
     public HaksikDto getHaksikInfo(String building) throws IOException {
@@ -113,7 +122,7 @@ public class GachonService {
     public LibraryResponse getInfo(BotRequest botRequest) throws IOException{
         Document doc = Jsoup.connect(Url.LIBRARY_CENTRAL).get();
         Elements e = doc.getElementsByTag("tbody");
-        System.out.println("testtest");
+
         ArrayList<LibraryResponse_sub> item = new ArrayList<>();
         for(Element child : e.get(0).children()){
             LibraryResponse_sub sub = LibraryResponse_sub.builder().title(child.getElementsByClass("left").text())
@@ -141,6 +150,7 @@ public class GachonService {
 
         return response;
     }
+
 
     public MaskMenuDto findMaskInfo(BotRequest botRequest) {
 
@@ -193,6 +203,16 @@ public class GachonService {
             }
         }
         return MaskYesterdayResponse.builder().content(yesterdayContent.toString()).build();
+    }
+    public WeatherResponse getWeatherInfo2(BotRequest botRequest){
+
+            URI url = URI.create(Url.WEATHER_URL);
+            WeatherDto response = restTemplate.getForObject(url,WeatherDto.class);
+
+            return WeatherResponse.builder().
+                    status(String.valueOf(response.getWeather())).
+                    detail(String.valueOf(response.getMain())).
+                    data(response.getName()).build();
     }
 
 
