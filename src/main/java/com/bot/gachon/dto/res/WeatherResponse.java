@@ -12,7 +12,7 @@ public class WeatherResponse {
 
 
     @Builder
-    public WeatherResponse(String data,String status,String detail){
+    public WeatherResponse(String data,Object status,String detail){
         this.version = "2.0";
 
         HashMap<String,String> simpleText = new HashMap<>();

@@ -202,21 +202,20 @@ public class GachonService {
 
             URI url = URI.create(Url.WEATHER_URL);
 //            WeatherDto response = restTemplate.getForObject(url,WeatherDto.class);
-            ResponseEntity<WeatherDto> responseEntity = null;
-             responseEntity = restTemplate.getForEntity(url, WeatherDto.class);
-        ResponseEntity<WeatherSub1Dto> responseEntity2 = null;
+            WeatherDto responseEntity = null;
+             responseEntity = restTemplate.getForObject(url, WeatherDto.class);
+            WeatherSub1Dto responseEntity2 = null;
 
-        responseEntity2= restTemplate.getForEntity(url, WeatherSub1Dto.class);
+             responseEntity2= restTemplate.getForObject(url, WeatherSub1Dto.class);
 
-        ResponseEntity<WeatherSub2Dto> responseEntity3 = null;
+            WeatherSub2Dto responseEntity3 = null;
 
-        responseEntity3 = restTemplate.getForEntity(url, WeatherSub2Dto.class);
+             responseEntity3 = restTemplate.getForObject(url, WeatherSub2Dto.class);
 
             return WeatherResponse.builder().
-                    status(String.valueOf(responseEntity3.getBody().getTemp()+responseEntity3.getBody().getTemp_max()
-                            +responseEntity3.getBody().getTemp_min()+responseEntity3.getBody().getHumidity())).
-                    detail(String.valueOf(responseEntity2.getBody().getDescription())).
-                    data(responseEntity.getBody().getName()).build();
+                    status(responseEntity3.getTemp()+responseEntity3.getTemp_max()
+                            +responseEntity3.getTemp_min()+responseEntity3.getHumidity()).detail(responseEntity2.getDescription()).
+                    data(responseEntity.getName()).build();
     }
 
 
