@@ -198,20 +198,22 @@ public class GachonService {
         }
         return MaskYesterdayResponse.builder().content(yesterdayContent.toString()).build();
     }
-    public WeatherResponse getWeatherInfo2(BotRequest botRequest){
+    public WeatherResponse getWeatherInfo2(BotRequest botRequest) {
 
-            URI url = URI.create(Url.WEATHER_URL);
-//            WeatherDto response = restTemplate.getForObject(url,WeatherDto.class);
-            WeatherDto responseEntity = null;
-             responseEntity = restTemplate.getForObject(url, WeatherDto.class);
+        URI url = URI.create(Url.WEATHER_URL);
+        WeatherDto responseEntity = null;
+        responseEntity = restTemplate.getForObject(url, WeatherDto.class);
 
 
-            return WeatherResponse.builder().status(responseEntity.getMain().getTemp()+responseEntity.getMain().getTemp_max()+
-                    responseEntity.getMain().getTemp_min()+responseEntity.getMain().getHumidity()).
-                    detail(responseEntity.getWeather().get(0).getDescription()).data(responseEntity.getName()).build();
+        return WeatherResponse.builder().status(responseEntity.getWeather().get(0).getDescription())
+                .data(responseEntity.getName())
+                .detail("현재기온 " + responseEntity.getMain().getTemp() + "/"
+                        + "최고기온 " + responseEntity.getMain().getTemp_max() + "/"
+                        + "최저기온" + responseEntity.getMain().getTemp_min() + "/"
+                        + "습도 " + responseEntity.getMain().getHumidity()).build();
+
+
     }
-
-
 
     @Cacheable(value = "remainMask")
     public List<GachonMask> getRemainMaskInfo() {
