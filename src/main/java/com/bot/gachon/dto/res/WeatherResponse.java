@@ -12,11 +12,11 @@ public class WeatherResponse {
 
 
     @Builder
-    public WeatherResponse(String data,Object status,String detail){
+    public WeatherResponse(Object status,String detail){
         this.version = "2.0";
 
         HashMap<String,String> simpleText = new HashMap<>();
-        simpleText.put("text",data);
+        simpleText.put("text","오늘의 성남시 날씨입니다!");
 
         ArrayList<HashMap<String,Object>> outputs = new ArrayList<>();
         HashMap<String,Object> output = new HashMap<>();
@@ -30,8 +30,8 @@ public class WeatherResponse {
         basicCard.put("thumbnail",thumbnail);
         HashMap<String,Object> output2  = new HashMap<>();
         output2.put("basicCard",basicCard);
-        outputs.add(output2);
         outputs.add(output);
+        outputs.add(output2);
 
         this.template.put("outputs",outputs);
 
