@@ -121,7 +121,7 @@ public class GachonService {
         for(Element child : e.get(0).children()){
             LibraryResponse_sub sub = LibraryResponse_sub.builder().title(child.getElementsByClass("left").text())
                     .description(child.getElementsByClass("right bold").text()+"/"
-                            +child.getElementsByClass("last right bold blue bg_blu").text()).imageUrl("https://s3.ap-northeast-2.amazonaws.com/gachonbot/notice.png").build();
+                            +child.getElementsByClass("last right bold blue bg_blue").text()).imageUrl("https://hswsns.s3.ap-northeast-2.amazonaws.com/img/portfolio/book.jpg").build();
             item.add(sub);
         }
         return LibraryResponse.builder().items(item).build();
