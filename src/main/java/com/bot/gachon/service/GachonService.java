@@ -19,12 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -49,20 +44,43 @@ public class GachonService {
         HaksikUrl haksikUrl = HaksikUrl.valueOf(url);
         Document doc = Jsoup.connect(haksikUrl.link).get();
         Element e = doc.getElementById("toggle-view");
-
+        Calendar cal = Calendar.getInstance();
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        String yo = "";
+        switch (dayOfWeek){
+            case 1:
+                yo ="일요일";
+                break;
+            case 2:
+                yo ="월요일";
+                break;
+            case 3:
+                yo ="화요일";
+                break;
+            case 4:
+                yo ="수요일";
+                break;
+            case 5:
+                yo ="목요일";
+                break;
+            case 6:
+                yo = "금요일";
+                break;
+            case 7:
+                yo = "토요일";
+                break;
+        }
         String menu ="";
-        String today = new SimpleDateFormat("E요일").format(new Date());
-        System.out.println(today);
-
+//        String today = new SimpleDateFormat("E요일").format(new Date());
         for (Element child : e.children()) {
             System.out.println(child.getElementsByTag("img").attr("alt"));
-            if (today.equals(child.getElementsByTag("img").attr("alt"))) {
+            if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
                 menu = child.getElementsByTag("dd").text();
                 menu = "들어왔어용~";
             }
         }
 
-        menu = "나왔어용~";
+//        menu = "나왔어용~";
         return HaksikResponse.builder().menu(menu).build();
     }
 
