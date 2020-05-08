@@ -56,6 +56,7 @@ public class GachonService {
         for (Element child : e.children()) {
             if (today.equals(child.getElementsByTag("img").attr("alt"))) {
                 menu = child.getElementsByTag("dd").text();
+                menu = "들어왔어용~";
             }
         }
         return HaksikResponse.builder().menu(menu).build();
