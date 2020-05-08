@@ -44,30 +44,25 @@ public class GachonService {
     }
 
 
-    public HaksikDto getHaksikInfo(String building) throws IOException {
+    public HaksikResponse getHaksikInfo(String url) throws IOException {
 
-        HaksikUrl haksikUrl = HaksikUrl.valueOf(building);
+        HaksikUrl haksikUrl = HaksikUrl.valueOf(url);
         Document doc = Jsoup.connect(haksikUrl.link).get();
         Element e = doc.getElementById("toggle-view");
 
-        HaksikDto haksikDto = new HaksikDto();
-        List<HaksikSubDto> haksikSubDtoList = new ArrayList<>();
-
+        String menu ="";
         String today = new SimpleDateFormat("E요일").format(new Date());
 
         for (Element child : e.children()) {
             if (today.equals(child.getElementsByTag("img").attr("alt"))) {
-                HaksikSubDto haksikSubDto = new HaksikSubDto();
-                haksikSubDto.setDay(child.getElementsByTag("img").attr("alt"));
-                haksikSubDto.setMenu(child.text());
-                haksikSubDtoList.add(haksikSubDto);
-                break;
+                menu = child.getElementsByTag("dd").text();
             }
         }
-
-        haksikDto.setAllMenu(haksikSubDtoList);
-        return haksikDto;
+        return HaksikResponse.builder().menu(menu).build();
     }
+
+
+
 
 
     public GuideResponse getNoticeInfo(String url) throws IOException {

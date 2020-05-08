@@ -25,9 +25,19 @@ public class GachonController {
     }
 
 
-    @GetMapping("/haksik/building")
-    public HaksikDto getHaksikInfo(@RequestParam("building") String building) throws IOException {
-        return gachonService.getHaksikInfo(building);
+    @PostMapping("/haksik/vision")
+    public HaksikResponse getHaksikInfo_vision(@RequestBody BotRequest botRequest) throws IOException {
+        return gachonService.getHaksikInfo("vision");
+    }
+
+    @PostMapping("/haksik/art")
+    public HaksikResponse getHaksikInfo_art(@RequestBody BotRequest botRequest) throws IOException {
+        return gachonService.getHaksikInfo("art");
+    }
+
+    @PostMapping("/haksik/edu")
+    public HaksikResponse getHaksikInfo_edu(@RequestBody BotRequest botRequest) throws IOException {
+        return gachonService.getHaksikInfo("edu");
     }
 
     @PostMapping("/mask/menu")
