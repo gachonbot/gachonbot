@@ -59,6 +59,8 @@ public class GachonService {
                 menu = "들어왔어용~";
             }
         }
+
+        menu = "나왔어용~";
         return HaksikResponse.builder().menu(menu).build();
     }
 
