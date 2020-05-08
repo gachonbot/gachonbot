@@ -29,6 +29,7 @@ public class HaksikResponse {
      HashMap<String,Object> output2 = new HashMap<>();
      HashMap<String,Object> simpleText = new HashMap<>();
      simpleText.put("text",menu);
+     output2.put("simpleText",simpleText);
      outputs.add(output);
      outputs.add(output2);
      ArrayList<HashMap<String,String>> quickReplies = new ArrayList<>();
