@@ -202,11 +202,7 @@ public class GachonService {
                         .orElse(Collections.emptyList())))
                 .collect(Collectors.toList());
 
-        System.out.println(completableFutures.stream()
-                .map(CompletableFuture::join)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList()));
-        System.out.println(completableFutures.get(0));
+
 
         return completableFutures.stream()
                 .map(CompletableFuture::join)
@@ -224,7 +220,6 @@ public class GachonService {
         for (GachonYesterdayMask gachonYesterdayMask : list) {
             gachonYesterdayRepository.save(gachonYesterdayMask);
         }
-        System.out.println(response_yesterday);
 
         return response_yesterday;
     }
