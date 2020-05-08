@@ -71,21 +71,15 @@ public class GachonService {
                 break;
         }
         String menu ="";
-//        String today = new SimpleDateFormat("E요일").format(new Date());
         for (Element child : e.children()) {
             System.out.println(child.getElementsByTag("img").attr("alt"));
             if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
                 menu = child.getElementsByTag("dd").text();
-                menu = "들어왔어용~";
+
             }
         }
-
-//        menu = "나왔어용~";
         return HaksikResponse.builder().menu(menu).build();
     }
-
-
-
 
 
     public GuideResponse getNoticeInfo(String url) throws IOException {
