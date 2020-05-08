@@ -52,8 +52,10 @@ public class GachonService {
 
         String menu ="";
         String today = new SimpleDateFormat("E요일").format(new Date());
+        System.out.println(today);
 
         for (Element child : e.children()) {
+            System.out.println(child.getElementsByTag("img").attr("alt"));
             if (today.equals(child.getElementsByTag("img").attr("alt"))) {
                 menu = child.getElementsByTag("dd").text();
                 menu = "들어왔어용~";
