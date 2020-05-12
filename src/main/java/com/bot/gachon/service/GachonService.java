@@ -44,6 +44,7 @@ public class GachonService {
         HaksikUrl haksikUrl = HaksikUrl.valueOf(url);
         Document doc = Jsoup.connect(haksikUrl.link).get();
         Element e = doc.getElementById("toggle-view");
+
         Calendar cal = Calendar.getInstance();
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         String yo = "";
@@ -72,9 +73,8 @@ public class GachonService {
         }
         String menu ="";
         for (Element child : e.children()) {
-            System.out.println(child.getElementsByTag("img").attr("alt"));
             if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
-                menu = child.getElementsByTag("dd").text();
+                menu += child.children().get(0).children().get(0).getElementsByTag("dd").text() + "\n\n";
 
             }
         }
