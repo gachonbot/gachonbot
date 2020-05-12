@@ -75,12 +75,12 @@ public class GachonService {
 
         for (Element child : e.children()) {
            if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
-               menu += child.getElementsByTag("dd").text() + "\n\n";
+               menu += child.getElementsByTag("noscript").text() + "\n\n";
 
 
-               System.out.println("test11"+ child.children().get(0).getElementsByTag("dl").attr("style"));
+               System.out.println("test11"+ child.children().get(0).getElementsByTag("dl"));
 
-               System.out.println("Test222"+ child.children().get(0).children().get(0).getElementsByTag("img").attr("alt"));
+               System.out.println("Test222"+ child.children().get(0).children().get(0).getElementsByTag("dd").text());
             }
         }
         return HaksikResponse.builder().menu(menu).build();
