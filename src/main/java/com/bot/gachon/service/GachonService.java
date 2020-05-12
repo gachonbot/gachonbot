@@ -73,7 +73,10 @@ public class GachonService {
         }
         String menu ="";
         for (Element child : e.children()) {
-            if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
+            if(yo.equals("일요일")){
+                menu = "오늘은 운영하지 않습니다 :) \n";
+            }
+            else if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
                 menu += child.children().get(0).children().get(0).getElementsByTag("dd").text() + "\n\n";
 
             }
