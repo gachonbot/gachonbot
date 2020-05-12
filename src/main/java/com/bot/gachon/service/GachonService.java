@@ -74,17 +74,18 @@ public class GachonService {
         String menu ="";
 
         for (Element child : e.children()) {
-            System.out.println("# child test1 : " + child.tagName());
-            System.out.println("# child test2 : " + child.id());
-            System.out.println("# child test3 : " + child.nodeName());
-            System.out.println("소미니 테스트" + child.getElementsByTag("dl").get(0).children().text());
+//            System.out.println("# child test1 : " + child.tagName());
+//            System.out.println("# child test2 : " + child.id());
+//            System.out.println("# child test3 : " + child.nodeName());
+//            System.out.println("소미니 테스트" + child.getElementsByTag("dl").get(0).children().text());
            if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
-               for (Element child2 : child.children()){
+               for (Element child2 : child.getElementsByTag("dl").get(0).children()){
+
                    System.out.println("# child2 test1 : " + child2.tagName());
                    System.out.println("# child2 test2 : " + child2.id());
                    System.out.println("# child2 test3 : " + child2.nodeName());
+                   menu += child2.getElementsByTag("dd").text() + "\n\n";
                }
-               menu += child.getElementsByTag("noscript").get(0).children().text() + "\n\n";
             }
         }
         return HaksikResponse.builder().menu(menu).build();
