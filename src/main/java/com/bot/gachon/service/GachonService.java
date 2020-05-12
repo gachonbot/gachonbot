@@ -77,9 +77,10 @@ public class GachonService {
            if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
                 menu += child.getElementsByTag("dd").text() + "\n\n";
                System.out.println("test11"+child.children().text());
-               System.out.println("test222"+child.children().get(0).text());
-               System.out.println("test33"+child.children().get(0).getAllElements());
-               System.out.println("test44"+child.children().get(0).getElementsByTag("dl").text());
+               System.out.println("test222"+child.getElementsByTag("dd").text());
+
+               System.out.println("test33"+child.children().get(0).children().get(0).children().get(0).getAllElements());
+               System.out.println("test4444"+child.children().get(0).children().get(0).children().get(0).getElementsByTag("dd").text());
 
             }
         }
