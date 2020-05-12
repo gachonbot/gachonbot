@@ -4,11 +4,8 @@ import com.bot.gachon.domain.GachonMask;
 import com.bot.gachon.domain.GachonMaskRepository;
 import com.bot.gachon.domain.GachonYesterdayMask;
 import com.bot.gachon.domain.GachonYesterdayRepository;
-
 import com.bot.gachon.dto.req.BotRequest;
 import com.bot.gachon.dto.res.*;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,24 +13,16 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.IOException;
 import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import static java.lang.String.valueOf;
 
 @Slf4j
 @Service
@@ -43,87 +32,94 @@ public class GachonService {
     private final RestTemplate restTemplate;
     private final GachonYesterdayRepository gachonYesterdayRepository;
 
-    public GachonService(GachonMaskRepository gachonMaskRepository,
-                         RestTemplate restTemplate,
-                         GachonYesterdayRepository gachonYesterdayRepository) {
+    public GachonService(GachonMaskRepository gachonMaskRepository, RestTemplate restTemplate, GachonYesterdayRepository gachonYesterdayRepository) {
         this.gachonMaskRepository = gachonMaskRepository;
         this.restTemplate = restTemplate;
         this.gachonYesterdayRepository = gachonYesterdayRepository;
     }
 
-    public WeatherDto findWeatherInfo() throws Exception {
 
-        URI url = URI.create(Url.WEATHER_URL);
-        ResponseEntity<String> responseEntity = null;
-        responseEntity = restTemplate.getForEntity(url, String.class);
+    public HaksikResponse getHaksikInfo(String url) throws IOException {
 
-        String jsonInfo = responseEntity.getBody();
-        ObjectMapper mapper = new ObjectMapper();
-        WeatherDto weatherDto = mapper.readValue(jsonInfo, WeatherDto.class);
-        return weatherDto;
-    }
-
-    public HaksikDto getHaksikInfo(String building) throws IOException {
-
-        HaksikUrl haksikUrl = HaksikUrl.valueOf(building);
+        HaksikUrl haksikUrl = HaksikUrl.valueOf(url);
         Document doc = Jsoup.connect(haksikUrl.link).get();
         Element e = doc.getElementById("toggle-view");
-
-        HaksikDto haksikDto = new HaksikDto();
-        List<HaksikSubDto> haksikSubDtoList = new ArrayList<>();
-
-        String today = new SimpleDateFormat("E요일").format(new Date());
-
-        for (Element child : e.children()) {
-            if (today.equals(child.getElementsByTag("img").attr("alt"))) {
-                HaksikSubDto haksikSubDto = new HaksikSubDto();
-                haksikSubDto.setDay(child.getElementsByTag("img").attr("alt"));
-                haksikSubDto.setMenu(child.text());
-                haksikSubDtoList.add(haksikSubDto);
+        Calendar cal = Calendar.getInstance();
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        String yo = "";
+        switch (dayOfWeek){
+            case 1:
+                yo ="일요일";
                 break;
+            case 2:
+                yo ="월요일";
+                break;
+            case 3:
+                yo ="화요일";
+                break;
+            case 4:
+                yo ="수요일";
+                break;
+            case 5:
+                yo ="목요일";
+                break;
+            case 6:
+                yo = "금요일";
+                break;
+            case 7:
+                yo = "토요일";
+                break;
+        }
+        String menu ="";
+        for (Element child : e.children()) {
+            System.out.println(child.getElementsByTag("img").attr("alt"));
+            if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
+                menu = child.getElementsByTag("dd").text();
+
             }
         }
-
-        haksikDto.setAllMenu(haksikSubDtoList);
-        return haksikDto;
+        return HaksikResponse.builder().menu(menu).build();
     }
 
 
-    public GuideResponse getNoticeInfo(BotRequest botRequest) throws IOException {
+    public GuideResponse getNoticeInfo(String url) throws IOException {
 
-//        String urlKeyword = "";
-//        if (botRequest.getUserRequest().getUtterance().equals("장학소식")) {
-//            urlKeyword = "benefit";
-//        } else if (botRequest.getUserRequest().getUtterance().equals("공지사항")) {
-//            urlKeyword = "notice";
-//        } else if (botRequest.getUserRequest().getUtterance().equals("취업소식")){
-//            urlKeyword = "news";
-//        } 
-
-        GuideUrl guideUrl = GuideUrl.valueOf("notice");
+        GuideUrl guideUrl = GuideUrl.valueOf(url);
         Document doc = Jsoup.connect(guideUrl.link).get();
         Elements e = doc.getElementsByClass("list");
+        Elements s = doc.getElementsByClass("summary");
+
+        String menu =s.get(0).children().get(0).getElementsByTag("strong").text();
 
         ArrayList<GuideResponse_sub> item = new ArrayList<>();
         for (Element child : e.get(0).children().get(0).children()) {
             if ("공지".equals(child.getElementsByTag("img").attr("alt")))
                 continue;
             GuideResponse_sub sub = GuideResponse_sub.builder().web(child.getElementsByTag("a").attr("href"))
-                    .description(child.getElementsByTag("span").text()).title(child.getElementsByTag("a").text())
-                    .imageUrl("http://k.kakaocdn.net/dn/APR96/btqqH7zLanY/kD5mIPX7TdD2NAxgP29cC0/1x1.jpg").build();
+                    .description(child.getElementsByClass("data").text()).title(child.getElementsByTag("a").text())
+                    .imageUrl("https://s3.ap-northeast-2.amazonaws.com/gachonbot/noticeicon.png").build();
             item.add(sub);
+            if(item.size() == 5) break;
+
+            String menu2 = String.valueOf(GuideResponse.builder().menu(s.get(0).children().get(0).getElementsByTag("strong").text()).build());
+
         }
-        return GuideResponse.builder().items(item).build();
+        return GuideResponse.builder().items(item).menu(menu).build();
     }
 
-    public String getInfo()throws IOException{
-        Document doc = Jsoup.connect("http://dlibadm.gachon.ac.kr/GACHON_CENTRAL_BOOKING/webbooking/statusList.jsp").get();
+    public LibraryResponse getInfo(BotRequest botRequest) throws IOException{
+        Document doc = Jsoup.connect(Url.LIBRARY_CENTRAL).get();
         Elements e = doc.getElementsByTag("tbody");
-        System.out.println(e);
-        System.out.println("testtest");
 
+        ArrayList<LibraryResponse_sub> item = new ArrayList<>();
+        for(Element child : e.get(0).children()){
+            LibraryResponse_sub sub = LibraryResponse_sub.builder().title(child.getElementsByClass("left").text())
+                    .description(child.getElementsByClass("right bold").text()+"/"
+                            +child.getElementsByClass("last right bold blue bg_blue").text()).imageUrl("https://hswsns.s3.ap-northeast-2.amazonaws.com/img/portfolio/book.jpg").build();
+            item.add(sub);
+        }
+        return LibraryResponse.builder().items(item).build();
 
-        return null;
     }
 
 
@@ -142,6 +138,7 @@ public class GachonService {
 
         return response;
     }
+
 
     public MaskMenuDto findMaskInfo(BotRequest botRequest) {
 
@@ -196,30 +193,38 @@ public class GachonService {
         return MaskYesterdayResponse.builder().content(yesterdayContent.toString()).build();
     }
 
+    public WeatherResponse getWeatherInfo2(BotRequest botRequest) {
 
+        URI url = URI.create(Url.WEATHER_URL);
+        WeatherDto responseEntity = null;
+        responseEntity = restTemplate.getForObject(url, WeatherDto.class);
+
+
+        return WeatherResponse.builder().status(responseEntity.getWeather().get(0).getDescription())
+                .detail("현재기온: " + responseEntity.getMain().getTemp() + "ºC\n"
+                        + "오늘의 최고기온: " + responseEntity.getMain().getTemp_max() + "ºC\n"
+                        + "오늘의 최저기온: " + responseEntity.getMain().getTemp_min() + "ºC\n"
+                        + "습도: " + responseEntity.getMain().getHumidity()+"%").build();
+
+
+    }
 
     @Cacheable(value = "remainMask")
     public List<GachonMask> getRemainMaskInfo() {
         List<String> maskKeyword = Arrays.asList("plenty", "some", "few");
         List<CompletableFuture<List<GachonMask>>> completableFutures = maskKeyword.stream()
-
                 .map(keyword -> CompletableFuture.supplyAsync(()
                         -> gachonMaskRepository
                         .findAllByRemainStat(keyword)
                         .orElse(Collections.emptyList())))
                 .collect(Collectors.toList());
 
-        System.out.println(completableFutures.stream()
-                .map(CompletableFuture::join)
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList()));
-        System.out.println(completableFutures.get(0));
 
 
         return completableFutures.stream()
-                                 .map(CompletableFuture::join)
-                                 .flatMap(Collection::stream)
-                                 .collect(Collectors.toList());
+                .map(CompletableFuture::join)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     @Scheduled(cron = "0 55 23 * * *")
@@ -232,29 +237,12 @@ public class GachonService {
         for (GachonYesterdayMask gachonYesterdayMask : list) {
             gachonYesterdayRepository.save(gachonYesterdayMask);
         }
-        System.out.println(response_yesterday);
 
         return response_yesterday;
     }
-
     public List<GachonYesterdayMask> findYesterdayMaskInfo() {
 
         return gachonYesterdayRepository.findAll();
-    }
-
-    public DustModel findDust() throws IOException {
-//        URI url = URI.create(Url.DUST_URL);
-//        ResponseEntity<String> responseEntity = null;
-//        responseEntity = restTemplate.getForEntity(url, String.class);
-//
-//        String jsonInfo = responseEntity.getBody();
-//        Map<String, Object> result = new HashMap<>();
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        DustDto dustDto = mapper.readValue(jsonInfo, DustDto.class);
-//        return dustDto;
-        DustModel response = restTemplate.getForObject(Url.DUST_URL, DustModel.class);
-        return response;
     }
 }
 

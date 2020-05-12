@@ -19,22 +19,26 @@ public class GachonController {
 
     }
 
-    @GetMapping("/weather")
-    public WeatherDto getWeatherInfo() throws Exception {
-        return gachonService.findWeatherInfo();
-
+    @PostMapping("/weather")
+    public WeatherResponse getWeather(@RequestBody BotRequest botRequest){
+        return gachonService.getWeatherInfo2(botRequest);
     }
-    @GetMapping("/haksik/building")
-    public HaksikDto getHaksikInfo(@RequestParam("building") String building) throws IOException {
-        return gachonService.getHaksikInfo(building);
+
+
+    @PostMapping("/haksik/vision")
+    public HaksikResponse getHaksikInfo_vision(@RequestBody BotRequest botRequest) throws IOException {
+        return gachonService.getHaksikInfo("vision");
     }
-//
-//    @GetMapping("/notice/topic")
-//    public GuideDto getGuideInfo(@RequestParam("topic") String topic) throws IOException{
-//        return gachonService.getNoticeInfo(topic);
-//    }
 
+    @PostMapping("/haksik/art")
+    public HaksikResponse getHaksikInfo_art(@RequestBody BotRequest botRequest) throws IOException {
+        return gachonService.getHaksikInfo("art");
+    }
 
+    @PostMapping("/haksik/edu")
+    public HaksikResponse getHaksikInfo_edu(@RequestBody BotRequest botRequest) throws IOException {
+        return gachonService.getHaksikInfo("edu");
+    }
 
     @PostMapping("/mask/menu")
     public MaskMenuDto getMaskInfo(@RequestBody BotRequest botRequest) {
@@ -52,24 +56,28 @@ public class GachonController {
         return gachonService.getMaskInfo(botRequest);
     }
 
-    @GetMapping("/dust")
-    public DustModel getDust() throws IOException {
-        return gachonService.findDust();
-    }
-
 
     @PostMapping("/yesterday/mask")
     public MaskYesterdayResponse getYesterdayInfo(@RequestBody BotRequest botRequest){
         return gachonService.getYesterdayInfo(botRequest);
     }
 
-    @PostMapping("/guide/notice")
+    @PostMapping("/guide/news")
     public GuideResponse guideResponse(@RequestBody BotRequest botRequest) throws IOException {
-        return gachonService.getNoticeInfo(botRequest);
+        return gachonService.getNoticeInfo("news");
     }
-    @GetMapping("/soso")
-    public String info() throws IOException{
-        return gachonService.getInfo();
+    @PostMapping("/guide/benefit")
+    public GuideResponse guideResponse2(@RequestBody BotRequest botRequest) throws IOException {
+        return gachonService.getNoticeInfo("benefit");
+    }
+    @PostMapping("/guide/notice")
+    public GuideResponse guideResponse3(@RequestBody BotRequest botRequest) throws IOException {
+        return gachonService.getNoticeInfo("notice");
+    }
+
+    @PostMapping("/library")
+    public LibraryResponse info(@RequestBody BotRequest botRequest) throws IOException{
+        return gachonService.getInfo(botRequest);
     }
 
 }

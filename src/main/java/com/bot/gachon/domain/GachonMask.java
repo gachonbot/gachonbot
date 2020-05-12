@@ -26,6 +26,8 @@ public class GachonMask {
     private String stockAt;
     private String type;
 
+
+
     @Builder
     public GachonMask(String name,
                       String addr,
