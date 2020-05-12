@@ -77,8 +77,8 @@ public class GachonService {
            if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
                 menu = child.getElementsByTag("dd").text() + "\n\n";
 
-               System.out.println("test11"+child.children().get(0).text());
-               System.out.println("test22"+child.children().get(0).children().text());
+               System.out.println("test11"+child.children().get(0).getElementsByTag("dd").text());
+               System.out.println("test22"+child.children().get(0).children().get(0).getElementsByTag("dd").text());
 
 
             }
