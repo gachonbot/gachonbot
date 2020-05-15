@@ -132,6 +132,9 @@ public class GachonService {
 //                    System.out.println("test1" + menu);
 //                    content = content.replaceAll("<br>","\n");
                }
+               menu = menu.replaceAll("<br>","\n");
+               menu = menu.replaceAll("<dd>","");
+               menu = menu.replaceAll("</dd>","");
                System.out.println("test1" + menu);
             }
 
