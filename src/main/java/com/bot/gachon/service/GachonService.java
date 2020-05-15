@@ -126,20 +126,22 @@ public class GachonService {
         String content;
         for (Element child : e.children()) {
            if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
-               for (Element child2 : child.getElementsByTag("dl").get(0).children().get(0).getElementsByTag("dd")){
+               for (Element child2 : child.getElementsByTag("dl").get(0).children()){
 
                    System.out.println("test1" + child2.getAllElements());
 
-                   menu += child2.text()+ "\n\n";
+                   menu += child2.getElementsByTag("dd").text()+ "\n\n";
 //                   System.out.println("test1" + child2.getAllElements());
 //                    content = child2.getAllElements().toString();
 //                    content = content.replaceAll("<br>","\n");
 
 
-//                   System.out.println("test1" + child2.getAllElements().toString());
-//                   System.out.println("\n\n\n test2" + child2.getAllElements().toArray().toString());
-//                   System.out.println("\n\n\n test3" + child2.getAllElements().spliterator());
-//                   System.out.println("\n\n\n test4" + child2.getAllElements().ㅅ);
+                   System.out.println("test1" + child2.getAllElements().toString());
+                   System.out.println("\n\n\n test2" + child2.getAllElements().toArray().toString());
+                   System.out.println("\n\n\n test3" + child2.getAllElements().spliterator());
+                   System.out.println("\n\n\n test4" + child2.getAllElements().html());
+                   System.out.println("\n\n\n test5" + child2.getAllElements().outerHtml());
+                   System.out.println("\n\n\n test6" + child2.getAllElements().val());
                }
             }
 
