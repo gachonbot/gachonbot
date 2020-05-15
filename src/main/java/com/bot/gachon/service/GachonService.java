@@ -128,7 +128,7 @@ public class GachonService {
         for (Element child : e.children()) {
            if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
                for (Element child2 : child.getElementsByTag("dl").get(0).children()){
-                   menu += child2.getElementsByTag("dd").toString()+ "\n";
+                   menu += child2.getElementsByTag("dd").toString();
                }
 //               menu = menu.replaceAll("<br>","\n");
 //               menu = menu.replaceAll("<dd>","");
