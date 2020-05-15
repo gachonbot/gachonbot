@@ -123,16 +123,20 @@ public class GachonService {
                 break;
         }
         String menu ="";
-
+        String content;
         for (Element child : e.children()) {
            if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
                for (Element child2 : child.getElementsByTag("dl").get(0).children()){
+
                    menu += child2.getElementsByTag("dd").text()+ "\n\n";
                    System.out.println("test1" + child2.getAllElements());
-                   System.out.println("test2" + child2.getAllElements().text());
+                    content = String.valueOf(child2.getAllElements());
+                    content = content.replaceAll("<br>","\n");
 
+                   System.out.println(content);
                }
             }
+
         }
         return HaksikResponse.builder().menu(menu).image(image).build();
     }
