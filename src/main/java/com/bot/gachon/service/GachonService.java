@@ -90,30 +90,28 @@ public class GachonService {
 
         if (url.equals("art")) {
             image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/areum.png";
-        }
-         else if (url.equals("vision")) {
+        } else if (url.equals("vision")) {
             image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/vision.png";
-        }
-         else image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/areum.png";
+        } else image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/areum.png";
 
         Calendar cal = Calendar.getInstance();
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         String yo = "";
-        switch (dayOfWeek){
+        switch (dayOfWeek) {
             case 1:
-                yo ="일요일";
+                yo = "일요일";
                 break;
             case 2:
-                yo ="월요일";
+                yo = "월요일";
                 break;
             case 3:
-                yo ="화요일";
+                yo = "화요일";
                 break;
             case 4:
-                yo ="수요일";
+                yo = "수요일";
                 break;
             case 5:
-                yo ="목요일";
+                yo = "목요일";
                 break;
             case 6:
                 yo = "금요일";
@@ -122,23 +120,20 @@ public class GachonService {
                 yo = "토요일";
                 break;
         }
-        yo = "월요일";
-        String menu ="";
+        String menu = "";
         String content;
         for (Element child : e.children()) {
-           if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
-               for (Element child2 : child.getElementsByTag("dl").get(0).children()){
-                   menu += child2.getElementsByTag("dd").toString();
-               }
-//               menu = menu.replaceAll("<br>","\n");
-//               menu = menu.replaceAll("<dd>","");
-//               menu = menu.replaceAll("</dd>","");
-//               System.out.println("test1" + menu);
+            if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
+                for (Element child2 : child.getElementsByTag("dl").get(0).children()) {
+                    menu += child2.getElementsByTag("dd").toString();
+                }
+
+//           menu = menu.replaceAll("\n\n", "\n");
             }
-           menu = menu.replaceAll("\n\n", "\n");
         }
-        return HaksikResponse.builder().menu(menu).image(image).build();
-    }
+            return HaksikResponse.builder().menu(menu).image(image).build();
+        }
+
 
 
     public GuideResponse getNoticeInfo(String url) throws IOException {
