@@ -127,11 +127,11 @@ public class GachonService {
         for (Element child : e.children()) {
            if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
                for (Element child2 : child.getElementsByTag("dl").get(0).children()){
-
-                   System.out.println("test1" + child2.getAllElements());
-
                    menu += child2.getElementsByTag("dd").text()+ "\n\n";
                     content = child2.getAllElements().val();
+
+                    System.out.println("test1" + content);
+
                     content = content.replaceAll("<br>","\n");
 
 
@@ -142,7 +142,7 @@ public class GachonService {
 //                   System.out.println("\n\n\n test5" + child2.getAllElements().outerHtml());
 //                   System.out.println("\n\n\n test6" + child2.getAllElements().val());
 
-                   System.out.println("test1" + content);
+                    System.out.println("\n\n\ntest2" + content);
                }
             }
 
