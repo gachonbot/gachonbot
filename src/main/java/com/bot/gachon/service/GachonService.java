@@ -99,7 +99,7 @@ public class GachonService {
         String yo = "";
         switch (dayOfWeek) {
             case 1:
-                yo = "일요일";
+                yo = "토요일"; // 일요일은 데이터가 없기 때문에 토요일 데이터 제공.
                 break;
             case 2:
                 yo = "월요일";
@@ -125,6 +125,10 @@ public class GachonService {
         for (Element child : e.children()) {
             if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
                 for (Element child2 : child.getElementsByTag("dl").get(0).children()) {
+                    if (yo.equals("토요일") || yo.equals("일요일")){
+                        menu = child2.getElementsByTag("dd").toString();
+                        break;
+                    }
                     menu += child2.getElementsByTag("dd").toString();
                 }
 
