@@ -129,11 +129,11 @@ public class GachonService {
                for (Element child2 : child.getElementsByTag("dl").get(0).children()){
 
                    menu += child2.getElementsByTag("dd").text()+ "\n\n";
-                   System.out.println("test1" + child2.getAllElements());
+//                   System.out.println("test1" + child2.getAllElements());
                     content = String.valueOf(child2.getAllElements());
                     content = content.replaceAll("<br>","\n");
 
-                   System.out.println(content);
+                   System.out.println("test2"+ content);
                }
             }
 
