@@ -73,12 +73,7 @@ public class GachonService {
             String menu = "";
             for (Element child : e.get(0).children()) {
                 if ((child.getElementsByTag("th").text()).indexOf(yo) != -1) {
-                    System.out.println("test1 : " + child);
-                    System.out.println("test2 : " + child.tagName());
-                    System.out.println("test3 : " + child.children());
-                    System.out.println(child.getElementsByTag("th").text());
-
-                    menu += child.text();
+                   menu += child.text();
                 }
             }
             return HaksikResponse.builder().menu(menu).image(image).build();
