@@ -135,7 +135,7 @@ public class GachonService {
 //               menu = menu.replaceAll("</dd>","");
 //               System.out.println("test1" + menu);
             }
-
+           menu = menu.replaceAll("\n\n", "\n");
         }
         return HaksikResponse.builder().menu(menu).image(image).build();
     }
