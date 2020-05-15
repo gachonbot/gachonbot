@@ -122,6 +122,7 @@ public class GachonService {
                 yo = "토요일";
                 break;
         }
+        yo = "월요일";
         String menu ="";
         String content;
         for (Element child : e.children()) {
