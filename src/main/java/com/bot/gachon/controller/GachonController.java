@@ -24,6 +24,10 @@ public class GachonController {
         return gachonService.getWeatherInfo2(botRequest);
     }
 
+    @PostMapping("/haksik/domitory")
+    public HaksikResponse getHaksikInfo_domitory(@RequestBody BotRequest botRequest)throws IOException {
+        return gachonService.getHaksikInfo_domitory(botRequest);
+    }
 
     @PostMapping("/haksik/vision")
     public HaksikResponse getHaksikInfo_vision(@RequestBody BotRequest botRequest) throws IOException {

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.net.URI;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -37,6 +38,51 @@ public class GachonService {
         this.restTemplate = restTemplate;
         this.gachonYesterdayRepository = gachonYesterdayRepository;
     }
+    public HaksikResponse getHaksikInfo_domitory(BotRequest botRequest) throws IOException {
+
+        Document doc = Jsoup.connect(Url.HAKSIK_URL_DOMITORY).get();
+        Elements e = doc.getElementsByTag("tbody");
+
+        Calendar cal = Calendar.getInstance();
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        String yo = "";
+        switch (dayOfWeek) {
+            case 1:
+                yo = "일";
+                break;
+            case 2:
+                yo = "월";
+                break;
+            case 3:
+                yo = "화";
+                break;
+            case 4:
+                yo = "수";
+                break;
+            case 5:
+                yo = "목";
+                break;
+            case 6:
+                yo = "금";
+                break;
+            case 7:
+                yo = "토";
+                break;
+        }
+            String menu = "";
+            for (Element child : e.get(0).children()) {
+                if ((child.getElementsByTag("th").text()).indexOf(yo) != -1) {
+                    System.out.println("test1 : " + child);
+                    System.out.println("test2 : " + child.tagName());
+                    System.out.println("test3 : " + child.children());
+                    System.out.println(child.getElementsByTag("th").text());
+
+                    menu += child.text();
+                }
+            }
+            return HaksikResponse.builder().menu(menu).build();
+
+        }
 
 
     public HaksikResponse getHaksikInfo(String url) throws IOException {
@@ -74,16 +120,8 @@ public class GachonService {
         String menu ="";
 
         for (Element child : e.children()) {
-//            System.out.println("# child test1 : " + child.tagName());
-//            System.out.println("# child test2 : " + child.id());
-//            System.out.println("# child test3 : " + child.nodeName());
-//            System.out.println("소미니 테스트" + child.getElementsByTag("dl").get(0).children().text());
            if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
                for (Element child2 : child.getElementsByTag("dl").get(0).children()){
-
-                   System.out.println("# child2 test1 : " + child2.tagName());
-                   System.out.println("# child2 test2 : " + child2.id());
-                   System.out.println("# child2 test3 : " + child2.nodeName());
                    menu += child2.getElementsByTag("dd").text() + "\n\n";
                }
             }
