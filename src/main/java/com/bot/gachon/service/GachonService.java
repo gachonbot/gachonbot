@@ -99,6 +99,7 @@ public class GachonService {
         String yo = "";
         switch (dayOfWeek) {
             case 1:
+            case 7:
                 yo = "토요일"; // 일요일은 데이터가 없기 때문에 토요일 데이터 제공.
                 break;
             case 2:
@@ -115,9 +116,6 @@ public class GachonService {
                 break;
             case 6:
                 yo = "금요일";
-                break;
-            case 7:
-                yo = "토요일";
                 break;
         }
         String menu = "";
