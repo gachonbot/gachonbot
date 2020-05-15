@@ -38,11 +38,12 @@ public class GachonService {
         this.restTemplate = restTemplate;
         this.gachonYesterdayRepository = gachonYesterdayRepository;
     }
+
     public HaksikResponse getHaksikInfo_domitory(BotRequest botRequest) throws IOException {
 
         Document doc = Jsoup.connect(Url.HAKSIK_URL_DOMITORY).get();
         Elements e = doc.getElementsByTag("tbody");
-
+        String image ="https://s3.ap-northeast-2.amazonaws.com/gachonbot/giusk.png";
         Calendar cal = Calendar.getInstance();
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         String yo = "";
@@ -80,7 +81,7 @@ public class GachonService {
                     menu += child.text();
                 }
             }
-            return HaksikResponse.builder().menu(menu).build();
+            return HaksikResponse.builder().menu(menu).image(image).build();
 
         }
 
@@ -90,6 +91,15 @@ public class GachonService {
         HaksikUrl haksikUrl = HaksikUrl.valueOf(url);
         Document doc = Jsoup.connect(haksikUrl.link).get();
         Element e = doc.getElementById("toggle-view");
+        String image = "";
+
+        if (url.equals("art")) {
+            image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/areum.png";
+        }
+         else if (url.equals("vision")) {
+            image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/vision.png";
+        }
+         else image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/areum.png";
 
         Calendar cal = Calendar.getInstance();
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
@@ -126,7 +136,7 @@ public class GachonService {
                }
             }
         }
-        return HaksikResponse.builder().menu(menu).build();
+        return HaksikResponse.builder().menu(menu).image(image).build();
     }
 
 
