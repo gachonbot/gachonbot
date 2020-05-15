@@ -124,8 +124,14 @@ public class GachonService {
         String content;
         for (Element child : e.children()) {
             if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
-                for (Element child2 : child.getElementsByTag("dl").get(0).children()) {
-                    menu += child2.getElementsByTag("dd").toString();
+//                for (Element child2 : child.getElementsByTag("dl").get(0).children()) {
+//                    menu += child2.getElementsByTag("dd").toString();
+//                    if (yo.equals("토요일") && ! menu.equals("")){
+//                        break;
+//                    }
+//                }
+                for (Element child2 : child.getElementsByTag("dl").get(0).getElementsByTag("dd")) {
+                    menu += child2.toString();
                     if (yo.equals("토요일") && ! menu.equals("")){
                         break;
                     }
