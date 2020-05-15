@@ -123,11 +123,10 @@ public class GachonService {
         for (Element child : e.children()) {
             if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
                 for (Element child2 : child.getElementsByTag("dl").get(0).children()) {
-                    if (yo.equals("토요일") || yo.equals("일요일")){
-                        menu = child2.getElementsByTag("dd").toString();
+                    menu += child2.getElementsByTag("dd").toString();
+                    if (yo.equals("토요일") && ! menu.equals("")){
                         break;
                     }
-                    menu += child2.getElementsByTag("dd").toString();
                 }
 
 //           menu = menu.replaceAll("\n\n", "\n");
