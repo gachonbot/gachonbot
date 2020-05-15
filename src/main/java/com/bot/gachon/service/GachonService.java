@@ -70,15 +70,15 @@ public class GachonService {
                 yo = "토";
                 break;
         }
-            String menu = "";
-            for (Element child : e.get(0).children()) {
-                if ((child.getElementsByTag("th").text()).indexOf(yo) != -1) {
-                   menu += child.text();
-                }
+        String menu = "";
+        for (Element child : e.get(0).children()) {
+            if ((child.getElementsByTag("th").text()).indexOf(yo) != -1) {
+                menu += child.text();
             }
-            return HaksikResponse.builder().menu(menu).image(image).build();
-
         }
+        return HaksikResponse.builder().menu(menu).image(image).build();
+
+    }
 
 
     public HaksikResponse getHaksikInfo(String url) throws IOException {
@@ -89,10 +89,12 @@ public class GachonService {
         String image = "";
 
         if (url.equals("art")) {
-            image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/areum.png";
+            image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/art.png";
         } else if (url.equals("vision")) {
             image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/vision.png";
-        } else image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/areum.png";
+        } else {
+            image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/areum.png";
+        }
 
         Calendar cal = Calendar.getInstance();
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
@@ -129,11 +131,10 @@ public class GachonService {
                     }
                 }
 
-//           menu = menu.replaceAll("\n\n", "\n");
             }
         }
-            return HaksikResponse.builder().menu(menu).image(image).build();
-        }
+        return HaksikResponse.builder().menu(menu).image(image).build();
+    }
 
 
 
