@@ -16,11 +16,11 @@ public class HaksikResponse {
     private HashMap<String,Object> template = new HashMap<>();
 
     @Builder
-    public HaksikResponse(String menu){
+    public HaksikResponse(String menu,String image){
      this.version ="2.0";
 
      HashMap<String,String> simpleImage = new HashMap<>();
-     simpleImage.put("imageUrl","https://s3.ap-northeast-2.amazonaws.com/gachonbot/art.png");
+     simpleImage.put("imageUrl",image);
      simpleImage.put("altText","image");
      ArrayList<HashMap<String,Object>> outputs = new ArrayList<>();
 

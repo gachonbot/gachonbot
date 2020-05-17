@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.net.URI;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -38,48 +39,109 @@ public class GachonService {
         this.gachonYesterdayRepository = gachonYesterdayRepository;
     }
 
+    public HaksikResponse getHaksikInfo_domitory(BotRequest botRequest) throws IOException {
+
+        Document doc = Jsoup.connect(Url.HAKSIK_URL_DOMITORY).get();
+        Elements e = doc.getElementsByTag("tbody");
+        String image ="https://s3.ap-northeast-2.amazonaws.com/gachonbot/giusk.png";
+        Calendar cal = Calendar.getInstance();
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        String yo = "";
+        switch (dayOfWeek) {
+            case 1:
+                yo = "일";
+                break;
+            case 2:
+                yo = "월";
+                break;
+            case 3:
+                yo = "화";
+                break;
+            case 4:
+                yo = "수";
+                break;
+            case 5:
+                yo = "목";
+                break;
+            case 6:
+                yo = "금";
+                break;
+            case 7:
+                yo = "토";
+                break;
+        }
+        String menu = "";
+        for (Element child : e.get(0).children()) {
+            if ((child.getElementsByTag("th").text()).indexOf(yo) != -1) {
+                menu += child.text();
+            }
+        }
+        return HaksikResponse.builder().menu(menu).image(image).build();
+
+    }
+
 
     public HaksikResponse getHaksikInfo(String url) throws IOException {
 
         HaksikUrl haksikUrl = HaksikUrl.valueOf(url);
         Document doc = Jsoup.connect(haksikUrl.link).get();
         Element e = doc.getElementById("toggle-view");
+        String image = "";
+
+        if (url.equals("art")) {
+            image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/art.png";
+        } else if (url.equals("vision")) {
+            image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/vision.png";
+        } else {
+            image = "https://s3.ap-northeast-2.amazonaws.com/gachonbot/areum.png";
+        }
+
         Calendar cal = Calendar.getInstance();
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
         String yo = "";
-        switch (dayOfWeek){
+        switch (dayOfWeek) {
             case 1:
-                yo ="일요일";
+            case 7:
+                yo = "토요일"; // 일요일은 데이터가 없기 때문에 토요일 데이터 제공.
                 break;
             case 2:
-                yo ="월요일";
+                yo = "월요일";
                 break;
             case 3:
-                yo ="화요일";
+                yo = "화요일";
                 break;
             case 4:
-                yo ="수요일";
+                yo = "수요일";
                 break;
             case 5:
-                yo ="목요일";
+                yo = "목요일";
                 break;
             case 6:
                 yo = "금요일";
                 break;
-            case 7:
-                yo = "토요일";
-                break;
         }
-        String menu ="";
+        String menu = "";
+        String content;
         for (Element child : e.children()) {
-            System.out.println(child.getElementsByTag("img").attr("alt"));
             if (yo.equals(child.getElementsByTag("img").attr("alt"))) {
-                menu = child.getElementsByTag("dd").text();
+//                for (Element child2 : child.getElementsByTag("dl").get(0).children()) {
+//                    menu += child2.getElementsByTag("dd").toString();
+//                    if (yo.equals("토요일") && ! menu.equals("")){
+//                        break;
+//                    }
+//                }
+                for (Element child2 : child.getElementsByTag("dl").get(0).getElementsByTag("dd")) {
+                    menu += child2.toString();
+                    if (yo.equals("토요일") && ! menu.equals("")){
+                        break;
+                    }
+                }
 
             }
         }
-        return HaksikResponse.builder().menu(menu).build();
+        return HaksikResponse.builder().menu(menu).image(image).build();
     }
+
 
 
     public GuideResponse getNoticeInfo(String url) throws IOException {
