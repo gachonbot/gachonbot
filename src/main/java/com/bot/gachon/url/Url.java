@@ -1,4 +1,4 @@
-package com.bot.gachon.service;
+package com.bot.gachon.url;
 
 public class Url {
 
@@ -13,4 +13,7 @@ public class Url {
     public static final String GUIDE_URL_NEWS="http://m.gachon.ac.kr/gachon/notice.jsp?boardType_seq=773";
     public static final String GUIDE_URL_BENEFIT="http://m.gachon.ac.kr/gachon/notice.jsp?boardType_seq=361";
     public static final String LIBRARY_CENTRAL = "http://dlibadm.gachon.ac.kr/GACHON_CENTRAL_BOOKING/webbooking/statusList.jsp";
+
+    public static final String SCHEDULE ="http://m.gachon.ac.kr/day/day.jsp?boardType_seq=395#none";
+
 }
