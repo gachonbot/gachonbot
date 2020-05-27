@@ -30,16 +30,11 @@ public class Schedule {
 
         for (Element child : e.children()) {
             if ((child.getElementsByTag("a").text()).equals(dayofMonth_)) {
-                content += child.getElementsByTag("div").text();
+                content = child.getElementsByTag("div").text();
+                break;
 
-                System.out.println("test1"+ child.getElementsByTag("div").text() );
-                System.out.println("test2" +child.getElementsByTag("a").text());
-                System.out.println("test3"+dayofMonth);
             }
         }
-        System.out.println("test4" +e.children().get(0).getElementsByTag("a").text());
-        System.out.println("test5"+e.children().get(0).tagName());
-        System.out.println("test6"+ e.children().get(0).getElementsByTag("div").text());
         return ScheduleReponse.builder().image(image).content(content).build();
     }
 }
