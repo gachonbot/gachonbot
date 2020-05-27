@@ -23,9 +23,9 @@ public class ScheduleReponse {
         output2.put("simpleImage",simpleImage);
 
         ArrayList<HashMap<String,Object>> outputs = new ArrayList<>();
-        outputs.add(simpleImage);
         HashMap<String,Object> output = new HashMap<>();
         output.put("simpleText",simpleText);
+        outputs.add(output2);
         outputs.add(output);
         this.template.put("outputs",outputs);
 

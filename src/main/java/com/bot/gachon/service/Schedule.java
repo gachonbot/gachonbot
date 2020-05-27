@@ -30,8 +30,13 @@ public class Schedule {
         for (Element child : e.get(0).children()) {
             if ((child.getElementsByTag("a").text()).indexOf(dayofMonth) != -1) {
                 content += child.getElementById("div").text();
+
+                System.out.println("test1"+ child.getElementById("div").text() );
+                System.out.println("test2" +child.getElementsByTag("a").text());
+                System.out.println("test3"+dayofMonth);
             }
         }
+        System.out.println("test4" +dayofMonth);
         return ScheduleReponse.builder().image(image).content(content).build();
     }
 }
