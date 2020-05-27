@@ -29,14 +29,16 @@ public class Schedule {
 
         for (Element child : e.children()) {
             if ((child.getElementsByTag("a").text()).indexOf(dayofMonth) != -1) {
-                content += child.getElementById("div").text();
+                content += child.getElementsByTag("div").text();
 
-                System.out.println("test1"+ child.getElementById("div").text() );
+                System.out.println("test1"+ child.getElementsByTag("div").text() );
                 System.out.println("test2" +child.getElementsByTag("a").text());
                 System.out.println("test3"+dayofMonth);
             }
         }
-        System.out.println("test4" +dayofMonth);
+        System.out.println("test1" +e.children().get(0).getElementsByTag("a").text());
+        System.out.println("test2"+e.children().get(0).tagName());
+        System.out.println("test3"+ e.children().get(0).getElementsByTag("div").text());
         return ScheduleReponse.builder().image(image).content(content).build();
     }
 }
