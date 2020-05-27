@@ -30,7 +30,7 @@ public class Schedule {
 
         for (Element child : e.children()) {
             if ((child.getElementsByTag("a").text()).equals(dayofMonth_)) {
-                content = child.getElementsByTag("div").text();
+                content = child.getElementsByTag("div").text().toString();
                 break;
 
             }
