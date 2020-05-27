@@ -17,7 +17,10 @@ public class GachonController {
     private final Guide guide;
     private final Library library;
     private final Main main;
-    public GachonController(Haksik haksik, Mask mask, Weather weather, Guide guide, Library library, Main main) {
+    private final Schedule schedule;
+
+    public GachonController(Haksik haksik, Mask mask, Weather weather, Guide guide, Library library, Main main,
+                            Schedule schedule) {
 
         this.haksik = haksik;
         this.mask = mask;
@@ -25,15 +28,16 @@ public class GachonController {
         this.guide = guide;
         this.library = library;
         this.main = main;
+        this.schedule = schedule;
     }
 
     @PostMapping("/weather")
-    public WeatherResponse getWeather(@RequestBody BotRequest botRequest){
+    public WeatherResponse getWeather(@RequestBody BotRequest botRequest) {
         return weather.getWeatherInfo2(botRequest);
     }
 
     @PostMapping("/haksik/domitory")
-    public HaksikResponse getHaksikInfo_domitory(@RequestBody BotRequest botRequest)throws IOException {
+    public HaksikResponse getHaksikInfo_domitory(@RequestBody BotRequest botRequest) throws IOException {
         return haksik.getHaksikInfo_domitory(botRequest);
     }
 
@@ -70,7 +74,7 @@ public class GachonController {
 
 
     @PostMapping("/yesterday/mask")
-    public MaskYesterdayResponse getYesterdayInfo(@RequestBody BotRequest botRequest){
+    public MaskYesterdayResponse getYesterdayInfo(@RequestBody BotRequest botRequest) {
         return mask.getYesterdayInfo(botRequest);
     }
 
@@ -78,24 +82,26 @@ public class GachonController {
     public GuideResponse guideResponse(@RequestBody BotRequest botRequest) throws IOException {
         return guide.getNoticeInfo("news");
     }
+
     @PostMapping("/guide/benefit")
     public GuideResponse guideResponse2(@RequestBody BotRequest botRequest) throws IOException {
         return guide.getNoticeInfo("benefit");
     }
+
     @PostMapping("/guide/notice")
     public GuideResponse guideResponse3(@RequestBody BotRequest botRequest) throws IOException {
         return guide.getNoticeInfo("notice");
     }
 
     @PostMapping("/library")
-    public LibraryResponse info(@RequestBody BotRequest botRequest) throws IOException{
+    public LibraryResponse info(@RequestBody BotRequest botRequest) throws IOException {
         return library.getInfo(botRequest);
     }
 
-//    @PostMapping("/schedule")
-//    public  ScheduleResponse scheduleResponse(@RequestBody BotRequest botRequest) throws IOException{
-//        return gachonService.getScheduleInfo(botRequest);
-//    }
+    @PostMapping("/schedule")
+    public ScheduleReponse scheduleResponse(@RequestBody BotRequest botRequest) throws IOException {
+        return schedule.getSchedulInfo(botRequest);
+    }
 }
 
 

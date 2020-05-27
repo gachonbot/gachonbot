@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 @Getter
 public class ScheduleReponse {
+
     private String version;
     private HashMap<String,Object> template = new HashMap<>();
     @Builder
