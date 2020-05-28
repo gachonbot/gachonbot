@@ -30,12 +30,13 @@ public class Schedule {
 
         for (Element child : e.children()) {
             if ((child.getElementsByTag("a").text()).equals(dayofMonth_)) {
-                content = child.children().get(0).getElementsByTag("dt").text()+"\n"+
-                        child.children().get(0).getElementsByTag("dd").text();
+                content = child.getElementsByTag("dl").text()+"\n"+
+                        child.getElementsByTag("dd").text();
                 content = content.replaceAll("\\[학사지원팀\\]","\n");
                 break;
             }
-            System.out.println("Test1"+child.children().get(0).getElementsByTag("dd").text());
+            System.out.println("Test1"+child.getElementsByTag("dl").text());
+            System.out.println("test2"+ child.getElementsByTag("dd").text());
         }
         return ScheduleReponse.builder().image(image).content(content).build();
     }
