@@ -33,7 +33,8 @@ public class Schedule {
                 content = child.getElementsByTag("dl").get(0).getElementsByTag("dt").text()+"\n"+
                         child.getElementsByTag("dl").get(0).getElementsByTag("dd").text();
                 content = content.replaceAll("\\[학사지원팀\\]","");
-                break;
+                if (child.tagName().equals("noscript"))
+                    break;
             }
         }
         return ScheduleReponse.builder().image(image).content(content).build();
