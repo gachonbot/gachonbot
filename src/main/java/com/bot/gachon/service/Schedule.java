@@ -35,6 +35,7 @@ public class Schedule {
                 content = content.replaceAll("\\[학사지원팀\\]","\n");
                 break;
             }
+            System.out.println("Test1"+child.children().get(0).getElementsByTag("dd").text());
         }
         return ScheduleReponse.builder().image(image).content(content).build();
     }
