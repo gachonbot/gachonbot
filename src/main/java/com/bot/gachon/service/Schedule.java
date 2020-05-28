@@ -30,8 +30,9 @@ public class Schedule {
 
         for (Element child : e.children()) {
             if ((child.getElementsByTag("a").text()).equals(dayofMonth_)) {
-                content = child.getElementsByTag("dl").get(0).getElementsByTag("dt").text()+"\n"+
-                        child.getElementsByTag("dl").get(0).getElementsByTag("dd").text();
+                for(Element child2 : child.getElementsByTag("dl"))
+                content+= child2.getElementsByTag("dt").text()+"\n"+
+                        child2.getElementsByTag("dd").text();
                 content = content.replaceAll("\\[학사지원팀\\]","");
                 if (child.tagName().equals("noscript"))
                     break;
