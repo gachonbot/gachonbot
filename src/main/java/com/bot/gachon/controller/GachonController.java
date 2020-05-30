@@ -102,6 +102,12 @@ public class GachonController {
     public ScheduleReponse scheduleResponse(@RequestBody BotRequest botRequest) throws IOException {
         return schedule.getSchedulInfo(botRequest);
     }
+    @PostMapping("/schedule/month")
+    public ScheudleMonthMenu scheudleMonthMenu(@RequestBody BotRequest botRequest) throws IOException {
+        return schedule.getSchedulMenu(botRequest);
+    }
+
+
 }
 
 

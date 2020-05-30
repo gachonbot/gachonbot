@@ -4,12 +4,10 @@ import lombok.Builder;
 import lombok.Getter;
 import org.apache.tomcat.util.digester.ArrayStack;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 @Getter
-
 public class HaksikResponse {
 
     private String version;
@@ -35,7 +33,7 @@ public class HaksikResponse {
      ArrayList<HashMap<String,String>> quickReplies = new ArrayList<>();
      HashMap<String,String> output3 = new HashMap<>();
      output3.put("action","block");
-     output3.put("label","🏠");
+     output3.put("label","오늘의 식단(학식)보기");
      output3.put("messageText","오늘의 식단(학식)보기");
      output3.put("blockId","5c612b6905aaa7668df7bfc1");
      HashMap<String,String> output4 = new HashMap<>();

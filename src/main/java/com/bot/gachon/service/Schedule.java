@@ -1,7 +1,9 @@
 package com.bot.gachon.service;
 
 import com.bot.gachon.dto.req.BotRequest;
+import com.bot.gachon.dto.res.MainMenuDto;
 import com.bot.gachon.dto.res.ScheduleReponse;
+import com.bot.gachon.dto.res.ScheudleMonthMenu;
 import com.bot.gachon.url.Url;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -37,5 +39,10 @@ public class Schedule {
         }
 
         return ScheduleReponse.builder().image(image).content(content).build();
+    }
+
+    public ScheudleMonthMenu getSchedulMenu(BotRequest botRequest) {
+
+        return ScheudleMonthMenu.builder().build();
     }
 }
