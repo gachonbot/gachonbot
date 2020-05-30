@@ -24,25 +24,25 @@ public class Schedule {
 
         String temp = botRequest.getUserRequest().getUtterance();
         temp= temp.substring(0,(temp.length()-1));
+        String dayofMonth = temp+"월";
         Document doc = Jsoup.connect(Url.SCHEDULE).get();
         Element e = doc.getElementById("toggle-view");
         String image ="https://s3.ap-northeast-2.amazonaws.com/gachonbot/vision.png";
-        Calendar cal = Calendar.getInstance();
-        int dayofMonth = cal.get(Calendar.MONTH)+1;
-        String dayofMonth_ = dayofMonth+"월";
+//        Calendar cal = Calendar.getInstance();
+//        int dayofMonth = cal.get(Calendar.MONTH)+1;
+//        String dayofMonth_ = dayofMonth+"월";
 
         String content = "";
 
         for (Element child : e.children()) {
-            if ((child.getElementsByTag("a").text()).equals(dayofMonth_)) {
+            if ((child.getElementsByTag("a").text()).equals(dayofMonth)) {
                 for(Element child2 : child.getElementsByTag("div").get(0).getElementsByTag("dl"))
                 content+=child2.text()+"\n";
                 content = content.replaceAll("\\[학사지원팀\\]","\n");
             }
         }
-        System.out.println("test1"+ botRequest.getUserRequest().getUtterance());
-        System.out.println("test2"+ temp);
-        System.out.println("test3"+ temp.substring(0,temp.length()-1));
+
+
         return ScheduleReponse.builder().image(image).content(content).build();
     }
 
