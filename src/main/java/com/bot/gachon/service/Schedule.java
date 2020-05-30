@@ -4,12 +4,13 @@ import com.bot.gachon.dto.req.BotRequest;
 import com.bot.gachon.dto.res.MainMenuDto;
 import com.bot.gachon.dto.res.ScheduleReponse;
 import com.bot.gachon.dto.res.ScheudleMonthMenu;
+import com.bot.gachon.dto.res.ScheudleMonthMenu_D;
 import com.bot.gachon.url.Url;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class Schedule {
                 content = content.replaceAll("\\[학사지원팀\\]","\n");
             }
         }
+        System.out.println("test1"+ botRequest.getUserRequest().getUtterance());
 
         return ScheduleReponse.builder().image(image).content(content).build();
     }
@@ -44,5 +46,9 @@ public class Schedule {
     public ScheudleMonthMenu getSchedulMenu(BotRequest botRequest) {
 
         return ScheudleMonthMenu.builder().build();
+    }
+    public ScheudleMonthMenu_D getSchedulMenu2(BotRequest botRequest) {
+
+        return ScheudleMonthMenu_D.builder().build();
     }
 }
