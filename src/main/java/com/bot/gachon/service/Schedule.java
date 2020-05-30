@@ -28,10 +28,6 @@ public class Schedule {
         Document doc = Jsoup.connect(Url.SCHEDULE).get();
         Element e = doc.getElementById("toggle-view");
         String image ="https://s3.ap-northeast-2.amazonaws.com/gachonbot/vision.png";
-//        Calendar cal = Calendar.getInstance();
-//        int dayofMonth = cal.get(Calendar.MONTH)+1;
-//        String dayofMonth_ = dayofMonth+"월";
-
         String content = "";
 
         for (Element child : e.children()) {
