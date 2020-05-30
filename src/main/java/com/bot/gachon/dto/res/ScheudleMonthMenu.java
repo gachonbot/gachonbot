@@ -15,7 +15,7 @@ public class ScheudleMonthMenu {
     public ScheudleMonthMenu() {
         this.version = "2.0";
         HashMap<String,String> simpleText = new HashMap<>();
-        simpleText.put("tesx","달을 선택해주세요!");
+        simpleText.put("text","달을 선택해주세요!");
         HashMap<String,Object> output = new HashMap<>();
         output.put("simpleText",simpleText);
         ArrayList<HashMap<String,Object>> outputs = new ArrayList<>();
