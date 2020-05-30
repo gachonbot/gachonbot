@@ -21,7 +21,8 @@ import java.util.Calendar;
 public class Schedule {
 
     public ScheduleReponse getSchedulInfo(BotRequest botRequest) throws IOException {
-
+        String temp = botRequest.getUserRequest().getUtterance();
+        temp = temp.substring(0,temp.length()-1);
         Document doc = Jsoup.connect(Url.SCHEDULE).get();
         Element e = doc.getElementById("toggle-view");
         String image ="https://s3.ap-northeast-2.amazonaws.com/gachonbot/vision.png";
@@ -39,6 +40,7 @@ public class Schedule {
             }
         }
         System.out.println("test1"+ botRequest.getUserRequest().getUtterance());
+        System.out.println("test2"+ temp);
 
         return ScheduleReponse.builder().image(image).content(content).build();
     }
