@@ -35,9 +35,7 @@ public class Schedule {
             if ((child.getElementsByTag("a").text()).equals(dayofMonth)) {
                 for(Element child2 : child.getElementsByTag("div").get(0).getElementsByTag("dl")){
                     content+=child2.getElementsByTag("dd").text() + "\n" + child2.getElementsByTag("dt").text();
-                    System.out.println("# somini1 = " + child2.getElementsByTag("dd").text());
-                    System.out.println("# somini2 = " + child2.getElementsByTag("dt").text());
-                    content = content.replaceAll("\\[학사지원팀\\]","\n");
+                    content = content.replaceAll("\\[학사지원팀\\]","");
                 }
             }
 
