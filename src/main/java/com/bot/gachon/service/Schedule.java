@@ -38,7 +38,7 @@ public class Schedule {
                 }
             }
             content = content.replaceAll("\\[학사지원팀\\]","");
-            content = content.substring(0, content.length()-2);
+            content = content.substring(0, (content.length()-2));
 
         }
         return ScheduleReponse.builder().image(image).content(content).build();
