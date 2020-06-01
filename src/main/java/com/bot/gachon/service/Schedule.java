@@ -36,6 +36,7 @@ public class Schedule {
                 for(Element child2 : child.getElementsByTag("div").get(0).getElementsByTag("dl"))
                     content+=child2.text()+"\n";
                     content = content.replaceAll("\\[학사지원팀\\]","\n");
+
             }
 
         }
