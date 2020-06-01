@@ -11,6 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -32,12 +33,13 @@ public class Schedule {
 
         for (Element child : e.children()) {
             if ((child.getElementsByTag("a").text()).equals(dayofMonth)) {
-                for(Element child2 : child.getElementsByTag("div").get(0).getElementsByTag("dl"))
-                content+=child2.text()+"\n";
-                content = content.replaceAll("\\[학사지원팀\\]","\n");
+                for(Element child2 : child.getElementsByTag("div").get(0).getElementsByTag("dl")){
+                    content+=child2.getElementsByTag("dd") + "\n" + child2.getElementsByTag("dt");
+                }
             }
         }
 
+        content = content.replaceAll("\\[학사지원팀\\]","");
 
         return ScheduleReponse.builder().image(image).content(content).build();
     }
