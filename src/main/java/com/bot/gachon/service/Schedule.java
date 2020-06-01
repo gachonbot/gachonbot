@@ -41,6 +41,8 @@ public class Schedule {
 
         }
 
+        content  = "testsetsts";
+
 
         return ScheduleReponse.builder().image(image).content(content).build();
     }
