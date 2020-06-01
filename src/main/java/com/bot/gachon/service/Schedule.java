@@ -34,10 +34,11 @@ public class Schedule {
         for (Element child : e.children()) {
             if ((child.getElementsByTag("a").text()).equals(dayofMonth)) {
                 for(Element child2 : child.getElementsByTag("div").get(0).getElementsByTag("dl")){
-                    content+="#"+ child2.getElementsByTag("dd").text() + "\n" + child2.getElementsByTag("dt").text()+"\n";
-                    content = content.replaceAll("\\[학사지원팀\\]","");
+                    content+="#"+ child2.getElementsByTag("dd").text() + "\n" + child2.getElementsByTag("dt").text()+"\n\n";
                 }
             }
+            content = content.replaceAll("\\[학사지원팀\\]","");
+            content = content.substring(0, content.length()-2);
 
         }
         return ScheduleReponse.builder().image(image).content(content).build();
