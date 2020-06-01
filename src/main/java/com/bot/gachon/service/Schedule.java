@@ -33,8 +33,15 @@ public class Schedule {
 
         for (Element child : e.children()) {
             if ((child.getElementsByTag("a").text()).equals(dayofMonth)) {
-                for(Element child2 : child.getElementsByTag("div").get(0).getElementsByTag("dl")){
-                    content+="#"+ child2.getElementsByTag("dd").text() + "\n" + child2.getElementsByTag("dt").text()+"\n\n";
+//                for(Element child2 : child.getElementsByTag("div").get(0).getElementsByTag("dl")){
+//                    content+="#"+ child2.getElementsByTag("dd").text() + "\n" + child2.getElementsByTag("dt").text()+"\n\n";
+//                }
+                Elements dlList = child.getElementsByTag("div").get(0).getElementsByTag("dl");
+                for(int i = 0 ; i < dlList.size() ; i++){
+                    content+="#"+ dlList.get(i).getElementsByTag("dd").text() + "\n" + dlList.get(i).getElementsByTag("dt").text();
+                    if(i != dlList.size()-1){
+                        content += "\n\n";
+                    }
                 }
             }
             content = content.replaceAll("\\[학사지원팀\\]","");
