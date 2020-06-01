@@ -34,7 +34,7 @@ public class Schedule {
         for (Element child : e.children()) {
             if ((child.getElementsByTag("a").text()).equals(dayofMonth)) {
                 for(Element child2 : child.getElementsByTag("div").get(0).getElementsByTag("dl")){
-                    content+=child2.getElementsByTag("dd").text() + "\n" + child2.getElementsByTag("dt").text();
+                    content+="#"+ child2.getElementsByTag("dd").text() + "\n" + child2.getElementsByTag("dt").text();
                     content = content.replaceAll("\\[학사지원팀\\]","");
                 }
             }
