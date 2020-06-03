@@ -3,7 +3,7 @@ package com.bot.gachon.service;
 import com.bot.gachon.dto.req.BotRequest;
 import com.bot.gachon.dto.res.HaksikResponse;
 import com.bot.gachon.url.HaksikUrl;
-import com.bot.gachon.url.Url;
+import com.bot.gachon.util.constant.Url;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,7 +16,7 @@ import java.util.Calendar;
 
 @Slf4j
 @Service
-public class Haksik {
+public class HaksikService {
     public HaksikResponse getHaksikInfo_domitory(BotRequest botRequest) throws IOException {
 
         Document doc = Jsoup.connect(Url.HAKSIK_URL_DOMITORY).get();

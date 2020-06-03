@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 @Slf4j
 @Service
-public class Guide {
+public class GuideService {
 
 
     public GuideResponse getNoticeInfo(String url) throws IOException {

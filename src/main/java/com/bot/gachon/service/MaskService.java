@@ -6,7 +6,7 @@ import com.bot.gachon.domain.GachonYesterdayMask;
 import com.bot.gachon.domain.GachonYesterdayRepository;
 import com.bot.gachon.dto.req.BotRequest;
 import com.bot.gachon.dto.res.*;
-import com.bot.gachon.url.Url;
+import com.bot.gachon.util.constant.Url;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,14 +20,14 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 @Slf4j
 @Service
-public class Mask {
+public class MaskService {
 
 
     private final GachonMaskRepository gachonMaskRepository;
     private final RestTemplate restTemplate;
     private final GachonYesterdayRepository gachonYesterdayRepository;
 
-    public Mask(GachonMaskRepository gachonMaskRepository, RestTemplate restTemplate, GachonYesterdayRepository gachonYesterdayRepository) {
+    public MaskService(GachonMaskRepository gachonMaskRepository, RestTemplate restTemplate, GachonYesterdayRepository gachonYesterdayRepository) {
         this.gachonMaskRepository = gachonMaskRepository;
         this.restTemplate = restTemplate;
         this.gachonYesterdayRepository = gachonYesterdayRepository;

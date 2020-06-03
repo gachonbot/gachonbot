@@ -3,7 +3,7 @@ package com.bot.gachon.service;
 import com.bot.gachon.dto.req.BotRequest;
 import com.bot.gachon.dto.res.LibraryResponse;
 import com.bot.gachon.dto.res.LibraryResponse_sub;
-import com.bot.gachon.url.Url;
+import com.bot.gachon.util.constant.Url;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 @Slf4j
 @Service
-public class Library {
+public class LibraryService {
 
     public LibraryResponse getInfo(BotRequest botRequest) throws IOException {
         Document doc = Jsoup.connect(Url.LIBRARY_CENTRAL).get();

@@ -1,11 +1,10 @@
 package com.bot.gachon.service;
 
 import com.bot.gachon.dto.req.BotRequest;
-import com.bot.gachon.dto.res.MainMenuDto;
 import com.bot.gachon.dto.res.ScheduleReponse;
 import com.bot.gachon.dto.res.ScheudleMonthMenu;
 import com.bot.gachon.dto.res.ScheudleMonthMenu_D;
-import com.bot.gachon.url.Url;
+import com.bot.gachon.util.constant.Url;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,11 +14,10 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Calendar;
 
 @Slf4j
 @Service
-public class Schedule {
+public class ScheduleService {
 
     public ScheduleReponse getSchedulInfo(BotRequest botRequest) throws IOException {
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class Main {
+public class MainService {
 
 
     public MainMenuDto getMainmenu(BotRequest botRequest) {

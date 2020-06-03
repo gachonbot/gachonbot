@@ -11,105 +11,105 @@ import java.io.IOException;
 @RestController
 public class GachonController {
 
-    private final Haksik haksik;
-    private final Mask mask;
-    private final Weather weather;
-    private final Guide guide;
-    private final Library library;
-    private final Main main;
-    private final Schedule schedule;
+    private final HaksikService haksikService;
+    private final MaskService maskService;
+    private final WeatherService weatherService;
+    private final GuideService guideService;
+    private final LibraryService libraryService;
+    private final MainService mainService;
+    private final ScheduleService scheduleService;
 
-    public GachonController(Haksik haksik, Mask mask, Weather weather, Guide guide, Library library, Main main,
-                            Schedule schedule) {
+    public GachonController(HaksikService haksikService, MaskService maskService, WeatherService weatherService, GuideService guideService, LibraryService libraryService, MainService mainService,
+                            ScheduleService scheduleService) {
 
-        this.haksik = haksik;
-        this.mask = mask;
-        this.weather = weather;
-        this.guide = guide;
-        this.library = library;
-        this.main = main;
-        this.schedule = schedule;
+        this.haksikService = haksikService;
+        this.maskService = maskService;
+        this.weatherService = weatherService;
+        this.guideService = guideService;
+        this.libraryService = libraryService;
+        this.mainService = mainService;
+        this.scheduleService = scheduleService;
     }
 
     @PostMapping("/weather")
     public WeatherResponse getWeather(@RequestBody BotRequest botRequest) {
-        return weather.getWeatherInfo2(botRequest);
+        return weatherService.getWeatherInfo2(botRequest);
     }
 
     @PostMapping("/haksik/domitory")
     public HaksikResponse getHaksikInfo_domitory(@RequestBody BotRequest botRequest) throws IOException {
-        return haksik.getHaksikInfo_domitory(botRequest);
+        return haksikService.getHaksikInfo_domitory(botRequest);
     }
 
     @PostMapping("/haksik/vision")
     public HaksikResponse getHaksikInfo_vision(@RequestBody BotRequest botRequest) throws IOException {
-        return haksik.getHaksikInfo("vision");
+        return haksikService.getHaksikInfo("vision");
     }
 
     @PostMapping("/haksik/art")
     public HaksikResponse getHaksikInfo_art(@RequestBody BotRequest botRequest) throws IOException {
-        return haksik.getHaksikInfo("art");
+        return haksikService.getHaksikInfo("art");
     }
 
     @PostMapping("/haksik/edu")
     public HaksikResponse getHaksikInfo_edu(@RequestBody BotRequest botRequest) throws IOException {
-        return haksik.getHaksikInfo("edu");
+        return haksikService.getHaksikInfo("edu");
     }
 
     @PostMapping("/mask/menu")
     public MaskMenuDto getMaskInfo(@RequestBody BotRequest botRequest) {
-        return mask.findMaskInfo(botRequest);
+        return maskService.findMaskInfo(botRequest);
     }
 
     @PostMapping("/main/menu")
     public MainMenuDto getMainMenu(@RequestBody BotRequest botRequest) {
-        return main.getMainmenu(botRequest);
+        return mainService.getMainmenu(botRequest);
     }
 
 
     @PostMapping("/mask/info")
     public MaskReplayResponse getMask(@RequestBody BotRequest botRequest) {
-        return mask.getMaskInfo(botRequest);
+        return maskService.getMaskInfo(botRequest);
     }
 
 
     @PostMapping("/yesterday/mask")
     public MaskYesterdayResponse getYesterdayInfo(@RequestBody BotRequest botRequest) {
-        return mask.getYesterdayInfo(botRequest);
+        return maskService.getYesterdayInfo(botRequest);
     }
 
     @PostMapping("/guide/news")
     public GuideResponse guideResponse(@RequestBody BotRequest botRequest) throws IOException {
-        return guide.getNoticeInfo("news");
+        return guideService.getNoticeInfo("news");
     }
 
     @PostMapping("/guide/benefit")
     public GuideResponse guideResponse2(@RequestBody BotRequest botRequest) throws IOException {
-        return guide.getNoticeInfo("benefit");
+        return guideService.getNoticeInfo("benefit");
     }
 
     @PostMapping("/guide/notice")
     public GuideResponse guideResponse3(@RequestBody BotRequest botRequest) throws IOException {
-        return guide.getNoticeInfo("notice");
+        return guideService.getNoticeInfo("notice");
     }
 
     @PostMapping("/library")
     public LibraryResponse info(@RequestBody BotRequest botRequest) throws IOException {
-        return library.getInfo(botRequest);
+        return libraryService.getInfo(botRequest);
     }
 
     @PostMapping("/schedule")
     public ScheduleReponse scheduleResponse(@RequestBody BotRequest botRequest) throws IOException {
-        return schedule.getSchedulInfo(botRequest);
+        return scheduleService.getSchedulInfo(botRequest);
     }
     @PostMapping("/schedule/month")
     public ScheudleMonthMenu scheudleMonthMenu(@RequestBody BotRequest botRequest) throws IOException {
-        return schedule.getSchedulMenu(botRequest);
+        return scheduleService.getSchedulMenu(botRequest);
     }
 
     @PostMapping("/schedule/month2")
     public ScheudleMonthMenu_D scheudleMonthMenu_d(@RequestBody BotRequest botRequest) throws IOException {
-        return schedule.getSchedulMenu2(botRequest);
+        return scheduleService.getSchedulMenu2(botRequest);
     }
 
 
