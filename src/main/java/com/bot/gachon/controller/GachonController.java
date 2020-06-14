@@ -4,10 +4,16 @@ package com.bot.gachon.controller;
 import com.bot.gachon.dto.req.BotRequest;
 import com.bot.gachon.dto.res.*;
 import com.bot.gachon.service.*;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-
+import java.util.Arrays;
+//@AllArgsConstructor
 @RestController
 public class GachonController {
 
@@ -18,6 +24,15 @@ public class GachonController {
     private final LibraryService libraryService;
     private final MainService mainService;
     private final ScheduleService scheduleService;
+    @Autowired
+    private Environment env;
+
+    @GetMapping("/profile")
+    public String getProfile(){
+        return Arrays.stream(env.getActiveProfiles())
+                .findFirst()
+                .orElse("");
+    }
 
     public GachonController(HaksikService haksikService, MaskService maskService, WeatherService weatherService, GuideService guideService, LibraryService libraryService, MainService mainService,
                             ScheduleService scheduleService) {
@@ -111,7 +126,6 @@ public class GachonController {
     public ScheudleMonthMenu_D scheudleMonthMenu_d(@RequestBody BotRequest botRequest) throws IOException {
         return scheduleService.getSchedulMenu2(botRequest);
     }
-
 
 }
 
