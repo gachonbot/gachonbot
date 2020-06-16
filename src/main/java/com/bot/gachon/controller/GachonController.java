@@ -27,7 +27,7 @@ public class GachonController {
     @Autowired
     private Environment env;
 
-    @PostMapping("/profile")
+    @GetMapping("/profile")
     public String getProfile(){
         String[] profiles = env.getActiveProfiles();
         String profile = profiles.length > 1 ? profiles[1] : profiles[0] == null ? "" : profiles[0];
