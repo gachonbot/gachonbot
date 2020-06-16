@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Arrays;
-//@AllArgsConstructor
 @RestController
 public class GachonController {
 
@@ -24,14 +23,15 @@ public class GachonController {
     private final LibraryService libraryService;
     private final MainService mainService;
     private final ScheduleService scheduleService;
+
     @Autowired
     private Environment env;
 
-    @GetMapping("/profile")
+    @PostMapping("/profile")
     public String getProfile(){
-        return Arrays.stream(env.getActiveProfiles())
-                .findFirst()
-                .orElse("");
+        String[] profiles = env.getActiveProfiles();
+        String profile = profiles.length > 1 ? profiles[1] : profiles[0] == null ? "" : profiles[0];
+        return profile;
     }
 
     public GachonController(HaksikService haksikService, MaskService maskService, WeatherService weatherService, GuideService guideService, LibraryService libraryService, MainService mainService,
