@@ -1,6 +1,18 @@
+
 spring:
-  h2:
-    console:
-      enabled: true
-  datasource:
-    url: jdbc:h2:mem:testdb;
+  profiles:
+    active: local
+---
+spring:
+  profiles: local
+
+---
+spring:
+  profiles: set1
+server:
+  port: 8081
+---
+spring:
+  profiles: set2
+server:
+  port: 8082
