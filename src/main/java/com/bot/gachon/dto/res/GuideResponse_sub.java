@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.HashMap;
+
 @Getter
 public class GuideResponse_sub {
 

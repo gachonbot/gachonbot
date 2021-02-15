@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class GachonController {
 
     private final HaksikService haksikService;
-    private final MaskService maskService;
+//    private final MaskService maskService;
     private final WeatherService weatherService;
     private final GuideService guideService;
     private final LibraryService libraryService;
@@ -34,11 +34,11 @@ public class GachonController {
         return profile;
     }
 
-    public GachonController(HaksikService haksikService, MaskService maskService, WeatherService weatherService, GuideService guideService, LibraryService libraryService, MainService mainService,
+    public GachonController(HaksikService haksikService, WeatherService weatherService, GuideService guideService, LibraryService libraryService, MainService mainService,
                             ScheduleService scheduleService) {
 
         this.haksikService = haksikService;
-        this.maskService = maskService;
+//        this.maskService = maskService;
         this.weatherService = weatherService;
         this.guideService = guideService;
         this.libraryService = libraryService;
@@ -71,10 +71,10 @@ public class GachonController {
         return haksikService.getHaksikInfo("edu");
     }
 
-    @PostMapping("/mask/menu")
-    public MaskMenuDto getMaskInfo(@RequestBody BotRequest botRequest) {
-        return maskService.findMaskInfo(botRequest);
-    }
+//    @PostMapping("/mask/menu")
+//    public MaskMenuDto getMaskInfo(@RequestBody BotRequest botRequest) {
+//        return maskService.findMaskInfo(botRequest);
+//    }
 
     @PostMapping("/main/menu")
     public MainMenuDto getMainMenu(@RequestBody BotRequest botRequest) {
@@ -82,16 +82,16 @@ public class GachonController {
     }
 
 
-    @PostMapping("/mask/info")
-    public MaskReplayResponse getMask(@RequestBody BotRequest botRequest) {
-        return maskService.getMaskInfo(botRequest);
-    }
-
-
-    @PostMapping("/yesterday/mask")
-    public MaskYesterdayResponse getYesterdayInfo(@RequestBody BotRequest botRequest) {
-        return maskService.getYesterdayInfo(botRequest);
-    }
+//    @PostMapping("/mask/info")
+//    public MaskReplayResponse getMask(@RequestBody BotRequest botRequest) {
+//        return maskService.getMaskInfo(botRequest);
+//    }
+//
+//
+//    @PostMapping("/yesterday/mask")
+//    public MaskYesterdayResponse getYesterdayInfo(@RequestBody BotRequest botRequest) {
+//        return maskService.getYesterdayInfo(botRequest);
+//    }
 
     @PostMapping("/guide/news")
     public GuideResponse guideResponse(@RequestBody BotRequest botRequest) throws IOException {
